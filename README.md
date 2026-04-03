@@ -67,8 +67,7 @@ before being committed. This applies to all agents using this skill.
 ### 1. Clone this repo
 
 ```bash
-git clone https://github.com/Asaf-Dahan/super-skill
-mv super-skill super-skill-[your-domain]
+git clone https://github.com/Asaf-Dahan/super-skill my-super-skill
 ```
 
 ### 2. Connect the Learning Layer

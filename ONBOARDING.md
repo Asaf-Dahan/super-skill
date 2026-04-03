@@ -1,5 +1,8 @@
 # Super Skill - Onboarding Prompts
 
+These prompts are also in SUPER_SKILL_MANIFESTO.md.
+This file is the quick-reference copy for daily use.
+
 Three prompts. Copy, paste, done.
 
 ---
