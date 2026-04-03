@@ -13,6 +13,29 @@ pip install "notebooklm-py[browser]"
 playwright install chromium
 ```
 
+## Correct API Pattern
+
+notebooklm-py v0.3.4 uses an async client.
+All scripts in this template use the following pattern:
+
+```python
+import asyncio
+from notebooklm import NotebookLMClient, AuthTokens
+
+async def main():
+    auth = await AuthTokens.from_storage()
+    async with NotebookLMClient(auth=auth) as client:
+        result = await client.sources.add_text(
+            notebook_id, title, content
+        )
+
+asyncio.run(main())
+```
+
+Note: The class is `NotebookLMClient`, not `NotebookLM`.
+Note: `AuthTokens.from_storage()` is async, always `await` it.
+Note: `add_text` signature is `(notebook_id, title, content)`.
+
 ## Authenticate with Google
 
 ```bash

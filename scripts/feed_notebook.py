@@ -1,65 +1,79 @@
 # © 2026 Gitit Inc · AI Architecture
 # feed_notebook.py - Load domain knowledge files into NotebookLM
 
+import asyncio
 import os
 import sys
 from pathlib import Path
 
-def load_env():
-    """Read .env file and set environment variables."""
-    env_path = Path(__file__).resolve().parent.parent / ".env"
-    if not env_path.exists():
-        print("ERROR: .env file not found.")
-        print("Copy .env.example to .env and set your NOTEBOOK_ID:")
-        print("  cp .env.example .env")
-        print("  # Edit .env and add your notebook ID")
-        sys.exit(1)
-    with open(env_path) as f:
-        for line in f:
-            line = line.strip()
-            if line and not line.startswith("#") and "=" in line:
-                key, value = line.split("=", 1)
-                os.environ.setdefault(key.strip(), value.strip())
+from dotenv import load_dotenv
+load_dotenv()
 
-def main():
-    load_env()
-    notebook_id = os.environ.get("NOTEBOOK_ID")
-    if not notebook_id or notebook_id == "your-notebook-id-here":
-        print("ERROR: NOTEBOOK_ID is not configured.")
-        print("Edit .env and set NOTEBOOK_ID to your actual notebook ID.")
-        print("Run: notebooklm create \"My Domain - Super Skill\"")
-        sys.exit(1)
+NOTEBOOK_ID = os.getenv("NOTEBOOK_ID")
+if not NOTEBOOK_ID:
+    print("Error: NOTEBOOK_ID not set.")
+    print("Copy .env.example to .env and add your notebook ID.")
+    exit(1)
 
+async def main():
     try:
-        from notebooklm import NotebookLM
+        from notebooklm import NotebookLMClient
+        from notebooklm.auth import AuthTokens
     except ImportError:
         print("ERROR: notebooklm-py is not installed.")
         print("Install it with: pip install \"notebooklm-py[browser]\"")
         sys.exit(1)
 
     root = Path(__file__).resolve().parent.parent
-    knowledge_files = [
-        "CONTEXT.md", "DOMAIN_MAP.md", "CURRENT_STATE.md",
-        "EVALUATION.md", "DECISIONS.md", "MONITORING.md",
-        "LEARNING.md", "PENDING.md", "SKILL.md", "CLAUDE.md"
-    ]
 
-    print(f"Feeding notebook: {notebook_id}")
-    nb = NotebookLM()
-    notebook = nb.get_notebook(notebook_id)
+    # Collect all .md files from repo root (exclude README.md and LICENSE)
+    root_md_files = sorted([
+        f for f in root.glob("*.md")
+        if f.name not in ("README.md", "LICENSE")
+    ])
+
+    # Collect all .md files from notebooks/ folder
+    notebooks_dir = root / "notebooks"
+    notebooks_md_files = sorted(notebooks_dir.glob("*.md")) if notebooks_dir.exists() else []
+
+    knowledge_files = root_md_files + notebooks_md_files
+
+    if not knowledge_files:
+        print("No .md files found to feed.")
+        sys.exit(1)
+
+    print(f"Feeding notebook: {NOTEBOOK_ID}")
+    print(f"Found {len(knowledge_files)} files to load.\n")
+
+    try:
+        auth_tokens = await AuthTokens.from_storage()
+    except Exception as e:
+        print(f"ERROR: Could not load auth tokens: {e}")
+        print("Run 'notebooklm login' first.")
+        sys.exit(1)
 
     fed_count = 0
-    for filename in knowledge_files:
-        filepath = root / filename
-        if filepath.exists():
+    skipped = []
+    added = []
+
+    async with NotebookLMClient(auth=auth_tokens) as client:
+        for filepath in knowledge_files:
+            filename = filepath.name
             print(f"  Loading {filename}...")
             content = filepath.read_text(encoding="utf-8")
-            notebook.add_source(content, title=filename)
-            fed_count += 1
-        else:
-            print(f"  Skipping {filename} (not found)")
+            try:
+                await client.sources.add_text(NOTEBOOK_ID, filename, content)
+                added.append(filename)
+                fed_count += 1
+            except Exception as e:
+                print(f"  ERROR adding {filename}: {e}")
+                skipped.append(filename)
 
-    print(f"Done. {fed_count} files loaded into notebook.")
+    print(f"\nDone. {fed_count} files loaded into notebook.")
+    if added:
+        print(f"Added: {', '.join(added)}")
+    if skipped:
+        print(f"Skipped: {', '.join(skipped)}")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

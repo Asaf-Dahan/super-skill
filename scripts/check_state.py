@@ -1,60 +1,56 @@
 # © 2026 Gitit Inc · AI Architecture
 # check_state.py - Ask 3 standard questions to the notebook to verify domain state
 
+import asyncio
 import os
 import sys
-from pathlib import Path
 
-def load_env():
-    """Read .env file and set environment variables."""
-    env_path = Path(__file__).resolve().parent.parent / ".env"
-    if not env_path.exists():
-        print("ERROR: .env file not found.")
-        print("Copy .env.example to .env and set your NOTEBOOK_ID:")
-        print("  cp .env.example .env")
-        sys.exit(1)
-    with open(env_path) as f:
-        for line in f:
-            line = line.strip()
-            if line and not line.startswith("#") and "=" in line:
-                key, value = line.split("=", 1)
-                os.environ.setdefault(key.strip(), value.strip())
+from dotenv import load_dotenv
+load_dotenv()
+
+NOTEBOOK_ID = os.getenv("NOTEBOOK_ID")
+if not NOTEBOOK_ID:
+    print("Error: NOTEBOOK_ID not set.")
+    print("Copy .env.example to .env and add your notebook ID.")
+    exit(1)
 
 STANDARD_QUESTIONS = [
-    "What is the current state of this domain and what are the key elements?",
-    "What decisions have been made recently and what is still pending approval?",
-    "Are there any areas where the domain knowledge may be outdated or drifting?",
+    "What is the current state of this domain?",
+    "What decisions have been made and what is still pending?",
+    "What changes or updates have been detected recently?",
 ]
 
-def main():
-    load_env()
-
-    notebook_id = os.environ.get("NOTEBOOK_ID")
-    if not notebook_id or notebook_id == "your-notebook-id-here":
-        print("ERROR: NOTEBOOK_ID is not configured.")
-        print("Edit .env and set NOTEBOOK_ID to your actual notebook ID.")
-        sys.exit(1)
-
+async def main():
     try:
-        from notebooklm import NotebookLM
+        from notebooklm import NotebookLMClient
+        from notebooklm.auth import AuthTokens
     except ImportError:
         print("ERROR: notebooklm-py is not installed.")
         print("Install it with: pip install \"notebooklm-py[browser]\"")
         sys.exit(1)
 
-    print(f"Checking state for notebook: {notebook_id}")
-    nb = NotebookLM()
-    notebook = nb.get_notebook(notebook_id)
+    print(f"Checking state for notebook: {NOTEBOOK_ID}")
 
-    for i, question in enumerate(STANDARD_QUESTIONS, 1):
-        print(f"\n{'='*60}")
-        print(f"Question {i}: {question}")
-        print(f"{'='*60}")
-        response = notebook.ask(question)
-        print(response)
+    try:
+        auth_tokens = await AuthTokens.from_storage()
+    except Exception as e:
+        print(f"ERROR: Could not load auth tokens: {e}")
+        print("Run 'notebooklm login' first.")
+        sys.exit(1)
+
+    async with NotebookLMClient(auth=auth_tokens) as client:
+        for i, question in enumerate(STANDARD_QUESTIONS, 1):
+            print(f"\n{'='*60}")
+            print(f"Question {i}: {question}")
+            print(f"{'='*60}")
+            try:
+                response = await client.chat.ask(NOTEBOOK_ID, question)
+                print(response.answer)
+            except Exception as e:
+                print(f"ERROR: {e}")
 
     print(f"\n{'='*60}")
     print("State check complete.")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

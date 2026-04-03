@@ -1,4 +1,2 @@
-# Super Skill dependencies
-# Pin this version intentionally. Upgrade only after testing.
-# notebooklm-py uses undocumented Google APIs - verify before upgrading.
 notebooklm-py==0.3.4
+python-dotenv>=1.0.0
