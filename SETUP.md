@@ -120,3 +120,24 @@ python scripts/generate_learning.py audio
 python scripts/generate_learning.py quiz
 python scripts/generate_learning.py mindmap
 ```
+
+## Language Settings
+
+NotebookLM generates audio and content in the language of your
+Google account locale by default.
+
+To generate in a specific language, add instructions when running:
+
+```bash
+python scripts/generate_learning.py audio
+```
+
+Or customize directly in the NotebookLM web UI:
+Audio Overview - Customize - Language
+
+Supported languages: 50+ including English, Hebrew, Spanish,
+French, German, and more. See the full list:
+
+```bash
+notebooklm language list
+```

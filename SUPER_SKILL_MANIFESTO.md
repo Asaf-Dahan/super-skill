@@ -381,23 +381,6 @@ super-skill-[domain]/
 
 ---
 
-## How to Start Your First Super Skill
-
-1. Open a new Claude Project.
-2. Upload this document to the project.
-3. Start a new conversation with the following message:
-
-```
-I have read the Super Skill Manifesto in this project.
-I am ready to define my domain and activate my first Super Skill.
-My domain is: [YOUR DOMAIN]
-Guide me through the activation process.
-```
-
-The model will take it from there.
-
----
-
 ## Starting Your First Super Skill
 
 Clone or fork this repository. Open any AI agent.

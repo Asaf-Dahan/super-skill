@@ -11,43 +11,6 @@
 > teaches both the model and the human, and keeps your domain
 > knowledge current, auditable, and alive.
 
-## Important Disclaimers
-
-**Regarding notebooklm-py:**
-Super Skill uses notebooklm-py, an unofficial Python library
-that accesses Google NotebookLM via undocumented internal APIs.
-
-- Not affiliated with Google
-- APIs may change without notice and break functionality
-- Rate limits apply - heavy usage may be throttled
-- Suitable for personal use, research, and internal projects
-- Not recommended for production systems serving external users
-
-See the notebooklm-py repository for full details:
-github.com/teng-lin/notebooklm-py
-
-**Regarding your data:**
-The knowledge files in your Super Skill repository contain your
-domain context, decisions, and operational details. Treat them
-accordingly:
-
-- Keep domain-specific Super Skills in private repositories
-- Never commit API keys, tokens, or credentials to any layer file
-- Use .env for all sensitive values - the .env.example is provided
-- The .gitignore in this template excludes .env and notebooks/
-
-**Regarding AI agent actions:**
-Super Skill follows one operating principle:
-
-> The model proposes. The human decides. The Super Skill records.
-> The system executes.
-
-No layer file is updated automatically. All proposed changes
-are written to PENDING.md and require explicit human approval
-before being committed. This applies to all agents using this skill.
-
----
-
 ## Skill vs. Super Skill
 
 | | Skill | Super Skill |
@@ -82,6 +45,16 @@ A Plugin knows how Engineering teams generally work.
 A Super Skill knows how your engineering team works,
 what you have decided, what tools you run, and what
 is waiting for your approval right now.
+
+## Domain Types
+
+Super Skill works for any domain.
+
+**Technical:** software infrastructure, database architecture, DevOps,
+security, product development
+
+**Non-technical:** investment portfolio, legal review, medical documentation,
+marketing strategy, real estate, financial modeling
 
 ## Get Started in 4 Steps
 
@@ -188,21 +161,48 @@ Each activation takes under 15 minutes.
 
 ---
 
-## Domain Types
-
-Super Skill works for any domain.
-
-**Technical:** software infrastructure, database architecture, DevOps,
-security, product development
-
-**Non-technical:** investment portfolio, legal review, medical documentation,
-marketing strategy, real estate, financial modeling
-
 ## License
 
 MIT License - © 2026 Gitit Inc · AI Architecture
 
 Fork it. Build your own. Publish your Super Skills.
+
+## Important Disclaimers
+
+**Regarding notebooklm-py:**
+Super Skill uses notebooklm-py, an unofficial Python library
+that accesses Google NotebookLM via undocumented internal APIs.
+
+- Not affiliated with Google
+- APIs may change without notice and break functionality
+- Rate limits apply - heavy usage may be throttled
+- Suitable for personal use, research, and internal projects
+- Not recommended for production systems serving external users
+
+See the notebooklm-py repository for full details:
+github.com/teng-lin/notebooklm-py
+
+**Regarding your data:**
+The knowledge files in your Super Skill repository contain your
+domain context, decisions, and operational details. Treat them
+accordingly:
+
+- Keep domain-specific Super Skills in private repositories
+- Never commit API keys, tokens, or credentials to any layer file
+- Use .env for all sensitive values - the .env.example is provided
+- The .gitignore in this template excludes .env and notebooks/
+
+**Regarding AI agent actions:**
+Super Skill follows one operating principle:
+
+> The model proposes. The human decides. The Super Skill records.
+> The system executes.
+
+No layer file is updated automatically. All proposed changes
+are written to PENDING.md and require explicit human approval
+before being committed. This applies to all agents using this skill.
+
+---
 
 ## Security
 
