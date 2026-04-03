@@ -11,6 +11,43 @@
 > teaches both the model and the human, and keeps your domain
 > knowledge current, auditable, and alive.
 
+## Important Disclaimers
+
+**Regarding notebooklm-py:**
+Super Skill uses notebooklm-py, an unofficial Python library
+that accesses Google NotebookLM via undocumented internal APIs.
+
+- Not affiliated with Google
+- APIs may change without notice and break functionality
+- Rate limits apply - heavy usage may be throttled
+- Suitable for personal use, research, and internal projects
+- Not recommended for production systems serving external users
+
+See the notebooklm-py repository for full details:
+github.com/teng-lin/notebooklm-py
+
+**Regarding your data:**
+The knowledge files in your Super Skill repository contain your
+domain context, decisions, and operational details. Treat them
+accordingly:
+
+- Keep domain-specific Super Skills in private repositories
+- Never commit API keys, tokens, or credentials to any layer file
+- Use .env for all sensitive values - the .env.example is provided
+- The .gitignore in this template excludes .env and notebooks/
+
+**Regarding AI agent actions:**
+Super Skill follows one operating principle:
+
+> The model proposes. The human decides. The Super Skill records.
+> The system executes.
+
+No layer file is updated automatically. All proposed changes
+are written to PENDING.md and require explicit human approval
+before being committed. This applies to all agents using this skill.
+
+---
+
 ## Skill vs. Super Skill
 
 | | Skill | Super Skill |
@@ -90,6 +127,47 @@ python scripts/feed_notebook.py
 
 Your Super Skill is live. Audio overview available.
 
+## After Your First Super Skill
+
+Once your first Super Skill is live, the recommended path is:
+
+**One repository per Super Skill.**
+
+Each Super Skill is an independent knowledge system with its own
+domain, its own NotebookLM notebook, and its own lifecycle.
+Keeping them in separate repositories ensures:
+
+- Clean context loading for AI agents
+- Independent versioning and changelog per domain
+- No cross-domain noise when the agent is working in one area
+- Easy sharing or publishing of individual Super Skills
+
+**Recommended architecture:**
+
+```
+your-github/
+  super-skill-stack-os/        private - technical infrastructure
+  super-skill-investments/     private - portfolio management
+  super-skill-[your-domain]/   private - any other domain
+  super-skills-registry/       private - index of all your Super Skills
+```
+
+The registry is a simple YAML file that lists every Super Skill
+you own, its repo URL, domain, and status. Any AI agent reads
+it first to know which Super Skill to load for a given task.
+
+**Starting your second Super Skill:**
+
+1. Clone this template repo again into a new folder
+2. Rename it for your new domain
+3. Run Prompt 1 from ONBOARDING.md with your new domain context
+4. Create a new NotebookLM notebook for that domain
+5. Run the feed script
+
+Each activation takes under 15 minutes.
+
+---
+
 ## Domain Types
 
 Super Skill works for any domain.
@@ -106,21 +184,45 @@ MIT License - © 2026 Gitit Inc · AI Architecture
 
 Fork it. Build your own. Publish your Super Skills.
 
+## Security
+
+**Session credentials:**
+notebooklm-py stores Google session cookies locally at
+~/.notebooklm/ after login. This file contains active session
+credentials for your Google account. Protect it accordingly.
+
+Do not share this file. Do not commit it to any repository.
+If you suspect it has been exposed, log out and re-authenticate:
+
+```
+notebooklm login
+```
+
+**Repository visibility:**
+This template repository is public and contains no personal data.
+Your Super Skill repositories should be private unless you
+intentionally choose to publish a domain as an open resource.
+
+**Reporting issues:**
+If you find a security issue in this template, open a private
+issue on GitHub or contact via gitit-inc.com
+
 ---
 
 ## Created By
 
-Super Skill was conceived and developed by Asaf Dahan.
+Super Skill was conceived and built by Asaf Dahan,
+AI Solutions Architect at Gitit Inc.
 
-Asaf Dahan is a Product Architect and AI Solutions Lead at
-Gitit Inc and A/Z Systems. He works at the intersection of
-AI-native product development, autonomous agent architecture,
-and sovereign infrastructure design.
+He works at the intersection of AI-native product development,
+autonomous agent architecture, and sovereign infrastructure design.
 
 Stack OS is the first published Super Skill.
 
-Website: asafid.com
-Company: gitit-inc.com
-GitHub: github.com/Asaf-Dahan
+- Website: asafid.com
+- Company: gitit-inc.com
+- GitHub: github.com/Asaf-Dahan
 
 Built with Claude Code. Powered by notebooklm-py.
+
+---

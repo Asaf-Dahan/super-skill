@@ -58,6 +58,30 @@ personal use, research, and internal projects.
 
 Session cookies are stored at ~/.notebooklm/ - protect this file.
 
+## Version Management
+
+This template pins notebooklm-py to a specific version.
+Do not upgrade automatically.
+
+To upgrade intentionally:
+
+1. Check the changelog: github.com/teng-lin/notebooklm-py/blob/main/CHANGELOG.md
+2. Review any breaking changes
+3. Test feed_notebook.py and generate_learning.py after upgrading
+4. Update the version in requirements.txt and CURRENT_STATE.md
+
+To install the pinned version:
+
+```bash
+pip install -r requirements.txt
+```
+
+To check your current installed version:
+
+```bash
+pip show notebooklm-py
+```
+
 ## Run the feed script
 
 ```bash
