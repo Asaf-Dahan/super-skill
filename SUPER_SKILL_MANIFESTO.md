@@ -1,4 +1,4 @@
-# Super Skill — Founding Document
+# Super Skill - Founding Document
 
 Version: 1.0
 Status: Canonical
@@ -14,7 +14,7 @@ A Skill is a file.
 A Super Skill is a living knowledge architecture.
 
 A Skill tells an AI how to perform a task.
-A Super Skill gives an AI a complete, current, layered understanding of a domain — including how to verify its own knowledge, how to detect when that knowledge is outdated, how to generate learning materials from it, and how to remain the most accurate and useful version of itself over time.
+A Super Skill gives an AI a complete, current, layered understanding of a domain - including how to verify its own knowledge, how to detect when that knowledge is outdated, how to generate learning materials from it, and how to remain the most accurate and useful version of itself over time.
 
 ```
 A Super Skill is a portable, AI-native intelligence layer that gives
@@ -103,7 +103,7 @@ LAYER 1: DOMAIN MAP
 
 LAYER 2: CURRENT STATE
   The actual state of the domain right now.
-  Versions, tools, methods, entities, positions — depending on type.
+  Versions, tools, methods, entities, positions - depending on type.
   When each piece of information was last verified.
   The sources used to verify it.
 
@@ -413,6 +413,6 @@ The first domain: technical stack management for a modern AI-first development e
 
 ---
 
-*Super Skill — Version 1.0 — April 2026*
+*Super Skill - Version 1.0 - April 2026*
 *Authored by Asaf Dahan*
-*MIT License — Fork it. Build your own.*
+*MIT License - Fork it. Build your own.*

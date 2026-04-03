@@ -1,5 +1,5 @@
 # © 2026 Gitit Inc · AI Architecture
-# check_state.py — Ask 3 standard questions to the notebook to verify domain state
+# check_state.py - Ask 3 standard questions to the notebook to verify domain state
 
 import os
 import sys

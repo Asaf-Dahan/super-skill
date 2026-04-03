@@ -1,10 +1,10 @@
-# Super Skill — Onboarding Prompts
+# Super Skill - Onboarding Prompts
 
 Three prompts. Copy, paste, done.
 
 ---
 
-## Prompt 1 — Activate Your Super Skill
+## Prompt 1 - Activate Your Super Skill
 
 Paste this into any AI agent after cloning this repo.
 
@@ -29,7 +29,7 @@ What I am building or managing: [YOUR PROJECTS OR GOALS]
 
 ---
 
-## Prompt 2 — Evaluate Something New
+## Prompt 2 - Evaluate Something New
 
 ```
 Using the Super Skill in this repository, evaluate the following
@@ -45,7 +45,7 @@ What it might replace: [EXISTING ELEMENT OR "unsure"]
 
 ---
 
-## Prompt 3 — Generate Learning Content
+## Prompt 3 - Generate Learning Content
 
 ```
 Using the Super Skill in this repository, generate a complete

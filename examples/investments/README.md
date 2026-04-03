@@ -1,7 +1,7 @@
 # Example: Investment Portfolio Super Skill
 
 This example demonstrates how a Super Skill can manage an investment
-portfolio — tracking holdings, evaluating new opportunities, and
+portfolio - tracking holdings, evaluating new opportunities, and
 maintaining a living knowledge base of market positions.
 
 ## How to use this example

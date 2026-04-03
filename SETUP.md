@@ -35,7 +35,7 @@ You should see: `connected`
 After activating your Super Skill, create your notebook:
 
 ```bash
-notebooklm create "My Domain — Super Skill"
+notebooklm create "My Domain - Super Skill"
 ```
 
 Copy the notebook ID returned. Then:
@@ -56,7 +56,7 @@ notebooklm-py is an unofficial library. It uses undocumented
 Google APIs that may change without notice. It is suitable for
 personal use, research, and internal projects.
 
-Session cookies are stored at ~/.notebooklm/ — protect this file.
+Session cookies are stored at ~/.notebooklm/ - protect this file.
 
 ## Run the feed script
 

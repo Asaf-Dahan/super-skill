@@ -1,5 +1,5 @@
 # © 2026 Gitit Inc · AI Architecture
-# feed_notebook.py — Load domain knowledge files into NotebookLM
+# feed_notebook.py - Load domain knowledge files into NotebookLM
 
 import os
 import sys
@@ -27,7 +27,7 @@ def main():
     if not notebook_id or notebook_id == "your-notebook-id-here":
         print("ERROR: NOTEBOOK_ID is not configured.")
         print("Edit .env and set NOTEBOOK_ID to your actual notebook ID.")
-        print("Run: notebooklm create \"My Domain — Super Skill\"")
+        print("Run: notebooklm create \"My Domain - Super Skill\"")
         sys.exit(1)
 
     try:

@@ -1,8 +1,8 @@
 # CONTEXT.md
 # © 2026 Gitit Inc · AI Architecture
-# MIT License — Fork it. Build your own.
+# MIT License - Fork it. Build your own.
 # --
-# Layer 0: Identity — who, what domain, what goals
+# Layer 0: Identity - who, what domain, what goals
 
 ## Domain
 
@@ -15,7 +15,7 @@ Portfolio Manager
 ## Purpose
 
 Maintain a complete, verified view of all investment holdings and
-their relationships — so that every allocation decision is based on
+their relationships - so that every allocation decision is based on
 current data, clear methodology, and documented reasoning.
 
 ## Goals

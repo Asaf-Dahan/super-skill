@@ -1,7 +1,7 @@
 # Example: Technical Stack Management Super Skill
 
 This example demonstrates how a Super Skill can manage a technical
-software stack — tracking frameworks, databases, infrastructure,
+software stack - tracking frameworks, databases, infrastructure,
 and deployment tools as a living knowledge architecture.
 
 ## How to use this example

@@ -1,5 +1,5 @@
 # © 2026 Gitit Inc · AI Architecture
-# generate_learning.py — Generate audio overview, quiz, or mind map from NotebookLM
+# generate_learning.py - Generate audio overview, quiz, or mind map from NotebookLM
 
 import os
 import sys
