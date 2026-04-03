@@ -398,18 +398,11 @@ The model will take it from there.
 
 ---
 
-## What Comes Next in This Project
+## Starting Your First Super Skill
 
-After reading this document, the next conversations in this project will:
-
-1. Run Prompt 1 to define the first Super Skill domain
-2. Review and approve the generated layer files
-3. Set up the GitHub repository for the Super Skill
-4. Install notebooklm-py and connect the learning layer
-5. Generate the first NotebookLM notebook and audio overview
-6. Tag the first release as Super Skill v1.0
-
-The first domain: technical stack management for a modern AI-first development environment.
+Clone or fork this repository. Open any AI agent.
+Paste Prompt 1 from ONBOARDING.md. Describe your domain.
+Your Super Skill will be live in under 15 minutes.
 
 ---
 

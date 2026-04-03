@@ -22,9 +22,16 @@ complete Super Skill. Do not ask more than 3 questions.
 Infer everything you can before asking.
 
 After your questions and my answers, generate these files:
-  CONTEXT.md, DOMAIN_MAP.md, CURRENT_STATE.md, EVALUATION.md,
-  DECISIONS.md, MONITORING.md, LEARNING.md, PENDING.md,
-  CLAUDE.md, SKILL.md
+  - CONTEXT.md        (Layer 0: Identity)
+  - DOMAIN_MAP.md     (Layer 1: Domain map and sub-domains)
+  - CURRENT_STATE.md  (Layer 2: Current verified state)
+  - EVALUATION.md     (Layer 3: Evaluation framework)
+  - DECISIONS.md      (Layer 4: Decisions log, initially empty)
+  - MONITORING.md     (Layer 5: Sources to watch)
+  - LEARNING.md       (Layer 6: NotebookLM structure)
+  - PENDING.md        (Layer 7: Approval queue, initially empty)
+  - CLAUDE.md         (Operating instructions for Claude Code)
+  - SKILL.md          (Agent Skills format entry point)
 
 My domain: [DESCRIBE IN ONE TO THREE SENTENCES]
 What I am building or managing: [YOUR PROJECTS OR GOALS]

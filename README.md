@@ -62,6 +62,27 @@ before being committed. This applies to all agents using this skill.
 | Works with | Claude Code | Any model, any agent |
 | Time to activate | 1 minute | 15 minutes |
 
+## Super Skill vs. Claude Plugins
+
+Claude Code ships with built-in Plugins: Productivity, Design,
+Engineering, Finance, and others. These are domain intelligence
+layers built by Anthropic for broad professional categories.
+
+Super Skill is the open framework that lets anyone build the
+same thing for any specific domain - their exact stack, their
+portfolio, their medical practice, their garden.
+
+The difference is precision.
+
+Plugins are pre-built for general professional use.
+Super Skills are activated by you, for your exact context,
+your specific decisions, and your real current state.
+
+A Plugin knows how Engineering teams generally work.
+A Super Skill knows how your engineering team works,
+what you have decided, what tools you run, and what
+is waiting for your approval right now.
+
 ## Get Started in 4 Steps
 
 ### 1. Clone this repo
