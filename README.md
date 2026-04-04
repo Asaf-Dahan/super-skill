@@ -260,7 +260,7 @@ autonomous agent architecture, and sovereign infrastructure design.
 Stack OS is the first published Super Skill.
 
 - Website: ai.asafid.com
-- Company: gitit-inc.com
+- Company: Gitit Inc
 - GitHub: github.com/Asaf-Dahan
 
 Built with Claude Code. Powered by notebooklm-py.
