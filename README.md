@@ -48,13 +48,31 @@ is waiting for your approval right now.
 
 ## Domain Types
 
-Super Skill works for any domain.
+Super Skill works for any domain where knowledge matters.
 
-**Technical:** software infrastructure, database architecture, DevOps,
-security, product development
+**Professional:**
+software infrastructure, investment portfolio, legal review,
+medical documentation, marketing strategy, real estate, finance
 
-**Non-technical:** investment portfolio, legal review, medical documentation,
-marketing strategy, real estate, financial modeling
+**Learning and Mastery:**
+language learning, music theory, cooking techniques,
+photography, academic research, exam preparation
+
+**Personal and Lifestyle:**
+home garden, fitness and training, nutrition, home renovation,
+travel planning, personal finance, parenting
+
+**Craft and Skill:**
+nail art and gel nails, dog training, cycling performance,
+woodworking, wine knowledge, interior design
+
+**Business Operations:**
+sales process, customer success, HR and hiring,
+supply chain, product management, team onboarding
+
+If you can describe it, a Super Skill can master it.
+
+---
 
 ## Get Started in 4 Steps
 
@@ -107,8 +125,10 @@ the agent becomes more accurate. The loop runs in both directions.
 
 ### 3. Paste Prompt 1 from ONBOARDING.md into any AI agent
 
-The agent reads the template structure and asks you 3 questions maximum.
-You answer. It generates all 10 layer files for your domain.
+Describe your domain in plain language. The agent asks
+you 3 questions maximum - no technical knowledge required.
+You answer. It generates all 10 layer files configured
+for your exact context.
 
 ### 4. Run the feed script
 
