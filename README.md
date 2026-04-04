@@ -84,7 +84,7 @@ The agent reads your domain layers, detects drift, proposes updates,
 and asks NotebookLM questions about your own knowledge base.
 
 **From you, directly in NotebookLM:**
-Open your notebook and explore your domain knowledge as a human.
+Open your notebook and explore your domain knowledge.
 Ask questions. Get cited answers. See where your knowledge is strong
 and where it needs updating.
 
