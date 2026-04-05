@@ -46,6 +46,39 @@ A Super Skill knows how your engineering team works,
 what you have decided, what tools you run, and what
 is waiting for your approval right now.
 
+## When to create a Super Skill
+
+Before forking this template, ask three questions:
+
+1. Does this domain change externally without your control?
+   Tools release updates, APIs change, pricing shifts.
+
+2. Are there decisions that must never be re-litigated?
+   Architectural choices, rejected alternatives, settled patterns.
+
+3. Does an AI agent need verified current state before every task?
+   Which plan, which version, which modules are active right now.
+
+Two or more YES answers: create a Super Skill.
+Fewer than two: a SKILL.md file is sufficient.
+
+### Skill vs Super Skill vs Subagent
+
+| | SKILL.md | Super Skill | Subagent |
+|---|---|---|---|
+| What it is | Instructions for one task | Living domain intelligence | Independent agent instance |
+| Lives in | `.claude/skills/` | Own private repository | `.claude/agents/` |
+| Knows why | No | Yes - DECISIONS.md | No |
+| Detects drift | No | Yes - MONITORING.md | No |
+| Example | `lovable-prompt-engineer` | `super-skill-make-os` | `make-agent.md` |
+
+### OpenSpace integration (local only)
+
+OpenSpace (HKUDS/OpenSpace) can manage SKILL.md files locally.
+Use `search_skills` and `fix_skill` tools only.
+Do not enable cloud features - they violate Gate 1 (Data Sovereignty).
+Super Skills must never auto-evolve - PENDING.md is the human gate.
+
 ## Domain Types
 
 Super Skill works for any domain where knowledge matters.

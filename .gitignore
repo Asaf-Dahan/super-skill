@@ -4,3 +4,4 @@ __pycache__/
 .notebooklm/
 notebooks/
 .claude/
+!template/.claude/
