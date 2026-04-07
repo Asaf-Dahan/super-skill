@@ -1,0 +1,24 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+.notebooklm/
+notebooks/
+.claude/
+!template/.claude/
+!.claude/
+!.claude/commands/
+!.claude/commands/**
+!.claude/agents/
+!.claude/agents/**
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
