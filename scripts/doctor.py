@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-# doctor.py -- First-run smoke test for a Super Skill repository.
+# doctor.py -- Confirms a Super Skill repository is set up correctly.
+#
+# Checks Python version, layer files, slash commands, scripts,
+# and runs update_summary.py once to verify it works end to end.
 #
 # Run with:
 #   python scripts/doctor.py            (Windows / cross-platform)

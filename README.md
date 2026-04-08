@@ -82,29 +82,7 @@ Open a terminal in your `super-skills` folder and run:
 
   claude .
 
-### Optional: verify your setup
-
-After cloning, you can run a quick smoke test to confirm everything is in
-place before activation:
-
-  python scripts/doctor.py
-
-It checks Python version, layer files, slash commands, scripts, and runs
-update_summary.py once. Six checks. Either "Ready to use." or a list of
-items to fix.
-
-### Scripts reference
-
-| Script | Purpose |
-|---|---|
-| `doctor.py` | Local smoke test (no network, no NotebookLM dependency) |
-| `update_summary.py` | Regenerates SUMMARY.md from the layer files |
-| `super-skill-sync.py` | Pulls all configured Super Skills and checks drift URLs |
-| `scheduled_tasks.py` | Runs maintenance tasks weekly/monthly/quarterly |
-| `feed_notebook.py` | (NotebookLM, optional) uploads layer files as sources |
-| `generate_learning.py` | (NotebookLM, optional) generates audio / quiz / mind map |
-| `check_state.py` | (NotebookLM, optional) asks the notebook 3 standard questions |
-| `run.py` | Cross-platform launcher: `python scripts/run.py <name>` |
+Run `python scripts/doctor.py` to confirm everything is set up correctly.
 
 ### Step 3: Copy and paste the Bootstrap prompt
 
@@ -304,6 +282,19 @@ Everything runs through slash commands. Type any of these into Claude Code:
 | /ss-council | Show your Expert Council debates and open challenges | `/ss-council` |
 | /ss-expert | Run a structured expert debate session | `/ss-expert DEBATE-001` |
 | /ss-synthesize | Synthesize insights across multiple layers | `/ss-synthesize tax efficiency` |
+
+### Scripts reference
+
+| Script | Purpose |
+|---|---|
+| `doctor.py` | Confirms your setup is complete |
+| `update_summary.py` | Regenerates SUMMARY.md from the layer files |
+| `super-skill-sync.py` | Pulls all configured Super Skills and checks drift URLs |
+| `scheduled_tasks.py` | Runs maintenance tasks weekly/monthly/quarterly |
+| `feed_notebook.py` | (NotebookLM, optional) uploads layer files as sources |
+| `generate_learning.py` | (NotebookLM, optional) generates audio / quiz / mind map |
+| `check_state.py` | (NotebookLM, optional) asks the notebook 3 standard questions |
+| `run.py` | Cross-platform launcher: `python scripts/run.py <name>` |
 
 ---
 
