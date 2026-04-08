@@ -88,6 +88,8 @@ Run `python scripts/doctor.py` to confirm everything is set up correctly.
 
 Copy the entire block below. Paste it into Claude Code. That is all.
 
+Or download and paste: `cat scripts/bootstrap.md`
+
 Claude Code will check your setup, ask you one question about your domain,
 download the template, and build your complete Super Skill automatically.
 

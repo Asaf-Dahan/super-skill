@@ -11,6 +11,7 @@
 #
 # Stdlib only. No third-party dependencies.
 
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -22,6 +23,40 @@ LAYER_FILES = [
     "DECISIONS.md", "MONITORING.md", "LEARNING.md", "PENDING.md",
     "SKILL.md", "SUMMARY.md",
 ]
+
+# A placeholder line is one whose stripped content starts with "[" and is
+# not a Markdown link of the form [text](url). Template scaffolds use this
+# convention for every field that must be filled in during activation.
+_PLACEHOLDER_RE = re.compile(r"^\[[^\]]*\]?\s*$")
+
+
+def _has_placeholder(path: Path) -> bool:
+    try:
+        text = path.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return False
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("["):
+            continue
+        if "](" in stripped:  # Markdown link, not a placeholder
+            continue
+        if _PLACEHOLDER_RE.match(stripped):
+            return True
+    return False
+
+
+def check_activation():
+    """Exit early if any root layer file still contains [placeholder] text."""
+    unactivated = [
+        f for f in LAYER_FILES
+        if (REPO / f).exists() and _has_placeholder(REPO / f)
+    ]
+    if unactivated:
+        print("Layer files are not activated yet. "
+              "Run Prompt 1 from ONBOARDING.md first.")
+        print(f"Unactivated: {', '.join(unactivated)}")
+        sys.exit(1)
 
 EXPECTED_SCRIPTS = [
     "update_summary.py", "feed_notebook.py", "generate_learning.py",
@@ -41,6 +76,8 @@ def check(label, ok, detail=""):
 def main():
     print("Super Skill Doctor")
     print("=" * 40)
+
+    check_activation()
 
     score = 0
     total = 6
