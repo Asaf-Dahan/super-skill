@@ -4,7 +4,7 @@
 
 ## Domain
 [One sentence describing what this Super Skill covers.
-Example: "Home vegetable garden management in a Mediterranean climate."]
+Example: Home vegetable garden management in a Mediterranean climate.]
 
 ## Owner
 [Your name, role, or how you relate to this domain.]

@@ -1,5 +1,9 @@
 Pull all Super Skill repos and check for drift.
 
+> Before first use: configure REGISTRY in scripts/super-skill-sync.py
+> (see SYNC_SETUP.md). Without configuration, the script prints a friendly
+> reminder and exits.
+
 ## Usage
 /ss-sync
 
@@ -12,7 +16,7 @@ Runs super-skill-sync.py which:
 
 ## Prompt
 Run the sync script:
-  python3 scripts\super-skill-sync.py
+  python scripts\super-skill-sync.py
 
 Report the output exactly as returned.
 If drift was detected, summarize what changed and in which domain.

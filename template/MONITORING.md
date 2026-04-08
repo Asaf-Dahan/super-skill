@@ -1,3 +1,4 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # MONITORING.md
 # Super Skill - Layer 5: Drift Detection
 <!-- Replace this header with your own project/organization name -->

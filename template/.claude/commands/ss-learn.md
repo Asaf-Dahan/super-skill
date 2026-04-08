@@ -22,5 +22,5 @@ The module must include:
 
 Save the NotebookLM summary to: notebooks\$ARGUMENTS-learning.md
 Replace spaces in the filename with hyphens.
-Then run: python3 scripts\feed_notebook.py
+Then run: python scripts\feed_notebook.py
 If the script fails, report the error and stop.

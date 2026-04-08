@@ -1,3 +1,4 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # CURRENT_STATE.md
 # Super Skill - Layer 2: Verified Current State
 <!-- Replace this header with your own project/organization name -->

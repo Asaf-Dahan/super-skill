@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 # feed_notebook.py - Load domain knowledge files into NotebookLM
+#
+# Run with:
+#   python scripts/feed_notebook.py        (Windows / cross-platform)
+#   python3 scripts/feed_notebook.py       (macOS / Linux)
+#   python scripts/run.py feed_notebook    (auto-detects interpreter)
 
 import asyncio
 import os

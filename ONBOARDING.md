@@ -121,7 +121,9 @@ Scan the local environment to infer as much context as possible before asking.
 Ask me at most 3 questions. Infer everything you can first.
 
 After my answers, generate all 10 files directly into this repository,
-replacing the empty template files:
+replacing the empty placeholder files at the ROOT of the repo. Do not
+edit anything inside the template/ directory -- those are pristine
+scaffolds and must stay untouched. Working copy lives at the root.
 
   CONTEXT.md        (Layer 0: Who owns this, what domain, what goals)
   DOMAIN_MAP.md     (Layer 1: How your domain is organized -- what areas exist and how they connect to each other, not just a list)
@@ -135,7 +137,7 @@ replacing the empty template files:
   SKILL.md          (Agent Skills entry point with domain metadata)
 
 Then generate SUMMARY.md by running:
-  python3 scripts/update_summary.py .
+  python scripts/update_summary.py .
 
 If Python is not installed or not on PATH, generate SUMMARY.md directly
 from the layer files instead of running the script.
@@ -308,18 +310,22 @@ New Super Skill to add:
 
 ## NotebookLM -- Connect the Learning Layer (Optional)
 
-Full setup guide: NOTEBOOKLM_GUIDE.md
+Full setup guide: NOTEBOOKLM_GUIDE.md -- we recommend the Manual Setup
+path (no installs, never breaks).
 
-Quick start if you prefer:
+Recommended path:
+  1. Go to https://notebooklm.google.com and create a new notebook
+  2. Upload your layer .md files as sources
+  3. Use the chat, audio overview, mind map, and quiz features in the UI
+
+Advanced path (uses the unofficial notebooklm-py library, may break):
 
   pip install "notebooklm-py[browser]"
   notebooklm login
   notebooklm create "[Your Domain] -- Super Skill"
   cp .env.example .env
-  python3 scripts/feed_notebook.py
-  python3 scripts/generate_learning.py audio
-
-No-code alternative: create a notebook at notebooklm.google.com and upload your .md files manually.
+  python scripts/feed_notebook.py
+  python scripts/generate_learning.py audio
 
 ---
 
@@ -359,7 +365,7 @@ The module must include:
   - A NotebookLM-ready summary (clear sections, no bullet walls)
 
 Save the NotebookLM summary to: notebooks/[topic]-learning.md
-Then run: python3 scripts/feed_notebook.py
+Then run: python scripts/feed_notebook.py
 
 Topic: [ANY TOPIC WITHIN YOUR DOMAIN]
 ```
@@ -382,7 +388,7 @@ For each item, ask: "Approve, reject, or defer?"
 On approval:
   Move the item to the correct layer file.
   Mark it as Approved in PENDING.md with the date.
-  Run: python3 scripts/update_summary.py .
+  Run: python scripts/update_summary.py .
 
 On rejection:
   Move the item to the Resolved section in PENDING.md.

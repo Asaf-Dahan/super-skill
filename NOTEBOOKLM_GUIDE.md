@@ -65,7 +65,7 @@ This is useful for:
 - Catching gaps or contradictions in your knowledge base
 
 To generate: click "Audio Overview" in your notebook.
-Or run: python3 scripts/generate_learning.py audio
+Or run: python scripts/generate_learning.py audio
 
 The audio file is saved to: notebooks/audio-overview.mp3
 
@@ -74,7 +74,7 @@ The audio file is saved to: notebooks/audio-overview.mp3
 NotebookLM generates multiple-choice questions based on your content.
 Use this to test your own understanding of your domain decisions.
 
-To generate: run: python3 scripts/generate_learning.py quiz
+To generate: run: python scripts/generate_learning.py quiz
 The quiz is saved to: notebooks/quiz.json
 
 ### Generate a mind map
@@ -82,7 +82,7 @@ The quiz is saved to: notebooks/quiz.json
 NotebookLM generates a visual map of how concepts in your domain
 connect to each other.
 
-To generate: run: python3 scripts/generate_learning.py mindmap
+To generate: run: python scripts/generate_learning.py mindmap
 The mind map is saved to: notebooks/mindmap.json
 
 ---
@@ -103,6 +103,56 @@ Your Super Skill and NotebookLM reinforce each other over time.
 ---
 
 ## How to Set It Up
+
+There are two ways to set this up. Most users should pick the manual
+path because it has no dependencies and never breaks.
+
+---
+
+## Manual Setup (Recommended)
+
+This path uses only the official NotebookLM web interface. Nothing to
+install. Works on every operating system. Cannot be broken by Google
+changing an internal API.
+
+### Step 1: Create a notebook
+
+1. Go to https://notebooklm.google.com
+2. Sign in with your Google account
+3. Click "New notebook"
+4. Name it "[Your Domain] -- Super Skill"
+
+### Step 2: Add your layer files as sources
+
+1. Click "Add source" inside the new notebook
+2. Choose "Upload" and select your Super Skill .md files. Upload at least:
+     CONTEXT.md, DOMAIN_MAP.md, CURRENT_STATE.md, EVALUATION.md,
+     DECISIONS.md, MONITORING.md, LEARNING.md, PENDING.md
+3. Wait for each upload to complete (a few seconds each)
+
+### Step 3: Use the notebook
+
+- Ask questions in the chat panel. NotebookLM answers from your files.
+- Click "Audio Overview" to generate the AI conversation overview.
+- Click "Studio" then "Mind Map" or "Quiz" to generate other artifacts.
+
+### Step 4: Keeping the notebook current
+
+When you approve a change in PENDING.md and update a layer file, re-upload
+that file as a new source in NotebookLM. The old source can be deleted from
+the source list.
+
+This is the recommended path for most users. Skip the rest of this guide
+unless you specifically want script-driven automation.
+
+---
+
+## Automated Setup (Advanced)
+
+> **Warning:** This path uses `notebooklm-py`, an unofficial library that
+> wraps undocumented Google APIs. It can break at any time without notice.
+> If a script fails after a Google update, fall back to the Manual Setup
+> above. Do not file bug reports against Google for this.
 
 ### Step 1: Install the library
 
@@ -137,32 +187,17 @@ Open the .env file and paste your notebook ID:
 
 ### Step 5: Feed your Super Skill into the notebook
 
-  python3 scripts/feed_notebook.py
+  python scripts/feed_notebook.py
 
 This loads all your layer files as sources. It takes about one minute.
 You will see each file name printed as it loads.
 
 ### Step 6: Generate your first audio overview
 
-  python3 scripts/generate_learning.py audio
+  python scripts/generate_learning.py audio
 
 This takes 3 to 10 minutes. The audio file is saved to:
 notebooks/audio-overview.mp3
-
----
-
-## No-Code Alternative
-
-You do not need to use any scripts.
-
-1. Go to https://notebooklm.google.com
-2. Click "New notebook"
-3. Click "Add source"
-4. Upload your .md files one at a time
-5. Start asking questions or generate an audio overview from the UI
-
-This gives you the full NotebookLM experience without any
-terminal commands.
 
 ---
 
@@ -171,11 +206,11 @@ terminal commands.
 Every time you approve a change in PENDING.md and update a layer file,
 re-run the feed script to keep the notebook in sync:
 
-  python3 scripts/feed_notebook.py
+  python scripts/feed_notebook.py
 
 Or run super-skill-sync with the feed flag:
 
-  python3 scripts/super-skill-sync.py --feed
+  python scripts/super-skill-sync.py --feed
 
 This updates all your Super Skills and pushes the latest content
 to NotebookLM in one command.
@@ -194,6 +229,54 @@ It is already excluded by .gitignore.
 Your notebook ID is stored in .env
 Do not commit .env to any repository.
 It is already excluded by .gitignore.
+
+---
+
+## Library API Pattern (for script maintainers)
+
+`notebooklm-py` v0.3.4 (pinned in `requirements.txt`) uses an async client.
+All scripts in this template follow this pattern:
+
+```python
+import asyncio
+from notebooklm import NotebookLMClient
+from notebooklm.auth import AuthTokens
+
+async def main():
+    auth = await AuthTokens.from_storage()
+    async with NotebookLMClient(auth=auth) as client:
+        result = await client.sources.add_text(
+            notebook_id, title, content
+        )
+
+asyncio.run(main())
+```
+
+Notes:
+- The class is `NotebookLMClient`, not `NotebookLM`.
+- `AuthTokens.from_storage()` is async; always `await` it.
+- `add_text` signature is `(notebook_id, title, content)`.
+
+## Version Management
+
+This template pins `notebooklm-py` to a specific version. Do not upgrade
+automatically. To upgrade intentionally:
+
+1. Check the upstream changelog and review breaking changes.
+2. Test `feed_notebook.py` and `generate_learning.py` after upgrading.
+3. Update the version in `requirements.txt` and `CURRENT_STATE.md`.
+
+To install the pinned version:
+
+```bash
+pip install -r requirements.txt
+```
+
+To check your current installed version:
+
+```bash
+pip show notebooklm-py
+```
 
 ---
 

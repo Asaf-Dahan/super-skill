@@ -1,3 +1,4 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # EVALUATION.md
 # Super Skill - Layer 3: Evaluation Framework
 <!-- Replace this header with your own project/organization name -->

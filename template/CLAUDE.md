@@ -1,3 +1,4 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # CLAUDE.md
 # Super Skill - Claude Code Operating Instructions
 <!-- Replace this header with your own project/organization name -->
@@ -74,7 +75,7 @@ Individual expert profiles load on demand only, not by default.
 
 After any approved change to any layer file, run:
 
-  python3 scripts/update_summary.py
+  python scripts/update_summary.py
 
 Or let super-skill-sync handle it automatically on the next pull.
 

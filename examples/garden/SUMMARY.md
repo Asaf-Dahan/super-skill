@@ -1,20 +1,26 @@
-# super-skill -- Summary
-Generated: 2026-04-08 | Verified: see CURRENT_STATE.md
+# garden -- Summary
+Generated: 2026-04-08 | Verified: 2026-04-06
 
 ## Domain
-[see CONTEXT.md]
+Home Vegetable Garden Management
 
 ## Owner
-[see CONTEXT.md]
+Home gardener, family of 4
 
 ## Current State
-- [see CURRENT_STATE.md]
+- Bed 1: Active
+- Bed 2: Active
+- Bed 4: Active
+- Drip irrigation: Beds 1-3, 30 min every 2 days
+- Soaker hoses: Bed 4 (strawberries), 20 min daily
 
 ## Active Decisions
-- [see DECISIONS.md]
+- DEC-001: All beds use drip irrigation. No overhead sprinklers, no hand watering.
+- DEC-002: No nightshade in a bed that hosted nightshade in the previous two years.
+- DEC-003: Home compost first, then bagged organic compost as supplement.
 
 ## Open Pending
-- Queue clear
+- 1 item awaiting approval
 
 ## Load Protocol
 

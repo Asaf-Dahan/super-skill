@@ -1,31 +1,30 @@
 <!--
-Note: All names, companies, and projects in this example are fictional
-and used for instructional purposes only.
+Note: This example is illustrative. Garden details are fictional and
+used for instructional purposes only.
 -->
 ---
-name: super-skill-stack-os
+name: super-skill-garden
 description: >
-  Technical stack domain expert for a solopreneur SaaS operation.
-  Loads full context on infrastructure, hosting, services, tiers,
-  and cross-product dependencies for GreenLedger and PulseLog.
-  Gives any AI agent verified current state before any action.
+  Home vegetable garden domain expert. Loads full context on beds,
+  soil, water, crop rotation, and seasonal planning. Enforces water
+  efficiency and organic-only operating principles before any action.
 version: "1.0"
-author: "Tomer Naveh / Raincode Labs"
+author: "Home gardener"
 tags:
-  - infrastructure
-  - hosting
-  - technical-stack
-  - devops
-  - cloud-services
+  - garden
+  - vegetables
+  - soil
+  - irrigation
+  - crop-rotation
 ---
 
-# Super Skill -- Stack OS
+# Super Skill -- Garden
 
 ## Before Any Action
 
 Read these files in this order:
   1. CONTEXT.md        - who owns this, what domain, what goals
-  2. CURRENT_STATE.md  - what the domain looks like right now
+  2. CURRENT_STATE.md  - what the garden looks like right now
   3. PENDING.md        - what is waiting for human approval
 
 Never skip this sequence. Context before action, always.
@@ -40,18 +39,17 @@ Do not modify any layer file without explicit human approval.
 
 ## Domain Scope
 
-Products: GreenLedger (sustainability reporting SaaS),
-  PulseLog (uptime and incident logging dashboard)
-Shared services: Supabase, Cloudflare, GitHub, Anthropic API
-GreenLedger-specific: Lovable, Stripe, Resend
-PulseLog-specific: Railway, Streamlit (admin), Python backend
+Beds: Five active raised beds (1-5), one perennial strawberry bed
+Sub-domains: Seasonal calendar, soil management, water systems,
+  pest and disease control, crop rotation
+Excluded: Fruit trees, ornamentals, lawn, indoor plants
 
 ## Domain Files
 
 After reading the three required files above, load the
 remaining layer files as needed for the current task:
-  DOMAIN_MAP.md     - structure and sub-domain relationships
-  EVALUATION.md     - criteria for evaluating new entrants
+  DOMAIN_MAP.md     - sub-domain structure and relationships
+  EVALUATION.md     - criteria for evaluating new plants or methods
   DECISIONS.md      - decisions made and reasoning
   MONITORING.md     - sources to watch for drift
   LEARNING.md       - NotebookLM integration structure

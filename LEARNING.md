@@ -26,13 +26,13 @@ Status: [planned / generated / loaded]
 ## How to Generate a Module
 Use Prompt 4 from ONBOARDING.md with any topic from this list.
 The output goes to notebooks/[topic]-learning.md
-Then run: python3 scripts/feed_notebook.py
+Then run: python scripts/feed_notebook.py
 
 ## How to Generate Audio
-python3 scripts/generate_learning.py audio
+python scripts/generate_learning.py audio
 
 ## How to Generate a Quiz
-python3 scripts/generate_learning.py quiz
+python scripts/generate_learning.py quiz
 
 ## How to Generate a Mind Map
-python3 scripts/generate_learning.py mindmap
+python scripts/generate_learning.py mindmap

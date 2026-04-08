@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 # generate_learning.py - Generate audio overview, quiz, or mind map from NotebookLM
+#
+# Run with:
+#   python scripts/generate_learning.py audio        (Windows / cross-platform)
+#   python3 scripts/generate_learning.py audio       (macOS / Linux)
+#   python scripts/run.py generate_learning audio    (auto-detects interpreter)
 
 import asyncio
 import json

@@ -8,6 +8,7 @@ version: "1.0"
 author: "[YOUR NAME OR ORGANIZATION]"
 ---
 
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # Super Skill - Agent Entry Point
 <!-- Replace this header with your own project/organization name -->
 
@@ -52,9 +53,9 @@ Shared services: [SERVICES USED ACROSS PRODUCTS]
 ## Learning Generation
 
 To generate learning content from this Super Skill:
-  python3 scripts/generate_learning.py audio
-  python3 scripts/generate_learning.py quiz
-  python3 scripts/generate_learning.py mindmap
+  python scripts/generate_learning.py audio
+  python scripts/generate_learning.py quiz
+  python scripts/generate_learning.py mindmap
 
 ## Capabilities
 
@@ -64,6 +65,6 @@ To generate learning content from this Super Skill:
 - Generating learning content to notebooks/
 
 ### Shell required
-- python3 scripts/update_summary.py   (regenerate SUMMARY.md)
-- python3 scripts/feed_notebook.py    (push files to NotebookLM)
-- python3 scripts/generate_learning.py audio | quiz | mindmap
+- python scripts/update_summary.py   (regenerate SUMMARY.md)
+- python scripts/feed_notebook.py    (push files to NotebookLM)
+- python scripts/generate_learning.py audio | quiz | mindmap

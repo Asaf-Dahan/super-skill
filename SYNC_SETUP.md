@@ -77,7 +77,7 @@ monitor_urls
 
 Open a terminal in your super-skill folder and run:
 
-  python3 scripts/super-skill-sync.py
+  python scripts/super-skill-sync.py
 
 The script will:
   - Pull latest changes for each registered Super Skill
@@ -87,11 +87,11 @@ The script will:
 
 To also push updates to NotebookLM after syncing:
 
-  python3 scripts/super-skill-sync.py --feed
+  python scripts/super-skill-sync.py --feed
 
 To see what would happen without making any changes:
 
-  python3 scripts/super-skill-sync.py --dry-run
+  python scripts/super-skill-sync.py --dry-run
 
 ---
 
@@ -169,7 +169,7 @@ Git pull failed:
 
 Python not found:
   On Windows try: py scripts/super-skill-sync.py
-  On Mac try: python3 scripts/super-skill-sync.py
+  On Mac try: python scripts/super-skill-sync.py
 
 ---
 

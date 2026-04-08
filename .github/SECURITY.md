@@ -5,7 +5,6 @@
 Super Skill is an open-source template project. It does not run any servers or services.
 
 If you find a security issue in:
-- The Cloudflare Worker blueprint (in the MCP feature document)
 - Any script that handles tokens or credentials
 - Any documentation that could lead users to make a dangerous configuration mistake
 

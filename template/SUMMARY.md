@@ -1,3 +1,4 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # [repo-name] -- Summary
 # Title is auto-set by update_summary.py from the repo folder name.
 Generated: [YYYY-MM-DD] | Verified: [YYYY-MM-DD]

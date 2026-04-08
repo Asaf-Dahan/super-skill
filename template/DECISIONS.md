@@ -1,3 +1,4 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # DECISIONS.md
 # Super Skill - Layer 4: Decisions and Reasoning
 <!-- Replace this header with your own project/organization name -->

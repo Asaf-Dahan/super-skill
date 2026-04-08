@@ -1,10 +1,11 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # CONTEXT.md
 # Super Skill - Layer 0: Identity
 <!-- Replace this header with your own project/organization name -->
 
 ## Domain
 [One sentence describing what this Super Skill covers.
-Example: "Home vegetable garden management in a Mediterranean climate."]
+Example: Home vegetable garden management in a Mediterranean climate.]
 
 ## Owner
 [Your name, role, or how you relate to this domain.]

@@ -46,6 +46,13 @@ and tell you exactly what to install before continuing.
   Windows: check the box "Add Python to PATH" before clicking Install.
   Mac: Python 3 is pre-installed on most Macs.
 
+  Note on `python` vs `python3`: macOS and Linux usually expose `python3`,
+  while Windows installs Python as `python`. Throughout this README we use
+  `python`. If you are on macOS or Linux and `python` is not found, use
+  `python3` instead. You can also run any script via the cross-platform
+  launcher, which auto-detects your interpreter:
+    python scripts/run.py <script-name>
+
   For NotebookLM integration (optional): after cloning, run:
     pip install -r requirements.txt
   This is only needed if you plan to use the NotebookLM learning layer.
@@ -74,6 +81,30 @@ Mac: right-click on your Desktop, select New Folder, name it `super-skills`.
 Open a terminal in your `super-skills` folder and run:
 
   claude .
+
+### Optional: verify your setup
+
+After cloning, you can run a quick smoke test to confirm everything is in
+place before activation:
+
+  python scripts/doctor.py
+
+It checks Python version, layer files, slash commands, scripts, and runs
+update_summary.py once. Six checks. Either "Ready to use." or a list of
+items to fix.
+
+### Scripts reference
+
+| Script | Purpose |
+|---|---|
+| `doctor.py` | Local smoke test (no network, no NotebookLM dependency) |
+| `update_summary.py` | Regenerates SUMMARY.md from the layer files |
+| `super-skill-sync.py` | Pulls all configured Super Skills and checks drift URLs |
+| `scheduled_tasks.py` | Runs maintenance tasks weekly/monthly/quarterly |
+| `feed_notebook.py` | (NotebookLM, optional) uploads layer files as sources |
+| `generate_learning.py` | (NotebookLM, optional) generates audio / quiz / mind map |
+| `check_state.py` | (NotebookLM, optional) asks the notebook 3 standard questions |
+| `run.py` | Cross-platform launcher: `python scripts/run.py <name>` |
 
 ### Step 3: Copy and paste the Bootstrap prompt
 
@@ -139,6 +170,8 @@ Use the answer as [domain-goal] in Step 5.
 STEP 3: Clone
 
 run: git clone https://github.com/Asaf-Dahan/super-skill.git super-skill-[domain]
+
+Forking this template? Replace the URL above with your own fork's URL.
 
 Confirm all template files are present before continuing.
 
@@ -260,17 +293,17 @@ Then tell the user:
 Once your Super Skill is active, you never need to copy prompts again.
 Everything runs through slash commands. Type any of these into Claude Code:
 
-| Command | What it does |
-|---------|-------------|
-| /ss-eval | Evaluate a new tool, method, or approach against your domain |
-| /ss-learn | Generate a learning module on any topic in your domain |
-| /ss-pending | Show all items waiting for your approval |
-| /ss-sync | Pull updates from all your Super Skills and check for drift |
-| /ss-summary | Regenerate your SUMMARY.md from all layer files |
-| /ss-drift | Check your monitored sources for changes |
-| /ss-council | Show your Expert Council debates and open challenges |
-| /ss-expert | Run a structured expert debate session |
-| /ss-synthesize | Synthesize insights across multiple layers |
+| Command | What it does | Example |
+|---------|-------------|---------|
+| /ss-eval | Evaluate a new tool, method, or approach against your domain | `/ss-eval Stripe Connect` |
+| /ss-learn | Generate a learning module on any topic in your domain | `/ss-learn drip irrigation` |
+| /ss-pending | Show all items waiting for your approval | `/ss-pending` |
+| /ss-sync | Pull updates from all your Super Skills and check for drift | `/ss-sync` |
+| /ss-summary | Regenerate your SUMMARY.md from all layer files | `/ss-summary` |
+| /ss-drift | Check your monitored sources for changes | `/ss-drift weekly` |
+| /ss-council | Show your Expert Council debates and open challenges | `/ss-council` |
+| /ss-expert | Run a structured expert debate session | `/ss-expert DEBATE-001` |
+| /ss-synthesize | Synthesize insights across multiple layers | `/ss-synthesize tax efficiency` |
 
 ---
 
@@ -284,12 +317,18 @@ Everything runs through slash commands. Type any of these into Claude Code:
 | Detects drift | No | Yes |
 | Teaches the agent | Yes | Yes |
 | Teaches you | No | Yes -- audio, quiz, mind map |
-| Works with | Claude Code | Any agent, any model |
+| Works with | Claude Code | Claude Code, Cursor, Codex, Gemini, any agent |
 | Time to activate | 1 minute | Under 15 minutes |
 
 ---
 
 ## The Layer Architecture
+
+> **Root vs `template/`** -- The layer files at the repository root are your
+> working copy: Prompt 1 fills them in during activation. The `template/`
+> directory contains the same files as a clean scaffold and is used to
+> regenerate or compare against the originals. Do not edit anything in
+> `template/` directly.
 
 Every Super Skill contains the same core files regardless of domain.
 The structure is identical. The content is yours.
@@ -310,7 +349,7 @@ PENDING.md          layer 7: approval queue
 experts/COUNCIL.md  layer X: expert council and debates
 experts/[name].md   individual expert profiles
 notebooks/          NotebookLM-ready learning files
-                    (gitignored by design — user-generated, not part of template)
+                    (gitignored by design -- user-generated, not part of template)
 template/SCHEDULE.md  scheduled maintenance tasks
 scripts/            automation: feed, generate, check, sync, update_summary, scheduled_tasks
 template/.claude/commands/   slash commands for Claude Code
@@ -393,7 +432,7 @@ Super Skill v2.3.1
 
 ## License
 
-MIT License — Fork it. Build your own.
+MIT License -- Fork it. Build your own.
 
 Super Skill is an open-source public template. No affiliation or ownership
 is implied beyond authorship of the original template.

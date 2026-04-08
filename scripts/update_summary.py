@@ -3,6 +3,11 @@
 # Regenerates SUMMARY.md from all Super Skill layers.
 # Run after any change to any layer file.
 # Also runs automatically as part of super-skill-sync.
+#
+# Run with:
+#   python scripts/update_summary.py        (Windows / cross-platform)
+#   python3 scripts/update_summary.py       (macOS / Linux)
+#   python scripts/run.py update_summary    (auto-detects interpreter)
 
 import re
 import sys
@@ -10,26 +15,51 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 
-def extract_domain_line(context_md: str) -> str:
-    lines = context_md.split("\n")
+def _is_placeholder(text: str) -> bool:
+    """Detect bracketed template placeholders or example lines."""
+    if not text:
+        return True
+    stripped = text.strip()
+    # Bracketed placeholders, including unclosed brackets and trailing ]
+    if stripped.startswith("["):
+        return True
+    if stripped.endswith("]"):
+        return True
+    # Example/template marker lines
+    lower = stripped.lower()
+    if lower.startswith("example:") or lower.startswith("e.g."):
+        return True
+    # Stray comments or markers
+    if stripped.startswith("<!--") or stripped.startswith("# "):
+        return True
+    return False
+
+
+def _extract_section_value(md: str, heading: str) -> str:
+    """Return the first real content line under `## heading`, stopping at the
+    next heading or after a small look-ahead window."""
+    lines = md.split("\n")
     for i, line in enumerate(lines):
-        if line.strip() == "## Domain":
-            for j in range(i + 1, min(i + 4, len(lines))):
+        if line.strip() == heading:
+            for j in range(i + 1, min(i + 6, len(lines))):
                 candidate = lines[j].strip()
-                if candidate:
+                # Stop at next heading -- never cross sections
+                if candidate.startswith("#"):
+                    return ""
+                if candidate and not _is_placeholder(candidate):
                     return candidate
-    return "[see CONTEXT.md]"
+            return ""
+    return ""
+
+
+def extract_domain_line(context_md: str) -> str:
+    value = _extract_section_value(context_md, "## Domain")
+    return value or "[see CONTEXT.md]"
 
 
 def extract_owner(context_md: str) -> str:
-    lines = context_md.split("\n")
-    for i, line in enumerate(lines):
-        if line.strip() == "## Owner":
-            for j in range(i + 1, min(i + 4, len(lines))):
-                candidate = lines[j].strip()
-                if candidate:
-                    return candidate
-    return "[see CONTEXT.md]"
+    value = _extract_section_value(context_md, "## Owner")
+    return value or "[see CONTEXT.md]"
 
 
 def extract_current_state_facts(current_state_md: str) -> list:
@@ -58,11 +88,17 @@ def extract_current_state_facts(current_state_md: str) -> list:
 
 def extract_decisions(decisions_md: str) -> list:
     lines = []
-    for block in decisions_md.split("### DEC-"):
+    blocks = decisions_md.split("### DEC-")
+    # Skip the first chunk -- it is the file header before any DEC- entry,
+    # not a decision block.
+    for block in blocks[1:]:
         if not block.strip():
             continue
         num_line = block.split("\n")[0].strip()
         num = num_line.split(":")[0].strip() if ":" in num_line else num_line[:6]
+        # Skip the literal "[Decision Title]" template stub.
+        if "[Decision Title]" in num_line:
+            continue
         decision_line = ""
         for line in block.split("\n"):
             if line.startswith("Decision:") or line.startswith("**Decision:**"):
@@ -74,6 +110,10 @@ def extract_decisions(decisions_md: str) -> list:
                 if candidate and not candidate.startswith("#"):
                     decision_line = candidate
                     break
+        # Skip the literal "[What was decided, in one sentence.]" template stub
+        # and any other bracketed placeholder.
+        if _is_placeholder(decision_line):
+            continue
         if decision_line:
             lines.append(f"- DEC-{num}: {decision_line[:80]}")
     return lines[:10]

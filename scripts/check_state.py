@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 # check_state.py - Ask 3 standard questions to the notebook to verify domain state
+#
+# Run with:
+#   python scripts/check_state.py        (Windows / cross-platform)
+#   python3 scripts/check_state.py       (macOS / Linux)
+#   python scripts/run.py check_state    (auto-detects interpreter)
 
 import asyncio
 import os

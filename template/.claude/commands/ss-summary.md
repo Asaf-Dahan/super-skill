@@ -10,7 +10,7 @@ Run this after any approved change to any layer file.
 
 ## Prompt
 Run the summary update script:
-  python3 scripts\update_summary.py .
+  python scripts\update_summary.py .
 
 Report:
 - How many lines the new SUMMARY.md contains

@@ -43,9 +43,9 @@ File-only (no shell required):
   - Generating learning content to notebooks/
 
 Shell required:
-  - python3 scripts/update_summary.py   -- regenerate SUMMARY.md
-  - python3 scripts/feed_notebook.py    -- push files to NotebookLM
-  - python3 scripts/generate_learning.py audio | quiz | mindmap
+  - python scripts/update_summary.py   -- regenerate SUMMARY.md
+  - python scripts/feed_notebook.py    -- push files to NotebookLM
+  - python scripts/generate_learning.py audio | quiz | mindmap
 
 ## The One Rule
 
@@ -83,8 +83,29 @@ For ongoing tasks, use slash commands:
   /ss-eval, /ss-learn, /ss-pending, /ss-sync,
   /ss-summary, /ss-drift, /ss-council, /ss-expert, /ss-synthesize
 
+## Using with Gemini
+
+Gemini can operate a Super Skill the same way Claude Code does, with one
+adjustment: Gemini does not auto-load files on session start, so you load
+the entry points yourself.
+
+**Gemini CLI** (`gemini` command-line tool): from inside the Super Skill
+folder, paste the contents of SUMMARY.md and SKILL.md into your first
+message. Then ask Gemini to read PENDING.md and the relevant layer file
+for the task. Gemini will follow the Iron Principle as long as you keep
+SKILL.md in context, because the rules are encoded there.
+
+**Gemini Code Assist** (VS Code or JetBrains): open the Super Skill folder
+as a workspace. Use the chat panel and reference @SUMMARY.md @SKILL.md
+@PENDING.md in your prompt. Gemini Code Assist supports the @file syntax
+to attach repository files directly to the request.
+
+**Gemini in any other editor**: same pattern as Cursor. Open the folder,
+ask the agent to read ONBOARDING.md, and run the prompt that matches your
+task. The Iron Principle applies regardless of which Gemini surface you use.
+
 ## Compatible Agents
 
 This Super Skill follows the Agent Skills open standard.
-It works with Claude Code, Cursor, Codex, and any agent
+It works with Claude Code, Cursor, Codex, Gemini, and any agent
 that can read and write markdown files.

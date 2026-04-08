@@ -1,3 +1,4 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # PENDING.md
 # Super Skill - Layer 7: Approval Queue
 <!-- Replace this header with your own project/organization name -->

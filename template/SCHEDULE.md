@@ -1,3 +1,4 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # SCHEDULE.md
 # Super Skill - Scheduled Maintenance Tasks
 <!-- Replace this header with your own project/organization name -->
@@ -12,15 +13,15 @@ Nothing changes automatically. You decide on every item.
 ## How to Run
 
 Manual trigger (any time):
-  python3 scripts\scheduled_tasks.py --task [task-name]
+  python scripts\scheduled_tasks.py --task [task-name]
 
 Run all tasks for current frequency:
-  python3 scripts\scheduled_tasks.py --frequency weekly
-  python3 scripts\scheduled_tasks.py --frequency monthly
-  python3 scripts\scheduled_tasks.py --frequency quarterly
+  python scripts\scheduled_tasks.py --frequency weekly
+  python scripts\scheduled_tasks.py --frequency monthly
+  python scripts\scheduled_tasks.py --frequency quarterly
 
 Dry run (no files written):
-  python3 scripts\scheduled_tasks.py --dry-run
+  python scripts\scheduled_tasks.py --dry-run
 
 ## Weekly Tasks
 

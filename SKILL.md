@@ -45,9 +45,9 @@ not by default. Load them when a specific expert's perspective is needed.
 ## Learning Generation
 
 To generate learning content from this Super Skill:
-  python3 scripts/generate_learning.py audio
-  python3 scripts/generate_learning.py quiz
-  python3 scripts/generate_learning.py mindmap
+  python scripts/generate_learning.py audio
+  python scripts/generate_learning.py quiz
+  python scripts/generate_learning.py mindmap
 
 ## How Prompts Work
 
@@ -74,6 +74,6 @@ For ongoing tasks, use slash commands:
 - Generating learning content to notebooks/
 
 ### Shell required
-- python3 scripts/update_summary.py   (regenerate SUMMARY.md)
-- python3 scripts/feed_notebook.py    (push files to NotebookLM)
-- python3 scripts/generate_learning.py audio | quiz | mindmap
+- python scripts/update_summary.py   (regenerate SUMMARY.md)
+- python scripts/feed_notebook.py    (push files to NotebookLM)
+- python scripts/generate_learning.py audio | quiz | mindmap

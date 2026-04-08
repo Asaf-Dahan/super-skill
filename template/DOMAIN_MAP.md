@@ -1,3 +1,4 @@
+<!-- TEMPLATE FILE -- Do not edit. This is the scaffold. Root files are your working copy. -->
 # DOMAIN_MAP.md
 # Super Skill - Layer 1: Domain Structure
 <!-- Replace this header with your own project/organization name -->

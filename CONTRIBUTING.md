@@ -25,7 +25,7 @@ Super Skill is an open framework. Contributions are welcome.
 
 ## Standards
 
-- Use `--` (two hyphens) as a structural separator. Real em-dash characters (`—`) are also acceptable.
+- Use `--` (two hyphens) as a structural separator. Do not use real em-dash characters (`—`); the no-em-dash rule comes from ONBOARDING.md Prompt 1 and applies to all template content.
 - All placeholder text in format: [DESCRIPTION IN CAPS]
 - File headers follow the format in examples/stack-os/
 - MIT License applies to all contributions

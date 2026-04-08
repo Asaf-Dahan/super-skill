@@ -3,12 +3,15 @@
 # Runs scheduled maintenance tasks for a Super Skill.
 # All findings go to PENDING.md. Nothing changes automatically.
 #
-# Usage:
-#   python3 scripts\scheduled_tasks.py --task drift-check
-#   python3 scripts\scheduled_tasks.py --frequency weekly
-#   python3 scripts\scheduled_tasks.py --frequency monthly
-#   python3 scripts\scheduled_tasks.py --frequency quarterly
-#   python3 scripts\scheduled_tasks.py --dry-run
+# Usage (Windows / cross-platform: replace `python3` with `python`):
+#   python scripts/scheduled_tasks.py --task drift-check
+#   python scripts/scheduled_tasks.py --frequency weekly
+#   python scripts/scheduled_tasks.py --frequency monthly
+#   python scripts/scheduled_tasks.py --frequency quarterly
+#   python scripts/scheduled_tasks.py --dry-run
+#
+# Auto-detect interpreter:
+#   python scripts/run.py scheduled_tasks --frequency weekly
 
 import argparse
 import subprocess

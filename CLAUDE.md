@@ -74,7 +74,7 @@ Individual expert profiles load on demand only, not by default.
 
 After any approved change to any layer file, run:
 
-  python3 scripts/update_summary.py
+  python scripts/update_summary.py
 
 Or let super-skill-sync handle it automatically on the next pull.
 
