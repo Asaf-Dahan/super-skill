@@ -1,0 +1,39 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+.notebooklm/
+notebooks/
+.claude/
+!template/.claude/
+!.claude/
+!.claude/commands/
+!.claude/commands/**
+!.claude/agents/
+!.claude/agents/**
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Additional sensitive file patterns (public template hygiene)
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.log
+logs/
+secrets.json
+credentials.json
+service-account*.json
