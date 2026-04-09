@@ -90,7 +90,8 @@ Or download and paste: `cat scripts/bootstrap.md`
 
 After cloning, run `python scripts/doctor.py` to confirm your setup is complete.
 
-Claude Code will check your setup, ask you one question about your domain,
+Claude Code will check your setup, ask you about your domain,
+offer to read your existing files or AI context for personalization,
 download the template, and build your complete Super Skill automatically.
 
 ```

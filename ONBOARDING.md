@@ -132,8 +132,80 @@ moving to the next. Pause after Stage 2 and wait for my response.
 
 --- STAGE 1: Domain Layer Generation ---
 
+--- PERSONALIZATION GATE ---
+
+Before asking domain questions, offer to read existing context.
+
+Ask the user exactly this and wait for the answer:
+  "Do you want me to read your existing files to personalize this
+   Super Skill? I can read SKILL.md files, existing Super Skills,
+   or any other files you point me to.
+   Answer yes with a path (or multiple paths), or no to continue
+   with questions only."
+
+If yes (user provides one or more paths):
+  Read every file the user points to.
+  Extract from the files:
+    - Tools, services, or methods currently in use
+    - Decisions already made (explicit or implied)
+    - Domain-specific constraints or rules
+    - Operating principles or non-negotiable preferences
+    - Goals, scope boundaries, and known gaps
+  Store extracted context as [personalization-data].
+  Report to the user: "Read [N] files. Extracted [brief summary]."
+  When generating layer files later in Stage 1:
+    - Pre-populate fields using [personalization-data] instead of placeholders
+    - Skip any question whose answer is already present in the extracted data
+    - If all 3 questions are answered by the files, skip directly to generation
+
+If no (user has no files or declines):
+  Generate a domain-specific extraction prompt and present it.
+  Use the domain name the user provided (from Bootstrap Step 2
+  or from the "My domain:" placeholder at the end of this prompt).
+
+  Present this to the user:
+
+  "No files to read -- no problem. If you have another AI that knows
+   your [domain] context (ChatGPT, another Claude session, a personal
+   assistant), paste the following prompt there. Then paste the
+   response back here.
+
+   ---
+   I am setting up a structured knowledge base for my [domain].
+   Describe what you know about my [domain] in this exact format:
+
+   TOOLS: [tools, services, or methods I use in this domain]
+   DECISIONS: [significant decisions I have made and why]
+   CONSTRAINTS: [rules, limits, or non-negotiable preferences]
+   PRINCIPLES: [operating principles that guide my decisions]
+   GOALS: [what I am trying to achieve in this domain]
+   CURRENT STATE: [what is true right now -- versions, quantities, statuses]
+   GAPS: [what you are uncertain about or do not know]
+
+   Be specific. Use names, versions, and dates where possible.
+   Keep the response under 40 lines.
+   ---
+
+   Paste the response here and I will inject it into your Super Skill.
+   Or type 'skip' to continue with questions only."
+
+  If the user pastes a structured response:
+    Parse the TOOLS, DECISIONS, CONSTRAINTS, PRINCIPLES, GOALS,
+    CURRENT STATE, and GAPS fields from the response.
+    Store as [personalization-data].
+    Report: "Parsed context response. Extracted [brief summary]."
+    When generating layer files:
+      - Pre-populate fields using [personalization-data]
+      - Skip any question whose answer is already present
+
+  If the user types 'skip':
+    Continue with standard questions. No data injected.
+
+--- END PERSONALIZATION GATE ---
+
 Scan the local environment to infer as much context as possible before asking.
 Ask me at most 3 questions. Infer everything you can first.
+Skip any question already answered by personalization data.
 
 After my answers, generate all 11 files directly into this repository,
 replacing the empty placeholder files at the ROOT of the repo. Do not
@@ -225,7 +297,35 @@ Generate the knowledge graph:
   If the script succeeds: confirm "Graph generated: wiki/graph.json"
   If the script fails or is missing: skip silently and continue.
 
-After all 11 files, SUMMARY.md, .claude/ setup, and experts/debates/ are complete, confirm:
+After all 11 files, SUMMARY.md, .claude/ setup, and experts/debates/ are complete,
+show a personalization summary before confirming Stage 1 completion.
+
+Display one line per generated layer file showing where the content came from:
+
+"Personalization summary:
+  CONTEXT.md        -- source: [source]
+  DOMAIN_MAP.md     -- source: [source]
+  CURRENT_STATE.md  -- source: [source]
+  EVALUATION.md     -- source: [source]
+  DECISIONS.md      -- source: [source]
+  MONITORING.md     -- source: [source]
+  LEARNING.md       -- source: [source]
+  PENDING.md        -- source: template
+  LOG.md            -- source: template
+  CLAUDE.md         -- source: template
+  SKILL.md          -- source: [source]"
+
+Rules for the summary:
+  - "files read" = content came from files the user provided in the personalization gate
+  - "user-provided context" = content came from the LLM extraction prompt response
+  - "inferred" = content was inferred from domain description, user answers, or environment scan
+  - "placeholder -- needs review" = the file still contains template placeholders
+  - A file can have multiple sources (e.g., "files read + inferred")
+  - If any file shows "placeholder -- needs review", tell the user:
+    "Some files contain placeholder content. Edit them directly
+     or run /ss-pending to review after activation."
+
+Then confirm:
 "Stage 1 complete. Proceeding to Expert Council."
 
 --- STAGE 2: Expert Council Research ---
