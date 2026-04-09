@@ -97,7 +97,7 @@ Use specific trigger keywords that do not overlap with existing entries.
 
 ---
 
-### Prompt 1 -- Domain Activation
+## Prompt 1 -- Domain Activation
 
 ```
 Before anything else:
@@ -279,7 +279,7 @@ What I want to achieve: [YOUR GOAL]
 
 ---
 
-### Prompt 2 -- Create Global Router (first time)
+## Prompt 2 -- Create Global Router (first time)
 
 ```
 Create the file ~/.claude/CLAUDE.md as a global router for Claude Code.
@@ -302,7 +302,7 @@ Use this exact session start protocol in the file:
   5. Never start from zero. Never re-litigate settled decisions.
 ```
 
-### Prompt 2-update -- Add a Second Super Skill to an Existing Router
+## Prompt 2-update -- Add a Second Super Skill to an Existing Router
 
 ```
 Read ~/.claude/CLAUDE.md (on Windows: C:\Users\YourName\.claude\CLAUDE.md).

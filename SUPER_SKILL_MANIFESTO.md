@@ -1,6 +1,6 @@
 # Super Skill - Founding Document
 
-Version: 2.3.1
+Version: 2.6.0
 Status: Canonical
 Language: English
 Author: Asaf Dahan

@@ -352,7 +352,7 @@ To keep multiple Super Skills in sync, see SYNC_SETUP.md.
 
 > **Root vs `template/`** -- The layer files at the repository root are your
 > working copy: Prompt 1 fills them in during activation. The `template/`
-> directory contains the same files as a clean scaffold and is used to
+> directory contains the same files as a clean scaffold -- use it to
 > regenerate or compare against the originals. Do not edit anything in
 > `template/` directly.
 
