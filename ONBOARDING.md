@@ -52,19 +52,34 @@ Ask the user exactly this and wait for the answer:
    from any computer. Answer yes or no."
 
 If yes:
-  Tell the user:
-    "Go to https://github.com/new
-     Create a new PRIVATE repository.
-     Name it: super-skill-[domain]
-     Do not add a README, .gitignore, or license.
-     Click Create repository.
-     Copy the URL shown and paste it here."
+  Check if GitHub CLI is available:
+    gh --version
 
-  Wait for the URL. Then run:
-    git -C ../super-skill-[domain] remote set-url origin [URL]
-    git -C ../super-skill-[domain] push -u origin main
+  If gh IS available:
+    Run:
+      gh repo create super-skill-[domain] --private --source=../super-skill-[domain] --remote=origin --push
+    Tell the user: "Repository created and pushed automatically."
 
-  Tell the user: "Backed up to GitHub."
+  If gh is NOT available:
+    Ask the user:
+      "GitHub CLI is not installed.
+       Option A: install it now -- https://cli.github.com (paste 'done' when ready)
+       Option B: paste a GitHub repo URL and I will push to it
+       Option C: skip GitHub backup for now"
+
+    Wait for the answer.
+
+    If Option A:
+      Wait for 'done'. Verify gh --version. Then run gh repo create as above.
+
+    If Option B:
+      Wait for the URL. Then run:
+        git -C ../super-skill-[domain] remote set-url origin [URL]
+        git -C ../super-skill-[domain] push -u origin main
+      Tell the user: "Pushed to GitHub."
+
+    If Option C:
+      Continue without GitHub. Add a PENDING item as a reminder.
 
 If no:
   Continue. Saved locally only.
@@ -267,10 +282,55 @@ Open NOTEBOOKLM_GUIDE.md or run /ss-learn when ready."
 
 Then ask exactly:
 "Would you like to set up NotebookLM now?
- Yes: I will walk you through NOTEBOOKLM_GUIDE.md step by step.
+ Yes: I will set it up automatically.
  No: A reminder is already in PENDING.md. Run /ss-learn when ready."
 
-If yes: read NOTEBOOKLM_GUIDE.md and follow the setup steps.
+If yes:
+  Check if notebooklm-py is installed:
+    python -c "import notebooklm; print('OK')" 2>&1
+
+  If not installed:
+    pip install "notebooklm-py[browser]" --break-system-packages
+    playwright install chromium
+
+  Check if a valid session exists:
+    python -c "
+import asyncio
+from notebooklm.auth import AuthTokens
+async def check():
+    try:
+        await AuthTokens.from_storage()
+        print('SESSION_VALID')
+    except:
+        print('SESSION_MISSING')
+asyncio.run(check())
+"
+
+  If SESSION_MISSING:
+    Tell the user: "A browser window will open. Log in with your Google account."
+    Run: notebooklm login
+    After login, continue automatically.
+
+  If SESSION_VALID:
+    Continue. Do not ask the user anything.
+
+  Create notebook automatically:
+    notebooklm create "[domain] -- Super Skill"
+  Save the returned ID:
+    Write NOTEBOOK_ID=[id] to .env
+    Record Notebook ID in CONTEXT.md
+
+  Feed files automatically:
+    python scripts/feed_notebook.py
+
+  Generate audio overview:
+    python scripts/generate_learning.py audio
+
+  If any step fails, present options:
+    "Option A: retry the failed step
+     Option B: switch to manual setup (see NOTEBOOKLM_GUIDE.md)
+     Option C: skip NotebookLM for now -- a reminder is in PENDING.md"
+
 If no: confirm the PENDING item about NotebookLM is present and continue.
 
 My domain: [DESCRIBE IN ONE TO THREE SENTENCES]
@@ -337,12 +397,45 @@ Recommended path:
 
 Advanced path (uses the unofficial notebooklm-py library, may break):
 
-  pip install "notebooklm-py[browser]"
-  notebooklm login
-  notebooklm create "[Your Domain] -- Super Skill"
-  cp .env.example .env
-  python scripts/feed_notebook.py
-  python scripts/generate_learning.py audio
+  Check if notebooklm-py is installed:
+    python -c "import notebooklm; print('OK')" 2>&1
+
+  If not installed:
+    pip install "notebooklm-py[browser]" --break-system-packages
+    playwright install chromium
+
+  Check if a valid session exists:
+    python -c "
+import asyncio
+from notebooklm.auth import AuthTokens
+async def check():
+    try:
+        await AuthTokens.from_storage()
+        print('SESSION_VALID')
+    except:
+        print('SESSION_MISSING')
+asyncio.run(check())
+"
+
+  If SESSION_MISSING:
+    Tell the user: "A browser window will open. Log in with your Google account."
+    Run: notebooklm login
+    After login, continue automatically.
+
+  If SESSION_VALID:
+    Continue. Do not ask the user anything.
+
+  Create notebook automatically:
+    notebooklm create "[Domain] -- Super Skill"
+  Save the returned ID:
+    Write NOTEBOOK_ID=[id] to .env
+    Record Notebook ID in CONTEXT.md
+
+  Feed files automatically:
+    python scripts/feed_notebook.py
+
+  Generate audio overview:
+    python scripts/generate_learning.py audio
 
 ---
 

@@ -154,9 +154,15 @@ unless you specifically want script-driven automation.
 > If a script fails after a Google update, fall back to the Manual Setup
 > above. Do not file bug reports against Google for this.
 
-### Step 1: Install the library
+### Step 1: Install the library (automatic)
 
-  pip install "notebooklm-py[browser]"
+Check if notebooklm-py is already installed:
+
+  python -c "import notebooklm; print('OK')" 2>&1
+
+If not installed, run:
+
+  pip install "notebooklm-py[browser]" --break-system-packages
   playwright install chromium
 
 Windows alternative if pip is not found:
@@ -164,40 +170,58 @@ Windows alternative if pip is not found:
 
 Mac/Linux: use pip3 if pip is not found.
 
-### Step 2: Log in
+### Step 2: Check session and log in if needed (automatic)
 
-  notebooklm login
+Check if a valid session exists:
 
-This opens a browser window. Log in with your Google account.
-The session is saved so you do not need to log in again.
+  python -c "
+import asyncio
+from notebooklm.auth import AuthTokens
+async def check():
+    try:
+        await AuthTokens.from_storage()
+        print('SESSION_VALID')
+    except:
+        print('SESSION_MISSING')
+asyncio.run(check())
+"
 
-### Step 3: Create a notebook
+If SESSION_VALID: continue to Step 3. Do not ask the user anything.
+
+If SESSION_MISSING:
+  Tell the user: "A browser window will open. Log in with your Google account."
+  Run: notebooklm login
+  After login, continue automatically.
+
+### Step 3: Create a notebook (automatic)
 
   notebooklm create "[Your Domain] -- Super Skill"
 
-Copy the notebook ID that is returned.
+Save the returned notebook ID automatically:
 
-### Step 4: Configure
+  Write NOTEBOOK_ID=[id] to .env (create from .env.example if needed)
+  Record Notebook ID in CONTEXT.md
 
-  cp .env.example .env
-
-Open the .env file and paste your notebook ID:
-
-  NOTEBOOK_ID=your-notebook-id-here
-
-### Step 5: Feed your Super Skill into the notebook
+### Step 4: Feed your Super Skill into the notebook (automatic)
 
   python scripts/feed_notebook.py
 
 This loads all your layer files as sources. It takes about one minute.
 You will see each file name printed as it loads.
 
-### Step 6: Generate your first audio overview
+### Step 5: Generate your first audio overview (automatic)
 
   python scripts/generate_learning.py audio
 
 This takes 3 to 10 minutes. The audio file is saved to:
 notebooks/audio-overview.mp3
+
+### If any step fails
+
+The flow must always move forward. Present options:
+  Option A: retry the failed step
+  Option B: switch to Manual Setup (see above)
+  Option C: skip NotebookLM for now -- add a PENDING item as a reminder
 
 ---
 

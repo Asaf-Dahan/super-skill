@@ -209,33 +209,40 @@ Ask the user exactly this and wait for the answer:
    Answer yes or no."
 
 If yes:
-  Tell the user:
-    "Go to https://github.com/new
-     - Repository name: super-skill-[domain]
-     - Visibility: Private
-     - Leave all checkboxes unchecked (no README, no .gitignore, no license)
-     - Click 'Create repository'
+  Check if GitHub CLI is available:
+    gh --version
 
-     After the page reloads, look for the section titled:
-       '...or push an existing repository from the command line'
-     Copy the URL from that section. It looks like:
-       https://github.com/your-username/super-skill-[domain].git
+  If gh IS available:
+    Run:
+      gh repo create super-skill-[domain] --private --source=super-skill-[domain] --remote=origin --push
+    Capture the returned URL.
+    Add a line to CONTEXT.md under the identity or header section:
+      Repository: [URL]
+    Tell the user:
+      "Repository created and pushed automatically.
+       The remote URL has been recorded in CONTEXT.md."
 
-     Important: complete all steps on github.com/new before pasting.
-     Do not paste the URL until after clicking 'Create repository.'
+  If gh is NOT available:
+    Ask the user:
+      "GitHub CLI is not installed.
+       Option A: install it now -- https://cli.github.com (paste 'done' when ready)
+       Option B: paste a GitHub repo URL and I will push to it
+       Option C: skip GitHub backup for now"
 
-     Paste it here."
+    Wait for the answer.
 
-  Wait for the URL. Then run:
-    git -C super-skill-[domain] remote set-url origin [URL]
-    git -C super-skill-[domain] push -u origin main
+    If Option A:
+      Wait for 'done'. Verify gh --version. Then run gh repo create as above.
 
-  Add a line to CONTEXT.md under the identity or header section:
-    Repository: [URL]
+    If Option B:
+      Wait for the URL. Then run:
+        git -C super-skill-[domain] remote set-url origin [URL]
+        git -C super-skill-[domain] push -u origin main
+      Add Repository: [URL] to CONTEXT.md.
+      Tell the user: "Pushed to GitHub. Remote URL recorded in CONTEXT.md."
 
-  Tell the user:
-    "Your Super Skill is backed up to GitHub.
-     The remote URL has been recorded in CONTEXT.md."
+    If Option C:
+      Continue without GitHub. Record a PENDING item (see below).
 
 If no:
   Add this item to PENDING.md under the Queue section:
