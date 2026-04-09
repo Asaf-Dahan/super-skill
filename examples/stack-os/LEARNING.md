@@ -7,7 +7,7 @@ Notebook ID: [Set in .env file as NOTEBOOK_ID]
 
 ## Learning Modules Planned
 
-### Module 1: Supabase Free Tier Limits and Upgrade Paths
+### Module 1: DBHost Free Tier Limits and Upgrade Paths
 Priority: high
 Purpose: Understand exactly where the free tier walls are for database
 size, auth users, edge function invocations, and bandwidth. Know what
@@ -21,10 +21,10 @@ for different use cases across both products. How to estimate and control
 monthly spend as usage grows. When to use each model tier.
 Status: planned
 
-### Module 3: Railway Hobby Plan -- Constraints and Scaling Options
+### Module 3: AppHost Hobby Plan -- Constraints and Scaling Options
 Priority: medium
 Purpose: Know the resource limits, sleep behavior, and scaling options
-on the Railway Hobby plan. What happens when background jobs exceed
+on the AppHost Hobby plan. What happens when background jobs exceed
 memory or CPU limits. When to consider upgrading.
 Status: planned
 

@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Super Skill -- Knowledge Graph</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d1117; color: #c9d1d9; font-family: system-ui, -apple-system, sans-serif; overflow: hidden; }
+
+/* Log bar */
+#log-bar {
+  position: fixed; top: 0; left: 0; right: 0; height: 32px; z-index: 100;
+  background: #161b22; border-bottom: 1px solid #30363d;
+  display: flex; align-items: center; padding: 0 12px;
+  font-size: 11px; color: #8b949e; overflow: hidden; white-space: nowrap;
+}
+#log-bar .log-entry { margin-right: 24px; }
+#log-bar .log-muted { color: #484f58; font-style: italic; }
+
+/* Controls */
+#controls {
+  position: fixed; top: 40px; right: 12px; z-index: 90;
+  display: flex; flex-direction: column; gap: 6px;
+}
+#controls button {
+  background: #21262d; border: 1px solid #30363d; color: #c9d1d9;
+  padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;
+}
+#controls button:hover { background: #30363d; }
+
+/* Search */
+#search-box {
+  position: fixed; top: 40px; left: 12px; z-index: 90;
+}
+#search-box input {
+  background: #0d1117; border: 1px solid #30363d; color: #c9d1d9;
+  padding: 5px 10px; border-radius: 6px; font-size: 12px; width: 200px;
+}
+
+/* Filter buttons */
+#filters {
+  position: fixed; top: 72px; left: 12px; z-index: 90;
+  display: flex; gap: 4px; flex-wrap: wrap;
+}
+#filters button {
+  background: #21262d; border: 1px solid #30363d; color: #8b949e;
+  padding: 3px 8px; border-radius: 12px; cursor: pointer; font-size: 10px;
+}
+#filters button.active { border-color: #58a6ff; color: #58a6ff; }
+
+/* Detail panel */
+#panel {
+  position: fixed; top: 40px; right: 180px; z-index: 80;
+  background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+  padding: 16px; width: 320px; max-height: calc(100vh - 60px);
+  overflow-y: auto; display: none; font-size: 13px;
+}
+#panel h3 { color: #f0f6fc; margin-bottom: 8px; font-size: 15px; }
+#panel .meta { color: #8b949e; font-size: 11px; margin-bottom: 6px; }
+#panel .detail { color: #c9d1d9; margin-bottom: 10px; line-height: 1.5; }
+#panel .connections { margin-top: 8px; }
+#panel .conn-item { color: #58a6ff; font-size: 12px; cursor: pointer; padding: 2px 0; }
+#panel .conn-item:hover { text-decoration: underline; }
+#panel .btn-row { display: flex; gap: 6px; margin-top: 10px; }
+#panel .btn-row button {
+  background: #21262d; border: 1px solid #30363d; color: #c9d1d9;
+  padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px;
+}
+#panel .btn-row button:hover { background: #30363d; }
+#panel-close {
+  position: absolute; top: 8px; right: 8px; background: none;
+  border: none; color: #8b949e; cursor: pointer; font-size: 16px;
+}
+
+/* Minimap */
+#minimap {
+  position: fixed; bottom: 12px; right: 12px; z-index: 80;
+  width: 160px; height: 120px; background: #161b22;
+  border: 1px solid #30363d; border-radius: 6px; overflow: hidden;
+}
+
+/* Legend */
+#legend {
+  position: fixed; bottom: 12px; left: 12px; z-index: 80;
+  background: #161b22; border: 1px solid #30363d; border-radius: 6px;
+  padding: 8px 12px; font-size: 10px;
+}
+#legend .item { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
+#legend .swatch { width: 10px; height: 10px; border-radius: 2px; }
+
+/* Canvas */
+#graph-canvas { display: block; }
+</style>
+</head>
+<body>
+
+<!-- Log bar -->
+<div id="log-bar"></div>
+
+<!-- Search -->
+<div id="search-box"><input id="search" type="text" placeholder="Search nodes... (/)"></div>
+
+<!-- Filters -->
+<div id="filters"></div>
+
+<!-- Controls -->
+<div id="controls">
+  <button id="btn-reset" title="Reset view (F)">&#x2b1b; Reset</button>
+  <button id="btn-zoom-in" title="Zoom in">+</button>
+  <button id="btn-zoom-out" title="Zoom out">&minus;</button>
+</div>
+
+<!-- Detail panel -->
+<div id="panel">
+  <button id="panel-close">&times;</button>
+  <h3 id="panel-title"></h3>
+  <div id="panel-meta" class="meta"></div>
+  <div id="panel-detail" class="detail"></div>
+  <div id="panel-connections" class="connections"></div>
+  <div class="btn-row">
+    <button id="btn-copy-path">Copy path</button>
+    <button id="btn-open-vscode">Open in VS Code</button>
+  </div>
+</div>
+
+<!-- Minimap -->
+<canvas id="minimap"></canvas>
+
+<!-- Legend -->
+<div id="legend"></div>
+
+<!-- Main canvas -->
+<canvas id="graph-canvas"></canvas>
+
+<script>
+// =========================================================================
+// DATA
+// =========================================================================
+const G = {
+  "meta": {
+    "generated": "2026-04-09",
+    "repo": "super-skill",
+    "node_count": 12,
+    "edge_count": 37,
+    "open_pending": 1,
+    "open_decisions": 1,
+    "drift_alerts": 0
+  },
+  "layer_index": {
+    "identity": [
+      "what domain",
+      "who owns this",
+      "operating principles",
+      "domain structure",
+      "sub-domains",
+      "how areas connect"
+    ],
+    "state": [
+      "current tools",
+      "versions",
+      "what is true right now",
+      "drift detection",
+      "what sources to watch"
+    ],
+    "knowledge": [
+      "evaluation criteria",
+      "how to assess new entrants",
+      "decisions made",
+      "reasoning",
+      "rejected alternatives",
+      "NotebookLM plan",
+      "learning content"
+    ],
+    "control": [
+      "open approvals",
+      "proposed changes",
+      "change history",
+      "audit trail",
+      "activity log",
+      "domain snapshot",
+      "quick overview"
+    ],
+    "experts": [
+      "domain expert opinions",
+      "methodology",
+      "debates"
+    ]
+  },
+  "navigation_hints": [
+    {
+      "if_user_asks_about": "architecture decisions",
+      "read_first": "DECISIONS.md"
+    },
+    {
+      "if_user_asks_about": "what is waiting for approval",
+      "read_first": "PENDING.md"
+    },
+    {
+      "if_user_asks_about": "current tools or versions",
+      "read_first": "CURRENT_STATE.md"
+    },
+    {
+      "if_user_asks_about": "who are the domain experts",
+      "read_first": "experts/COUNCIL.md"
+    },
+    {
+      "if_user_asks_about": "domain structure or areas",
+      "read_first": "DOMAIN_MAP.md"
+    },
+    {
+      "if_user_asks_about": "how to evaluate something new",
+      "read_first": "EVALUATION.md"
+    },
+    {
+      "if_user_asks_about": "what has changed recently",
+      "read_first": "LOG.md"
+    },
+    {
+      "if_user_asks_about": "drift or monitoring alerts",
+      "read_first": "MONITORING.md"
+    },
+    {
+      "if_user_asks_about": "learning or NotebookLM",
+      "read_first": "LEARNING.md"
+    }
+  ],
+  "hotspots": [
+    {
+      "file": "CONTEXT.md",
+      "reason": "modified 1 day ago",
+      "priority": "medium"
+    },
+    {
+      "file": "DOMAIN_MAP.md",
+      "reason": "modified 2 days ago",
+      "priority": "medium"
+    },
+    {
+      "file": "CURRENT_STATE.md",
+      "reason": "modified 2 days ago",
+      "priority": "medium"
+    },
+    {
+      "file": "EVALUATION.md",
+      "reason": "modified 2 days ago",
+      "priority": "medium"
+    },
+    {
+      "file": "DECISIONS.md",
+      "reason": "modified 2 days ago",
+      "priority": "medium"
+    },
+    {
+      "file": "MONITORING.md",
+      "reason": "modified 2 days ago",
+      "priority": "medium"
+    },
+    {
+      "file": "LEARNING.md",
+      "reason": "modified 1 day ago",
+      "priority": "medium"
+    },
+    {
+      "file": "PENDING.md",
+      "reason": "1 open item",
+      "priority": "medium"
+    },
+    {
+      "file": "LOG.md",
+      "reason": "modified 0 days ago",
+      "priority": "medium"
+    },
+    {
+      "file": "wiki/GRAPH_SUMMARY.md",
+      "reason": "modified 0 days ago",
+      "priority": "medium"
+    }
+  ],
+  "staleness": [],
+  "log_entries": [],
+  "nodes": [
+    {
+      "id": "CONTEXT.md",
+      "type": "layer",
+      "label": "Identity",
+      "layer": 0,
+      "cluster": "identity",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\CONTEXT.md",
+      "exists": true,
+      "activated": false,
+      "last_modified": "2026-04-08",
+      "detail": "Example: Home vegetable garden management in a Mediterranean climate.]",
+      "answers": [
+        "what domain",
+        "who owns this",
+        "operating principles"
+      ],
+      "degree": 3
+    },
+    {
+      "id": "DOMAIN_MAP.md",
+      "type": "layer",
+      "label": "Domain Map",
+      "layer": 1,
+      "cluster": "identity",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\DOMAIN_MAP.md",
+      "exists": true,
+      "activated": false,
+      "last_modified": "2026-04-07",
+      "detail": "distinct area with its own knowledge, decisions, and drift rate.]",
+      "answers": [
+        "domain structure",
+        "sub-domains",
+        "how areas connect"
+      ],
+      "degree": 4
+    },
+    {
+      "id": "CURRENT_STATE.md",
+      "type": "layer",
+      "label": "Current State",
+      "layer": 2,
+      "cluster": "state",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\CURRENT_STATE.md",
+      "exists": true,
+      "activated": false,
+      "last_modified": "2026-04-07",
+      "detail": "Include versions, quantities, statuses, or conditions as relevant.]",
+      "answers": [
+        "current tools",
+        "versions",
+        "what is true right now"
+      ],
+      "degree": 5
+    },
+    {
+      "id": "EVALUATION.md",
+      "type": "layer",
+      "label": "Evaluation",
+      "layer": 3,
+      "cluster": "knowledge",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\EVALUATION.md",
+      "exists": true,
+      "activated": true,
+      "last_modified": "2026-04-07",
+      "detail": "a habit, a product, a method, a person, an investment, a plant.]",
+      "answers": [
+        "evaluation criteria",
+        "how to assess new entrants"
+      ],
+      "degree": 4
+    },
+    {
+      "id": "DECISIONS.md",
+      "type": "layer",
+      "label": "Decisions",
+      "layer": 4,
+      "cluster": "knowledge",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\DECISIONS.md",
+      "exists": true,
+      "activated": true,
+      "last_modified": "2026-04-07",
+      "detail": "This file records every significant decision made in this domain.",
+      "answers": [
+        "decisions made",
+        "reasoning",
+        "rejected alternatives"
+      ],
+      "degree": 5
+    },
+    {
+      "id": "MONITORING.md",
+      "type": "layer",
+      "label": "Monitoring",
+      "layer": 5,
+      "cluster": "state",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\MONITORING.md",
+      "exists": true,
+      "activated": true,
+      "last_modified": "2026-04-07",
+      "detail": "current state to become outdated. How fast does this domain move?]",
+      "answers": [
+        "drift detection",
+        "what sources to watch"
+      ],
+      "degree": 6
+    },
+    {
+      "id": "LEARNING.md",
+      "type": "layer",
+      "label": "Learning",
+      "layer": 6,
+      "cluster": "knowledge",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\LEARNING.md",
+      "exists": true,
+      "activated": true,
+      "last_modified": "2026-04-08",
+      "detail": "Name: [Your domain name - Super Skill]",
+      "answers": [
+        "NotebookLM plan",
+        "learning content"
+      ],
+      "degree": 3
+    },
+    {
+      "id": "PENDING.md",
+      "type": "layer",
+      "label": "Pending",
+      "layer": 7,
+      "cluster": "control",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\PENDING.md",
+      "exists": true,
+      "activated": true,
+      "last_modified": "2026-04-07",
+      "detail": "Nothing changes in this Super Skill without appearing here first.",
+      "answers": [
+        "open approvals",
+        "proposed changes"
+      ],
+      "degree": 9
+    },
+    {
+      "id": "LOG.md",
+      "type": "layer",
+      "label": "Change Log",
+      "layer": -1,
+      "cluster": "control",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\LOG.md",
+      "exists": true,
+      "activated": true,
+      "last_modified": "2026-04-09",
+      "detail": "Each entry follows this structure:",
+      "answers": [
+        "change history",
+        "audit trail",
+        "activity log"
+      ],
+      "degree": 3
+    },
+    {
+      "id": "SKILL.md",
+      "type": "layer",
+      "label": "Skill Entry",
+      "layer": -1,
+      "cluster": "control",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\SKILL.md",
+      "exists": true,
+      "activated": true,
+      "last_modified": "2026-04-09",
+      "detail": "name: super-skill",
+      "answers": [
+        "agent entry point",
+        "slash commands"
+      ],
+      "degree": 11
+    },
+    {
+      "id": "SUMMARY.md",
+      "type": "layer",
+      "label": "Summary",
+      "layer": -1,
+      "cluster": "control",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\SUMMARY.md",
+      "exists": true,
+      "activated": true,
+      "last_modified": "2026-04-08",
+      "detail": "Generated: 2026-04-08 | Verified: see CURRENT_STATE.md",
+      "answers": [
+        "domain snapshot",
+        "quick overview"
+      ],
+      "degree": 10
+    },
+    {
+      "id": "wiki/GRAPH_SUMMARY.md",
+      "type": "wiki",
+      "label": "Graph_Summary",
+      "layer": -1,
+      "cluster": "knowledge",
+      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\wiki\\GRAPH_SUMMARY.md",
+      "exists": true,
+      "activated": true,
+      "last_modified": "2026-04-09",
+      "detail": "Generated: 2026-04-09 | Repo: super-skill",
+      "answers": [],
+      "degree": 11
+    }
+  ],
+  "edges": [
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "DOMAIN_MAP.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "LOG.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "EVALUATION.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "CURRENT_STATE.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "SKILL.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "MONITORING.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "LEARNING.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "SUMMARY.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "CONTEXT.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "DECISIONS.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "PENDING.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "DOMAIN_MAP.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "LOG.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "EVALUATION.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "CURRENT_STATE.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "MONITORING.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "LEARNING.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "SUMMARY.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "CONTEXT.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "DECISIONS.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "PENDING.md",
+      "type": "reference"
+    },
+    {
+      "source": "MONITORING.md",
+      "target": "CURRENT_STATE.md",
+      "type": "reference"
+    },
+    {
+      "source": "MONITORING.md",
+      "target": "DECISIONS.md",
+      "type": "reference"
+    },
+    {
+      "source": "MONITORING.md",
+      "target": "PENDING.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "DOMAIN_MAP.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "EVALUATION.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "CURRENT_STATE.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "LEARNING.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "CONTEXT.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "DECISIONS.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "PENDING.md",
+      "type": "reference"
+    },
+    {
+      "source": "PENDING.md",
+      "target": "DECISIONS.md",
+      "type": "approval_flow"
+    },
+    {
+      "source": "PENDING.md",
+      "target": "CURRENT_STATE.md",
+      "type": "approval_flow"
+    },
+    {
+      "source": "PENDING.md",
+      "target": "EVALUATION.md",
+      "type": "approval_flow"
+    },
+    {
+      "source": "PENDING.md",
+      "target": "DOMAIN_MAP.md",
+      "type": "approval_flow"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "MONITORING.md",
+      "type": "generated_from"
+    },
+    {
+      "source": "LOG.md",
+      "target": "PENDING.md",
+      "type": "records_from"
+    }
+  ],
+  "clusters": {
+    "identity": {
+      "label": "Identity Layer",
+      "nodes": [
+        "CONTEXT.md",
+        "DOMAIN_MAP.md"
+      ]
+    },
+    "state": {
+      "label": "State Layer",
+      "nodes": [
+        "CURRENT_STATE.md",
+        "MONITORING.md"
+      ]
+    },
+    "knowledge": {
+      "label": "Knowledge Layer",
+      "nodes": [
+        "EVALUATION.md",
+        "DECISIONS.md",
+        "LEARNING.md",
+        "wiki/GRAPH_SUMMARY.md"
+      ]
+    },
+    "control": {
+      "label": "Control Layer",
+      "nodes": [
+        "PENDING.md",
+        "LOG.md",
+        "SKILL.md",
+        "SUMMARY.md"
+      ]
+    }
+  }
+};
+
+// =========================================================================
+// CONSTANTS
+// =========================================================================
+const COLORS = {
+  identity: "#3fb950", state: "#58a6ff", knowledge: "#d2a8ff",
+  control: "#f0883e", experts: "#f778ba",
+};
+const CLUSTER_LABELS = {
+  identity: "Identity Layer", state: "State Layer",
+  knowledge: "Knowledge Layer", control: "Control Layer",
+  experts: "Expert Council",
+};
+const NODE_SHAPES = { layer: "hexagon", council: "diamond", expert: "circle", wiki: "square" };
+
+// =========================================================================
+// STATE
+// =========================================================================
+let tx = 0, ty = 0, sc = 1;
+let selectedNode = null;
+let hoveredNode = null;
+let dragNode = null;
+let filterType = null;
+let searchTerm = "";
+const canvas = document.getElementById("graph-canvas");
+const ctx = canvas.getContext("2d");
+
+// =========================================================================
+// LAYOUT: force-directed simulation (simple Fruchterman-Reingold)
+// =========================================================================
+const W = window.innerWidth, H = window.innerHeight;
+canvas.width = W; canvas.height = H;
+
+// Initialize node positions
+const nodes = G.nodes.map((n, i) => ({
+  ...n, x: W/2 + (Math.random()-0.5)*400, y: H/2 + (Math.random()-0.5)*400,
+  vx: 0, vy: 0, radius: 12 + Math.min(n.degree * 3, 18),
+}));
+const nodeMap = {};
+nodes.forEach(n => nodeMap[n.id] = n);
+
+const edges = G.edges.map(e => ({ source: nodeMap[e.source], target: nodeMap[e.target], type: e.type }))
+  .filter(e => e.source && e.target);
+
+// Hotspot set for quick lookup
+const hotspotSet = new Set(G.hotspots.map(h => h.file));
+
+// Recent log dates for recency ring
+const recentFiles = new Set();
+if (G.log_entries && G.log_entries.length > 0) {
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 7);
+  // We cannot reliably parse all date formats, so just mark files from recent log entries
+  G.log_entries.forEach(le => {
+    if (le.date) {
+      try {
+        const d = new Date(le.date);
+        if (d >= cutoff) {
+          // Extract file names from title heuristically
+          nodes.forEach(n => {
+            if (le.title && le.title.toLowerCase().includes(n.id.toLowerCase().replace(".md",""))) {
+              recentFiles.add(n.id);
+            }
+          });
+        }
+      } catch(e) {}
+    }
+  });
+}
+// Also mark nodes modified in last 7 days
+const now = new Date();
+nodes.forEach(n => {
+  if (n.last_modified) {
+    try {
+      const d = new Date(n.last_modified);
+      if ((now - d) / 86400000 <= 7) recentFiles.add(n.id);
+    } catch(e) {}
+  }
+});
+
+function simulate(iterations) {
+  const k = Math.sqrt((W * H) / nodes.length) * 0.4;
+  for (let iter = 0; iter < iterations; iter++) {
+    // Repulsion
+    for (let i = 0; i < nodes.length; i++) {
+      nodes[i].vx = 0; nodes[i].vy = 0;
+      for (let j = 0; j < nodes.length; j++) {
+        if (i === j) continue;
+        let dx = nodes[i].x - nodes[j].x;
+        let dy = nodes[i].y - nodes[j].y;
+        let dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        let force = (k * k) / dist;
+        nodes[i].vx += (dx / dist) * force;
+        nodes[i].vy += (dy / dist) * force;
+      }
+    }
+    // Attraction along edges
+    edges.forEach(e => {
+      let dx = e.target.x - e.source.x;
+      let dy = e.target.y - e.source.y;
+      let dist = Math.sqrt(dx*dx + dy*dy) || 1;
+      let force = (dist * dist) / k;
+      let fx = (dx / dist) * force * 0.05;
+      let fy = (dy / dist) * force * 0.05;
+      e.source.vx += fx; e.source.vy += fy;
+      e.target.vx -= fx; e.target.vy -= fy;
+    });
+    // Cluster gravity
+    const clusterCenters = {};
+    nodes.forEach(n => {
+      if (!clusterCenters[n.cluster]) clusterCenters[n.cluster] = { sx: 0, sy: 0, c: 0 };
+      clusterCenters[n.cluster].sx += n.x;
+      clusterCenters[n.cluster].sy += n.y;
+      clusterCenters[n.cluster].c++;
+    });
+    Object.keys(clusterCenters).forEach(k => {
+      const cc = clusterCenters[k];
+      cc.x = cc.sx / cc.c; cc.y = cc.sy / cc.c;
+    });
+    nodes.forEach(n => {
+      const cc = clusterCenters[n.cluster];
+      if (cc) {
+        n.vx += (cc.x - n.x) * 0.01;
+        n.vy += (cc.y - n.y) * 0.01;
+      }
+    });
+    // Center gravity
+    nodes.forEach(n => {
+      n.vx += (W/2 - n.x) * 0.001;
+      n.vy += (H/2 - n.y) * 0.001;
+    });
+    // Apply with damping
+    const temp = 1 - (iter / iterations);
+    nodes.forEach(n => {
+      let mag = Math.sqrt(n.vx*n.vx + n.vy*n.vy) || 1;
+      n.x += (n.vx / mag) * Math.min(mag, k * temp);
+      n.y += (n.vy / mag) * Math.min(mag, k * temp);
+      n.x = Math.max(50, Math.min(W-50, n.x));
+      n.y = Math.max(50, Math.min(H-50, n.y));
+    });
+  }
+}
+simulate(200);
+
+// =========================================================================
+// DRAWING
+// =========================================================================
+function toScreen(x, y) { return [x * sc + tx, y * sc + ty]; }
+function toWorld(sx, sy) { return [(sx - tx) / sc, (sy - ty) / sc]; }
+
+function drawHexagon(cx, cy, r) {
+  ctx.beginPath();
+  for (let i = 0; i < 6; i++) {
+    const angle = Math.PI / 3 * i - Math.PI / 6;
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+}
+
+function drawDiamond(cx, cy, r) {
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - r); ctx.lineTo(cx + r, cy);
+  ctx.lineTo(cx, cy + r); ctx.lineTo(cx - r, cy);
+  ctx.closePath();
+}
+
+function drawNode(n) {
+  const [sx, sy] = toScreen(n.x, n.y);
+  const r = n.radius * sc;
+  if (r < 1) return;
+
+  const isFiltered = filterType && n.type !== filterType && n.cluster !== filterType;
+  const isSearchHidden = searchTerm && !n.id.toLowerCase().includes(searchTerm)
+    && !n.label.toLowerCase().includes(searchTerm);
+  const alpha = (isFiltered || isSearchHidden) ? 0.12 : 1.0;
+  const baseColor = COLORS[n.cluster] || "#8b949e";
+
+  // Recency ring (pulsing outer ring for recently modified nodes)
+  if (recentFiles.has(n.id) && alpha > 0.5) {
+    const t = (Date.now() % 2000) / 2000;
+    const pulseR = r + 4 + Math.sin(t * Math.PI * 2) * 3;
+    const pulseAlpha = 0.3 + Math.sin(t * Math.PI * 2) * 0.15;
+    ctx.beginPath();
+    ctx.arc(sx, sy, pulseR, 0, Math.PI * 2);
+    ctx.strokeStyle = baseColor.replace(")", `,$ {pulseAlpha})`).replace("rgb", "rgba");
+    ctx.lineWidth = 2 * sc;
+    ctx.stroke();
+  }
+
+  // Node shape
+  ctx.globalAlpha = n.activated ? alpha : alpha * 0.4;
+  const shape = NODE_SHAPES[n.type] || "circle";
+  if (shape === "hexagon") drawHexagon(sx, sy, r);
+  else if (shape === "diamond") drawDiamond(sx, sy, r);
+  else if (shape === "square") {
+    ctx.beginPath();
+    ctx.rect(sx - r*0.75, sy - r*0.75, r*1.5, r*1.5);
+  } else {
+    ctx.beginPath(); ctx.arc(sx, sy, r, 0, Math.PI * 2);
+  }
+
+  ctx.fillStyle = baseColor;
+  ctx.fill();
+
+  // Border
+  ctx.lineWidth = (selectedNode === n ? 3 : n === hoveredNode ? 2 : 1) * sc;
+  ctx.strokeStyle = selectedNode === n ? "#f0f6fc" : n.activated ? baseColor : "#484f58";
+  if (!n.activated) ctx.setLineDash([4 * sc, 3 * sc]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.globalAlpha = 1;
+
+  // Unactivated badge
+  if (!n.activated && alpha > 0.5) {
+    const bx = sx + r * 0.6, by = sy - r * 0.6;
+    ctx.fillStyle = "#f85149";
+    ctx.font = `bold ${Math.max(9, 10 * sc)}px system-ui`;
+    ctx.textAlign = "center";
+    ctx.fillText("!", bx, by + 3 * sc);
+  }
+
+  // Label
+  if (r > 6) {
+    ctx.fillStyle = alpha > 0.5 ? "#f0f6fc" : "#484f58";
+    ctx.font = `${Math.max(8, 11 * sc)}px system-ui`;
+    ctx.textAlign = "center";
+    ctx.fillText(n.label, sx, sy + r + 14 * sc);
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Cluster halos
+  const clusterNodes = {};
+  nodes.forEach(n => {
+    if (!clusterNodes[n.cluster]) clusterNodes[n.cluster] = [];
+    clusterNodes[n.cluster].push(n);
+  });
+  Object.entries(clusterNodes).forEach(([cluster, cnodes]) => {
+    if (cnodes.length < 2) return;
+    let cx = 0, cy = 0;
+    cnodes.forEach(n => { cx += n.x; cy += n.y; });
+    cx /= cnodes.length; cy /= cnodes.length;
+    let maxDist = 0;
+    cnodes.forEach(n => {
+      const d = Math.sqrt((n.x - cx)**2 + (n.y - cy)**2);
+      if (d > maxDist) maxDist = d;
+    });
+    const hr = maxDist + 60;
+    const [scx, scy] = toScreen(cx, cy);
+    const sr = hr * sc;
+    const color = COLORS[cluster] || "#8b949e";
+    ctx.beginPath();
+    ctx.arc(scx, scy, sr, 0, Math.PI * 2);
+    ctx.fillStyle = color.replace(")", ", 0.04)").replace("rgb", "rgba");
+    ctx.fill();
+    ctx.strokeStyle = color.replace(")", ", 0.15)").replace("rgb", "rgba");
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Cluster label
+    ctx.fillStyle = color.replace(")", ", 0.6)").replace("rgb", "rgba");
+    ctx.font = `${Math.max(9, 10 * sc)}px system-ui`;
+    ctx.textAlign = "center";
+    ctx.fillText(CLUSTER_LABELS[cluster] || cluster, scx, scy - sr + 14 * sc);
+  });
+
+  // Edges
+  edges.forEach(e => {
+    const [sx, sy] = toScreen(e.source.x, e.source.y);
+    const [ex, ey] = toScreen(e.target.x, e.target.y);
+    const isHighlighted = selectedNode && (e.source === selectedNode || e.target === selectedNode);
+    ctx.beginPath();
+    ctx.moveTo(sx, sy); ctx.lineTo(ex, ey);
+    ctx.strokeStyle = isHighlighted ? "#58a6ff" : "#21262d";
+    ctx.lineWidth = isHighlighted ? 1.5 * sc : 0.5 * sc;
+    ctx.globalAlpha = isHighlighted ? 0.8 : 0.3;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  });
+
+  // Nodes
+  nodes.forEach(drawNode);
+
+  drawMinimap();
+}
+
+// =========================================================================
+// MINIMAP
+// =========================================================================
+const miniCanvas = document.getElementById("minimap");
+const mctx = miniCanvas.getContext("2d");
+miniCanvas.width = 160; miniCanvas.height = 120;
+
+function drawMinimap() {
+  mctx.clearRect(0, 0, 160, 120);
+  mctx.fillStyle = "#0d1117";
+  mctx.fillRect(0, 0, 160, 120);
+
+  // Bounding box of all nodes
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  nodes.forEach(n => {
+    if (n.x < minX) minX = n.x; if (n.y < minY) minY = n.y;
+    if (n.x > maxX) maxX = n.x; if (n.y > maxY) maxY = n.y;
+  });
+  const pad = 40;
+  minX -= pad; minY -= pad; maxX += pad; maxY += pad;
+  const rangeX = maxX - minX || 1, rangeY = maxY - minY || 1;
+  const msc = Math.min(150 / rangeX, 110 / rangeY);
+  const mox = (160 - rangeX * msc) / 2;
+  const moy = (120 - rangeY * msc) / 2;
+
+  // Draw nodes as dots
+  nodes.forEach(n => {
+    const mx = (n.x - minX) * msc + mox;
+    const my = (n.y - minY) * msc + moy;
+    mctx.fillStyle = COLORS[n.cluster] || "#8b949e";
+    mctx.fillRect(mx - 1.5, my - 1.5, 3, 3);
+  });
+
+  // Viewport rectangle
+  const tl = toWorld(0, 32);  // top of canvas below log bar
+  const br = toWorld(W, H);
+  const vlx = (tl[0] - minX) * msc + mox;
+  const vly = (tl[1] - minY) * msc + moy;
+  const vrx = (br[0] - minX) * msc + mox;
+  const vry = (br[1] - minY) * msc + moy;
+  mctx.strokeStyle = "#ff79c6";
+  mctx.lineWidth = 1.5;
+  mctx.strokeRect(vlx, vly, vrx - vlx, vry - vly);
+}
+
+// =========================================================================
+// LOG BAR
+// =========================================================================
+function initLogBar() {
+  const bar = document.getElementById("log-bar");
+  if (G.log_entries && G.log_entries.length > 0) {
+    bar.innerHTML = G.log_entries.slice(0, 8).map(e =>
+      `<span class="log-entry">${e.id}: ${e.title} (${e.date || "no date"})</span>`
+    ).join("");
+  } else {
+    bar.innerHTML = '<span class="log-muted">No LOG.md yet &mdash; run /ss-log to start tracking activity</span>';
+  }
+}
+
+// =========================================================================
+// FILTERS
+// =========================================================================
+function initFilters() {
+  const types = ["layer", "expert", "council", "wiki"];
+  const clusters = Object.keys(CLUSTER_LABELS);
+  const container = document.getElementById("filters");
+
+  function addBtn(label, value, group) {
+    const btn = document.createElement("button");
+    btn.textContent = label;
+    btn.onclick = () => {
+      if (filterType === value) { filterType = null; btn.classList.remove("active"); }
+      else {
+        container.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+        filterType = value; btn.classList.add("active");
+      }
+      draw();
+    };
+    container.appendChild(btn);
+  }
+  addBtn("All", null);
+  types.forEach(t => addBtn(t.charAt(0).toUpperCase() + t.slice(1), t));
+  clusters.forEach(c => addBtn(CLUSTER_LABELS[c], c));
+}
+
+// =========================================================================
+// LEGEND
+// =========================================================================
+function initLegend() {
+  const legend = document.getElementById("legend");
+  const items = [
+    ["#3fb950", "Identity"], ["#58a6ff", "State"],
+    ["#d2a8ff", "Knowledge"], ["#f0883e", "Control"], ["#f778ba", "Experts"],
+  ];
+  legend.innerHTML = items.map(([c, l]) =>
+    `<div class="item"><div class="swatch" style="background:${c}"></div>${l}</div>`
+  ).join("");
+}
+
+// =========================================================================
+// DETAIL PANEL
+// =========================================================================
+function showPanel(n) {
+  const panel = document.getElementById("panel");
+  document.getElementById("panel-title").textContent = n.label;
+
+  let meta = `${n.id} | ${n.type}`;
+  if (n.layer >= 0) meta += ` | Layer ${n.layer}`;
+  if (n.last_modified) meta += ` | Modified: ${n.last_modified}`;
+  if (!n.activated) meta += ` | NOT ACTIVATED`;
+  document.getElementById("panel-meta").textContent = meta;
+
+  document.getElementById("panel-detail").textContent = n.detail || "(no description)";
+
+  // Connections
+  const conns = edges.filter(e => e.source === n || e.target === n);
+  const connDiv = document.getElementById("panel-connections");
+  if (conns.length > 0) {
+    connDiv.innerHTML = "<strong>Connections:</strong><br>" + conns.map(e => {
+      const other = e.source === n ? e.target : e.source;
+      return `<div class="conn-item" data-id="${other.id}">${other.label} (${e.type})</div>`;
+    }).join("");
+    connDiv.querySelectorAll(".conn-item").forEach(el => {
+      el.onclick = () => {
+        const target = nodeMap[el.dataset.id];
+        if (target) { selectedNode = target; showPanel(target); draw(); }
+      };
+    });
+  } else {
+    connDiv.innerHTML = "<em>No connections</em>";
+  }
+
+  // Buttons
+  document.getElementById("btn-copy-path").onclick = () => {
+    try { navigator.clipboard.writeText(n.file); } catch(e) {}
+  };
+  document.getElementById("btn-open-vscode").onclick = () => {
+    try { window.open("vscode://file/" + n.file); } catch(e) {}
+  };
+
+  panel.style.display = "block";
+}
+
+function hidePanel() {
+  document.getElementById("panel").style.display = "none";
+  selectedNode = null;
+  draw();
+}
+
+document.getElementById("panel-close").onclick = hidePanel;
+
+// =========================================================================
+// INTERACTION
+// =========================================================================
+function hitTest(sx, sy) {
+  const [wx, wy] = toWorld(sx, sy);
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const n = nodes[i];
+    const dx = wx - n.x, dy = wy - n.y;
+    if (dx*dx + dy*dy <= (n.radius + 4) ** 2) return n;
+  }
+  return null;
+}
+
+let isPanning = false, panStart = [0, 0];
+let lastClick = 0;
+
+canvas.addEventListener("mousedown", e => {
+  const n = hitTest(e.clientX, e.clientY);
+  if (n) {
+    dragNode = n;
+    const now = Date.now();
+    if (now - lastClick < 350 && selectedNode === n) {
+      // Double click -> show detail panel
+      showPanel(n);
+    } else {
+      selectedNode = n;
+      draw();
+    }
+    lastClick = now;
+  } else {
+    isPanning = true;
+    panStart = [e.clientX - tx, e.clientY - ty];
+  }
+});
+
+canvas.addEventListener("mousemove", e => {
+  if (dragNode) {
+    const [wx, wy] = toWorld(e.clientX, e.clientY);
+    dragNode.x = wx; dragNode.y = wy;
+    draw();
+  } else if (isPanning) {
+    tx = e.clientX - panStart[0];
+    ty = e.clientY - panStart[1];
+    draw();
+  } else {
+    const n = hitTest(e.clientX, e.clientY);
+    if (n !== hoveredNode) { hoveredNode = n; canvas.style.cursor = n ? "pointer" : "default"; draw(); }
+  }
+});
+
+canvas.addEventListener("mouseup", () => { dragNode = null; isPanning = false; });
+
+canvas.addEventListener("wheel", e => {
+  e.preventDefault();
+  const factor = e.deltaY > 0 ? 0.9 : 1.1;
+  const mx = e.clientX, my = e.clientY;
+  tx = mx - (mx - tx) * factor;
+  ty = my - (my - ty) * factor;
+  sc *= factor;
+  draw();
+}, { passive: false });
+
+// =========================================================================
+// CONTROLS
+// =========================================================================
+function fitAll() {
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  nodes.forEach(n => {
+    if (n.x < minX) minX = n.x; if (n.y < minY) minY = n.y;
+    if (n.x > maxX) maxX = n.x; if (n.y > maxY) maxY = n.y;
+  });
+  const pad = 80;
+  const rw = maxX - minX + pad * 2, rh = maxY - minY + pad * 2;
+  sc = Math.min(W / rw, (H - 40) / rh, 2);
+  tx = (W - (minX + maxX) * sc) / 2;
+  ty = ((H + 40) - (minY + maxY) * sc) / 2;
+  draw();
+}
+
+document.getElementById("btn-reset").onclick = fitAll;
+document.getElementById("btn-zoom-in").onclick = () => {
+  const cx = W/2, cy = H/2;
+  tx = cx - (cx - tx) * 1.2; ty = cy - (cy - ty) * 1.2; sc *= 1.2; draw();
+};
+document.getElementById("btn-zoom-out").onclick = () => {
+  const cx = W/2, cy = H/2;
+  tx = cx - (cx - tx) * 0.8; ty = cy - (cy - ty) * 0.8; sc *= 0.8; draw();
+};
+
+// =========================================================================
+// SEARCH
+// =========================================================================
+const searchInput = document.getElementById("search");
+searchInput.addEventListener("input", e => {
+  searchTerm = e.target.value.toLowerCase();
+  draw();
+});
+
+// =========================================================================
+// KEYBOARD SHORTCUTS
+// =========================================================================
+document.addEventListener("keydown", e => {
+  if (e.target === searchInput) {
+    if (e.key === "Escape") { searchInput.blur(); searchTerm = ""; searchInput.value = ""; draw(); }
+    return;
+  }
+  if (e.key === "Escape") { hidePanel(); }
+  else if (e.key === "f" || e.key === "F") { fitAll(); }
+  else if (e.key === "/") { e.preventDefault(); searchInput.focus(); }
+});
+
+// =========================================================================
+// INIT
+// =========================================================================
+initLogBar();
+initFilters();
+initLegend();
+fitAll();
+</script>
+</body>
+</html>

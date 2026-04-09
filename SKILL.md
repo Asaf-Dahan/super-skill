@@ -39,6 +39,7 @@ remaining layer files as needed for the current task:
   LEARNING.md            - NotebookLM integration structure
   LOG.md                 - change log and audit trail
   experts/COUNCIL.md     - active expert council and debates
+  wiki/graph.json        - domain structure map (optional; run /ss-graph to generate)
 
 Individual expert profiles (experts/[name].md) load on demand only,
 not by default. Load them when a specific expert's perspective is needed.
@@ -58,6 +59,7 @@ Users do not copy prompts after the initial Bootstrap setup.
 
 For ongoing tasks, use slash commands:
   /ss-eval       Evaluate a new tool or method
+  /ss-graph      Generate the knowledge graph
   /ss-learn      Generate a learning module
   /ss-pending    Review and approve pending items
   /ss-query      Search wiki notes by keyword

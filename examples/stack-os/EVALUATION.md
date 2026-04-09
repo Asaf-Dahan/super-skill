@@ -12,7 +12,7 @@ complexity, and cross-product impact.
 
 ### C1: Stack Compatibility (weight: critical)
   Does this integrate with the existing shared services layer?
-  Does it work with Supabase, Cloudflare, GitHub, and the current deployment model?
+  Does it work with DBHost, CDNLayer, GitHub, and the current deployment model?
   Score 1-5:
     5 = drops in with no configuration changes
     4 = minor configuration required

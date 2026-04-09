@@ -12,45 +12,45 @@ and rejected, the date, and which products are affected.
 
 ## Decisions
 
-### DEC-001: Single shared Supabase instance for both products
+### DEC-001: Single shared DBHost instance for both products
 Date: 2026-03-15
 Products affected: GreenLedger, PulseLog
-Decision: Both products share one Supabase instance on the free tier,
+Decision: Both products share one DBHost instance on the free tier,
 with separate schemas for product-specific data and shared auth tables.
 Reasoning: A solo operator managing two free-tier instances doubles the
 operational surface for monitoring, backups, and auth configuration.
 One instance keeps auth unified and reduces management overhead. The
 free tier has sufficient capacity for both products at current scale.
-Rejected alternative: Separate Supabase instances per product -- higher
+Rejected alternative: Separate DBHost instances per product -- higher
 operational overhead with no benefit at current scale. Can revisit if
 one product outgrows free tier limits independently.
 
-### DEC-002: Railway for PulseLog backend, not for GreenLedger
+### DEC-002: AppHost for PulseLog backend, not for GreenLedger
 Date: 2026-03-15
 Products affected: PulseLog
-Decision: Railway hosts the PulseLog Python backend. GreenLedger runs
-entirely on Lovable and Supabase Edge Functions with no separate server.
+Decision: AppHost hosts the PulseLog Python backend. GreenLedger runs
+entirely on UIBuilder and DBHost Edge Functions with no separate server.
 Reasoning: GreenLedger is a React app that can run serverlessly through
-Supabase Edge Functions for any backend logic. PulseLog requires a
+DBHost Edge Functions for any backend logic. PulseLog requires a
 persistent Python process for background monitoring jobs and incident
-processing that Edge Functions cannot support. Railway Hobby at $5/month
+processing that Edge Functions cannot support. AppHost Hobby at $5/month
 is the simplest option for a containerized Python service.
 Rejected alternative: Running PulseLog backend on a local machine --
 no reliability guarantees, no public API access, no persistence.
 
-### DEC-003: Frontend builds and database migrations through Lovable only
+### DEC-003: Frontend builds and database migrations through UIBuilder only
 Date: 2026-03-18
 Products affected: GreenLedger
-Decision: All frontend code generation and Supabase schema migrations
-are handled exclusively through Lovable. No other tool generates
+Decision: All frontend code generation and DBHost schema migrations
+are handled exclusively through UIBuilder. No other tool generates
 frontend code or runs database migrations.
-Reasoning: Lovable has a tightly integrated pipeline with Supabase that
+Reasoning: UIBuilder has a tightly integrated pipeline with DBHost that
 handles migration safety, schema validation, and deployment in one flow.
 Allowing migrations from multiple sources risks schema drift, conflicts,
 and failed deployments. A single source of truth for schema changes
 eliminates an entire category of operational risk.
 Rejected alternative: Generating migrations from Claude Code or manual
-SQL -- too risky without the safety checks that Lovable provides.
+SQL -- too risky without the safety checks that UIBuilder provides.
 
 ### DEC-004: Free and hobby tiers until revenue justifies upgrades
 Date: 2026-03-18
@@ -71,7 +71,7 @@ Products affected: All
 Decision: Use Make.com on the free tier for all cross-service automation.
 Do not build custom webhook handlers or cron jobs.
 Reasoning: Make.com provides a visual, no-code way to connect Stripe
-webhooks, Supabase triggers, and Resend emails without writing and
+webhooks, DBHost triggers, and Resend emails without writing and
 maintaining custom code. The free tier allows 1,000 operations per
 month, which is sufficient for current volume. Building custom
 automation would add code to maintain and debug -- the opposite of

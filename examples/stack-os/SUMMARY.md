@@ -11,16 +11,16 @@ Technical stack management for a solopreneur building two SaaS products
 Tomer Naveh -- Raincode Labs
 
 ## Current State
-- Supabase: Shared instance, both products
-- Cloudflare: DNS for all domains
+- DBHost: Shared instance, both products
+- CDNLayer: DNS for all domains
 - GitHub: Personal account, 2 private repos
 - Anthropic API: Used by both products
 - Frontend: React/TypeScript
 
 ## Active Decisions
-- DEC-001: Single shared Supabase instance for both products (free tier)
-- DEC-002: Railway for PulseLog backend only, not for GreenLedger
-- DEC-003: Frontend builds and database migrations through Lovable only
+- DEC-001: Single shared DBHost instance for both products (free tier)
+- DEC-002: AppHost for PulseLog backend only, not for GreenLedger
+- DEC-003: Frontend builds and database migrations through UIBuilder only
 - DEC-004: Free and hobby tiers until revenue justifies upgrades
 - DEC-005: Make.com free tier for automation, not a custom solution
 

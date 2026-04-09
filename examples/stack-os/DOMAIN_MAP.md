@@ -26,16 +26,16 @@ products to external services through Make.com.
 These services are used by both GreenLedger and PulseLog.
 Any change here requires cross-product impact analysis.
 
-### Supabase (shared instance)
+### DBHost (shared instance)
   Role: authentication, user management, shared reference data
   Used by: GreenLedger (primary database), PulseLog (persistent storage)
   Dependency level: critical -- both products depend on this instance
   Change cost: high -- affects auth flows in both products
 
-### Cloudflare
+### CDNLayer
   Role: DNS, CDN, DDoS protection, edge caching
   Used by: both products (custom domains)
-  Dependency level: critical -- all traffic routes through Cloudflare
+  Dependency level: critical -- all traffic routes through CDNLayer
   Change cost: medium -- DNS changes propagate within hours
 
 ### GitHub
@@ -52,9 +52,9 @@ Any change here requires cross-product impact analysis.
 
 ## Pillar 2: GreenLedger (Product A)
 
-### Lovable
+### UIBuilder
   Role: frontend development platform (React/TypeScript)
-  Dependency level: high -- all UI and Supabase migrations run through Lovable
+  Dependency level: high -- all UI and DBHost migrations run through UIBuilder
   Change cost: high -- switching frontend tooling would require full rebuild
 
 ### Stripe
@@ -69,7 +69,7 @@ Any change here requires cross-product impact analysis.
 
 ## Pillar 3: PulseLog (Product B)
 
-### Railway
+### AppHost
   Role: Python backend hosting (API server, background jobs)
   Dependency level: critical -- the only compute platform for PulseLog
   Change cost: medium -- containerized, can move to another PaaS
@@ -83,7 +83,7 @@ Any change here requires cross-product impact analysis.
 
 ### Make.com
   Role: workflow automation connecting services across both products
-  Scenarios: Stripe webhook processing, Supabase event triggers,
+  Scenarios: Stripe webhook processing, DBHost event triggers,
   Resend email sequences, monitoring alert routing
   Dependency level: medium -- automations are convenient but not critical path
   Change cost: medium -- scenarios would need to be rebuilt on a new platform
@@ -92,12 +92,12 @@ Any change here requires cross-product impact analysis.
 
 | If this changes...       | These are affected...                        |
 |--------------------------|----------------------------------------------|
-| Supabase auth config     | GreenLedger login, PulseLog login, Make.com triggers |
-| Cloudflare DNS           | Both product domains, SSL certificates        |
+| DBHost auth config     | GreenLedger login, PulseLog login, Make.com triggers |
+| CDNLayer DNS           | Both product domains, SSL certificates        |
 | GitHub Actions workflow  | Deploy pipeline for the affected product only |
 | Anthropic API version    | AI features in both products                  |
 | Stripe webhook format    | Make.com billing scenarios, GreenLedger billing |
-| Railway region or plan   | PulseLog API latency, background job capacity |
+| AppHost region or plan   | PulseLog API latency, background job capacity |
 | Make.com scenario change | Downstream service affected by that scenario  |
 
 ## Dependency Direction
@@ -107,10 +107,10 @@ each other directly. Automation (Make.com) sits alongside and connects
 to both shared services and product-specific services.
 
 ```
-  Shared Services (Supabase, Cloudflare, GitHub, Anthropic)
+  Shared Services (DBHost, CDNLayer, GitHub, Anthropic)
          |                    |
     GreenLedger           PulseLog
-  (Lovable, Stripe,     (Railway, Streamlit)
+  (UIBuilder, Stripe,     (AppHost, Streamlit)
    Resend)
          \                   /
           --- Make.com ------

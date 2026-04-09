@@ -120,8 +120,8 @@ def main():
         cmd_dir = REPO / "template" / ".claude" / "commands"
     cmd_files = sorted(cmd_dir.glob("*.md")) if cmd_dir.exists() else []
     score += check(
-        ".claude/commands has 10 .md files",
-        len(cmd_files) == 10,
+        ".claude/commands has 11 .md files",
+        len(cmd_files) == 11,
         f"found {len(cmd_files)} in {cmd_dir.relative_to(REPO) if cmd_dir.exists() else '<missing>'}",
     )
 
@@ -159,6 +159,19 @@ def main():
     else:
         detail = "update_summary.py not found"
     score += check("update_summary.py runs cleanly", runs_ok, detail)
+
+    # Check 7 (INFO only): wiki/graph.json exists and is readable
+    graph_json = REPO / "wiki" / "graph.json"
+    if graph_json.exists():
+        import json as _json
+        try:
+            data = _json.loads(graph_json.read_text(encoding="utf-8"))
+            generated = data.get("meta", {}).get("generated", "")
+            print(f"[INFO] wiki/graph.json found -- generated: {generated}")
+        except Exception as e:
+            print(f"[WARN] wiki/graph.json exists but unreadable: {e}")
+    else:
+        print("[INFO] wiki/graph.json not found -- run /ss-graph to generate the domain knowledge map.")
 
     print("=" * 40)
     print(f"Score: {score}/{total}")

@@ -30,7 +30,7 @@ Available prompts:
   Prompt 7: Run an Expert Debate session
 
 Slash commands for ongoing use:
-  /ss-eval, /ss-learn, /ss-pending, /ss-query, /ss-sync,
+  /ss-eval, /ss-graph, /ss-learn, /ss-pending, /ss-query, /ss-sync,
   /ss-summary, /ss-drift, /ss-council, /ss-expert, /ss-synthesize
 
 ## When to Load Full Files
@@ -46,9 +46,24 @@ Slash commands for ongoing use:
 | Expert council or debates        | experts/COUNCIL.md     |
 | Individual expert profile        | experts/[name].md      |
 | Change history or audit trail    | LOG.md                 |
+| Understand domain structure quickly | wiki/graph.json      |
 
 Never load a file the current task does not require.
 Individual expert profiles load on demand only, not by default.
+
+## Graph Navigation Protocol
+
+Before loading any layer file, check wiki/graph.json if it exists.
+It contains:
+  - layer_index: which file answers which type of question
+  - hotspots: which files have the most active changes right now
+  - navigation_hints: pre-computed answers for common question types
+  - open_pending count: how many items need the owner's attention
+
+Use graph.json as a routing layer, not as a replacement for the actual files.
+graph.json tells you WHERE to look. The layer files tell you WHAT is there.
+
+If graph.json does not exist yet: suggest the user run /ss-graph to generate it.
 
 ## Operating Rules
 

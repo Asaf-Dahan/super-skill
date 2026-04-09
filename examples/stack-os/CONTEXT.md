@@ -7,7 +7,7 @@
 ## Domain
 
 Technical stack management for a solopreneur building two SaaS products
-on a shared services layer (Supabase, Cloudflare, GitHub, Anthropic API)
+on a shared services layer (DBHost, CDNLayer, GitHub, Anthropic API)
 with product-specific infrastructure per project.
 
 ## Owner
@@ -28,12 +28,12 @@ impact, and cost constraints appropriate for a bootstrapped solo operation.
 ## Products
 
 GreenLedger -- a subscription-based sustainability reporting tool for
-small businesses. React/TypeScript frontend built with Lovable, Supabase
+small businesses. React/TypeScript frontend built with UIBuilder, DBHost
 backend, Stripe billing, Resend for transactional email.
 
 PulseLog -- a lightweight uptime and incident logging dashboard for
-indie developers. Python backend on Railway, Streamlit admin interface,
-Supabase for persistent storage.
+indie developers. Python backend on AppHost, Streamlit admin interface,
+DBHost for persistent storage.
 
 ## Goals
 
@@ -46,10 +46,10 @@ Supabase for persistent storage.
 ## Operating Principles
 
 - No production changes without explicit approval from the owner
-- Shared services (Supabase Auth, Cloudflare, GitHub) require cross-product
+- Shared services (DBHost Auth, CDNLayer, GitHub) require cross-product
   impact analysis before any change
 - Free and hobby tiers until revenue justifies upgrades -- no premature scaling
-- Frontend builds and database migrations are handled by Lovable --
+- Frontend builds and database migrations are handled by UIBuilder --
   Claude Code does not generate frontend code or run migration commands
 - Every proposed change goes to PENDING.md first
 
@@ -65,4 +65,4 @@ This Super Skill does NOT cover:
 - Application-level code, features, or UI design
 - Business strategy, pricing, or go-to-market planning
 - Make.com scenario design (covered by a separate Super Skill if needed)
-- Supabase schema design and RLS policies (covered separately if needed)
+- DBHost schema design and RLS policies (covered separately if needed)

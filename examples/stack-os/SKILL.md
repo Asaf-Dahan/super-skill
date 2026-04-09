@@ -42,9 +42,9 @@ Do not modify any layer file without explicit human approval.
 
 Products: GreenLedger (sustainability reporting SaaS),
   PulseLog (uptime and incident logging dashboard)
-Shared services: Supabase, Cloudflare, GitHub, Anthropic API
-GreenLedger-specific: Lovable, Stripe, Resend
-PulseLog-specific: Railway, Streamlit (admin), Python backend
+Shared services: DBHost, CDNLayer, GitHub, Anthropic API
+GreenLedger-specific: UIBuilder, Stripe, Resend
+PulseLog-specific: AppHost, Streamlit (admin), Python backend
 
 ## Domain Files
 

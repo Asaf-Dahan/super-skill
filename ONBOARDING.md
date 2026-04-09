@@ -169,7 +169,7 @@ cp -r template/.claude/commands/ .claude/commands/
 cp -r template/.claude/agents/ .claude/agents/
 ```
 
-Confirm the .claude/commands/ directory contains 10 command files.
+Confirm the .claude/commands/ directory contains 11 command files.
 
 Create the experts/debates/ directory for future debate sessions.
 Create the wiki/ directory for quick-reference notes.
@@ -204,6 +204,11 @@ Initialize LOG.md with the first entry:
   Action: activated
   Item: Initial activation via Prompt 1
   Files changed: All layer files created
+
+Generate the knowledge graph:
+  Run: python scripts/generate_graph.py .
+  If the script succeeds: confirm "Graph generated: wiki/graph.json"
+  If the script fails or is missing: skip silently and continue.
 
 After all 11 files, SUMMARY.md, .claude/ setup, and experts/debates/ are complete, confirm:
 "Stage 1 complete. Proceeding to Expert Council."

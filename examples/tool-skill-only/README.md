@@ -47,7 +47,7 @@ Super Skill with MONITORING.md watching that tool's changelog.
 my-skills/
   .claude/
     skills/
-      lovable-prompt-engineer/
+      my-prompt-engineer/
         SKILL.md
 ```
 

@@ -41,7 +41,11 @@ async def main():
     notebooks_dir = root / "notebooks"
     notebooks_md_files = sorted(notebooks_dir.glob("*.md")) if notebooks_dir.exists() else []
 
-    knowledge_files = root_md_files + notebooks_md_files
+    # Collect GRAPH_SUMMARY.md from wiki/ (if generated)
+    graph_summary = root / "wiki" / "GRAPH_SUMMARY.md"
+    wiki_md_files = [graph_summary] if graph_summary.exists() else []
+
+    knowledge_files = root_md_files + notebooks_md_files + wiki_md_files
 
     if not knowledge_files:
         print("No .md files found to feed.")
