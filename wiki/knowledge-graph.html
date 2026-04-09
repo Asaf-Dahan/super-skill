@@ -142,7 +142,7 @@ const G = {
     "generated": "2026-04-09",
     "repo": "super-skill",
     "node_count": 12,
-    "edge_count": 37,
+    "edge_count": 40,
     "open_pending": 1,
     "open_decisions": 1,
     "drift_alerts": 0
@@ -286,7 +286,7 @@ const G = {
       "label": "Identity",
       "layer": 0,
       "cluster": "identity",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\CONTEXT.md",
+      "file": "CONTEXT.md",
       "exists": true,
       "activated": false,
       "last_modified": "2026-04-08",
@@ -304,7 +304,7 @@ const G = {
       "label": "Domain Map",
       "layer": 1,
       "cluster": "identity",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\DOMAIN_MAP.md",
+      "file": "DOMAIN_MAP.md",
       "exists": true,
       "activated": false,
       "last_modified": "2026-04-07",
@@ -322,7 +322,7 @@ const G = {
       "label": "Current State",
       "layer": 2,
       "cluster": "state",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\CURRENT_STATE.md",
+      "file": "CURRENT_STATE.md",
       "exists": true,
       "activated": false,
       "last_modified": "2026-04-07",
@@ -340,7 +340,7 @@ const G = {
       "label": "Evaluation",
       "layer": 3,
       "cluster": "knowledge",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\EVALUATION.md",
+      "file": "EVALUATION.md",
       "exists": true,
       "activated": true,
       "last_modified": "2026-04-07",
@@ -357,7 +357,7 @@ const G = {
       "label": "Decisions",
       "layer": 4,
       "cluster": "knowledge",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\DECISIONS.md",
+      "file": "DECISIONS.md",
       "exists": true,
       "activated": true,
       "last_modified": "2026-04-07",
@@ -375,7 +375,7 @@ const G = {
       "label": "Monitoring",
       "layer": 5,
       "cluster": "state",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\MONITORING.md",
+      "file": "MONITORING.md",
       "exists": true,
       "activated": true,
       "last_modified": "2026-04-07",
@@ -392,7 +392,7 @@ const G = {
       "label": "Learning",
       "layer": 6,
       "cluster": "knowledge",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\LEARNING.md",
+      "file": "LEARNING.md",
       "exists": true,
       "activated": true,
       "last_modified": "2026-04-08",
@@ -409,16 +409,16 @@ const G = {
       "label": "Pending",
       "layer": 7,
       "cluster": "control",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\PENDING.md",
+      "file": "PENDING.md",
       "exists": true,
       "activated": true,
-      "last_modified": "2026-04-07",
+      "last_modified": "2026-04-09",
       "detail": "Nothing changes in this Super Skill without appearing here first.",
       "answers": [
         "open approvals",
         "proposed changes"
       ],
-      "degree": 9
+      "degree": 12
     },
     {
       "id": "LOG.md",
@@ -426,7 +426,7 @@ const G = {
       "label": "Change Log",
       "layer": -1,
       "cluster": "control",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\LOG.md",
+      "file": "LOG.md",
       "exists": true,
       "activated": true,
       "last_modified": "2026-04-09",
@@ -444,7 +444,7 @@ const G = {
       "label": "Skill Entry",
       "layer": -1,
       "cluster": "control",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\SKILL.md",
+      "file": "SKILL.md",
       "exists": true,
       "activated": true,
       "last_modified": "2026-04-09",
@@ -453,7 +453,7 @@ const G = {
         "agent entry point",
         "slash commands"
       ],
-      "degree": 11
+      "degree": 12
     },
     {
       "id": "SUMMARY.md",
@@ -461,16 +461,16 @@ const G = {
       "label": "Summary",
       "layer": -1,
       "cluster": "control",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\SUMMARY.md",
+      "file": "SUMMARY.md",
       "exists": true,
       "activated": true,
-      "last_modified": "2026-04-08",
+      "last_modified": "2026-04-09",
       "detail": "Generated: 2026-04-08 | Verified: see CURRENT_STATE.md",
       "answers": [
         "domain snapshot",
         "quick overview"
       ],
-      "degree": 10
+      "degree": 11
     },
     {
       "id": "wiki/GRAPH_SUMMARY.md",
@@ -478,19 +478,34 @@ const G = {
       "label": "Graph_Summary",
       "layer": -1,
       "cluster": "knowledge",
-      "file": "C:\\Users\\info\\Desktop\\Super_skill-asaf\\super-skill\\wiki\\GRAPH_SUMMARY.md",
+      "file": "GRAPH_SUMMARY.md",
       "exists": true,
       "activated": true,
       "last_modified": "2026-04-09",
       "detail": "Generated: 2026-04-09 | Repo: super-skill",
       "answers": [],
-      "degree": 11
+      "degree": 12
     }
   ],
   "edges": [
     {
+      "source": "PENDING.md",
+      "target": "wiki/GRAPH_SUMMARY.md",
+      "type": "reference"
+    },
+    {
+      "source": "PENDING.md",
+      "target": "SKILL.md",
+      "type": "reference"
+    },
+    {
+      "source": "PENDING.md",
+      "target": "SUMMARY.md",
+      "type": "reference"
+    },
+    {
       "source": "wiki/GRAPH_SUMMARY.md",
-      "target": "DOMAIN_MAP.md",
+      "target": "PENDING.md",
       "type": "reference"
     },
     {
@@ -500,7 +515,17 @@ const G = {
     },
     {
       "source": "wiki/GRAPH_SUMMARY.md",
-      "target": "EVALUATION.md",
+      "target": "LEARNING.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "DECISIONS.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "DOMAIN_MAP.md",
       "type": "reference"
     },
     {
@@ -515,17 +540,12 @@ const G = {
     },
     {
       "source": "wiki/GRAPH_SUMMARY.md",
-      "target": "MONITORING.md",
-      "type": "reference"
-    },
-    {
-      "source": "wiki/GRAPH_SUMMARY.md",
-      "target": "LEARNING.md",
-      "type": "reference"
-    },
-    {
-      "source": "wiki/GRAPH_SUMMARY.md",
       "target": "SUMMARY.md",
+      "type": "reference"
+    },
+    {
+      "source": "wiki/GRAPH_SUMMARY.md",
+      "target": "MONITORING.md",
       "type": "reference"
     },
     {
@@ -535,17 +555,12 @@ const G = {
     },
     {
       "source": "wiki/GRAPH_SUMMARY.md",
-      "target": "DECISIONS.md",
-      "type": "reference"
-    },
-    {
-      "source": "wiki/GRAPH_SUMMARY.md",
-      "target": "PENDING.md",
+      "target": "EVALUATION.md",
       "type": "reference"
     },
     {
       "source": "SKILL.md",
-      "target": "DOMAIN_MAP.md",
+      "target": "PENDING.md",
       "type": "reference"
     },
     {
@@ -555,22 +570,22 @@ const G = {
     },
     {
       "source": "SKILL.md",
-      "target": "EVALUATION.md",
+      "target": "LEARNING.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "DECISIONS.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
+      "target": "DOMAIN_MAP.md",
       "type": "reference"
     },
     {
       "source": "SKILL.md",
       "target": "CURRENT_STATE.md",
-      "type": "reference"
-    },
-    {
-      "source": "SKILL.md",
-      "target": "MONITORING.md",
-      "type": "reference"
-    },
-    {
-      "source": "SKILL.md",
-      "target": "LEARNING.md",
       "type": "reference"
     },
     {
@@ -580,47 +595,22 @@ const G = {
     },
     {
       "source": "SKILL.md",
+      "target": "MONITORING.md",
+      "type": "reference"
+    },
+    {
+      "source": "SKILL.md",
       "target": "CONTEXT.md",
       "type": "reference"
     },
     {
       "source": "SKILL.md",
-      "target": "DECISIONS.md",
-      "type": "reference"
-    },
-    {
-      "source": "SKILL.md",
-      "target": "PENDING.md",
-      "type": "reference"
-    },
-    {
-      "source": "MONITORING.md",
-      "target": "CURRENT_STATE.md",
-      "type": "reference"
-    },
-    {
-      "source": "MONITORING.md",
-      "target": "DECISIONS.md",
-      "type": "reference"
-    },
-    {
-      "source": "MONITORING.md",
-      "target": "PENDING.md",
-      "type": "reference"
-    },
-    {
-      "source": "SUMMARY.md",
-      "target": "DOMAIN_MAP.md",
-      "type": "reference"
-    },
-    {
-      "source": "SUMMARY.md",
       "target": "EVALUATION.md",
       "type": "reference"
     },
     {
       "source": "SUMMARY.md",
-      "target": "CURRENT_STATE.md",
+      "target": "PENDING.md",
       "type": "reference"
     },
     {
@@ -630,17 +620,42 @@ const G = {
     },
     {
       "source": "SUMMARY.md",
-      "target": "CONTEXT.md",
-      "type": "reference"
-    },
-    {
-      "source": "SUMMARY.md",
       "target": "DECISIONS.md",
       "type": "reference"
     },
     {
       "source": "SUMMARY.md",
+      "target": "DOMAIN_MAP.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "CURRENT_STATE.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "CONTEXT.md",
+      "type": "reference"
+    },
+    {
+      "source": "SUMMARY.md",
+      "target": "EVALUATION.md",
+      "type": "reference"
+    },
+    {
+      "source": "MONITORING.md",
       "target": "PENDING.md",
+      "type": "reference"
+    },
+    {
+      "source": "MONITORING.md",
+      "target": "DECISIONS.md",
+      "type": "reference"
+    },
+    {
+      "source": "MONITORING.md",
+      "target": "CURRENT_STATE.md",
       "type": "reference"
     },
     {

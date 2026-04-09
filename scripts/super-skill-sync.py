@@ -44,7 +44,7 @@ REGISTRY = []
 
 def run(cmd, cwd=None):
     result = subprocess.run(
-        cmd, shell=True, capture_output=True, text=True, cwd=cwd
+        cmd, capture_output=True, text=True, cwd=cwd
     )
     return result.returncode, result.stdout.strip()
 
@@ -53,9 +53,9 @@ def git_pull(path):
     expanded = Path(path).expanduser()
     if not expanded.exists():
         return False, f"path not found: {expanded}"
-    code, out = run("git pull --rebase origin main", cwd=expanded)
+    code, out = run(["git", "pull", "--rebase", "origin", "main"], cwd=expanded)
     if code != 0:
-        code, out = run("git pull --rebase origin master", cwd=expanded)
+        code, out = run(["git", "pull", "--rebase", "origin", "master"], cwd=expanded)
     return code == 0, out
 
 
@@ -111,7 +111,7 @@ def update_summary(path):
         print(f"    update_summary.py not found - skipping SUMMARY.md regeneration")
         return False
     code, out = run(
-        f"\"{sys.executable}\" \"{script}\" \"{Path(path).expanduser()}\"",
+        [sys.executable, str(script), str(Path(path).expanduser())],
         cwd=Path(path).expanduser()
     )
     if code == 0:
@@ -124,7 +124,7 @@ def feed_notebook(path):
     script = Path(path).expanduser() / "scripts" / "feed_notebook.py"
     if script.exists():
         code, _ = run(
-            f"\"{sys.executable}\" \"{script}\"",
+            [sys.executable, str(script)],
             cwd=Path(path).expanduser()
         )
         return code == 0

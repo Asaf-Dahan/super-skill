@@ -105,7 +105,7 @@ def main():
         f"found {v.major}.{v.minor}.{v.micro}",
     )
 
-    # Check 2: All 10 layer files exist at root
+    # Check 2: All 11 layer files exist at root
     missing = [f for f in LAYER_FILES if not (REPO / f).exists()]
     score += check(
         "All 11 layer files present at root",

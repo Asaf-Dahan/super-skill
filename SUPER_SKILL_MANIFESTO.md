@@ -346,7 +346,6 @@ super-skill-[domain]/
   .claude/commands/ (*)       slash commands for Claude Code
   .claude/agents/domain-agent.md (*)  domain-specific agent definition
   experts/debates/ (*)        parallel expert debate sessions
-  changelog/                  monthly detected changes
 ```
 
 ---

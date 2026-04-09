@@ -14,6 +14,7 @@ alongside other expert sessions (using git worktrees).
 Read experts\COUNCIL.md to confirm $ARGUMENTS[0] is a council member.
 If not found, report: "Expert not found in council. Available: [list names]"
 
+Sanitize the expert name: remove any path separators (/ \ ..) and special characters before using in file paths.
 Read the expert profile: experts\$ARGUMENTS[0].md
 Read the session topic file if it exists: experts\debates\$ARGUMENTS[1].md
 If the session file does not exist, use the topic as stated: $ARGUMENTS[1]

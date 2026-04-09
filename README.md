@@ -82,13 +82,13 @@ Open a terminal in your `super-skills` folder and run:
 
   claude .
 
-Run `python scripts/doctor.py` to confirm everything is set up correctly.
-
 ### Step 3: Copy and paste the Bootstrap prompt
 
 Copy the entire block below. Paste it into Claude Code. That is all.
 
 Or download and paste: `cat scripts/bootstrap.md`
+
+After cloning, run `python scripts/doctor.py` to confirm your setup is complete.
 
 Claude Code will check your setup, ask you one question about your domain,
 download the template, and build your complete Super Skill automatically.
@@ -315,6 +315,24 @@ To generate a global graph across all your Super Skills: python scripts/generate
 
 ---
 
+## Adding a Second Super Skill
+
+Each Super Skill lives in its own folder and tracks one domain.
+To add a second domain, run Prompt 0 from ONBOARDING.md in a new terminal window.
+Prompt 0 creates a fresh Super Skill folder alongside your existing one --
+your first Super Skill is not affected.
+
+Once you have two or more Super Skills, you can merge them into a single
+knowledge map by running:
+
+    python scripts/generate_global_graph.py
+
+The output opens at ~/.claude/global-graph.html.
+
+To keep multiple Super Skills in sync, see SYNC_SETUP.md.
+
+---
+
 ## Skill vs Super Skill
 
 | | Skill | Super Skill |
@@ -366,7 +384,6 @@ template/SCHEDULE.md  scheduled maintenance tasks
 scripts/            automation: feed, generate, check, sync, update_summary, scheduled_tasks
 template/.claude/commands/   slash commands for Claude Code
 template/experts/debates/    parallel expert debate sessions
-changelog/          monthly detected changes
 ```
 
 ---
@@ -440,7 +457,7 @@ If you can describe it, a Super Skill can master it.
 
 ## Version
 
-Super Skill v2.3.1
+Super Skill v2.6.0
 
 ## License
 
