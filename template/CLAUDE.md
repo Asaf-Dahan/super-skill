@@ -47,6 +47,7 @@ Slash commands for ongoing use:
 | Individual expert profile        | experts/[name].md      |
 | Change history or audit trail    | LOG.md                 |
 | Understand domain structure quickly | wiki/graph.json      |
+| Execution trace or causal analysis | traces/              |
 
 Never load a file the current task does not require.
 Individual expert profiles load on demand only, not by default.

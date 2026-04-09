@@ -15,6 +15,9 @@ Decision: All beds use drip irrigation. No overhead sprinklers, no hand watering
 Reasoning: Water efficiency is the top operating principle. Drip cuts water use
 by 50% versus overhead and reduces fungal disease.
 Alternatives Rejected: Hand watering (inconsistent), sprinklers (water loss to evaporation).
+Tested: Water consumption on Bed 1 with drip vs. overhead sprinkler over 4 weeks.
+Held constant: Same crop (tomatoes), same bed size, same watering schedule.
+Confounds: Bed 1 has slightly better drainage than Bed 2 where sprinkler was tested.
 Impact: Affects bed layout and seasonal planning. Bed 6 must be designed
 with drip in mind from the start.
 
@@ -25,6 +28,9 @@ Same rule for brassicas, alliums, and legumes.
 Reasoning: Breaks pest cycles, prevents soil depletion, surfaces predictable rotation patterns.
 Alternatives Rejected: Two-year rotation (insufficient for soil-borne disease),
 ad-hoc rotation (creates blind spots).
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]
 Impact: Constrains seasonal planning. Drives the need for at least 5 active beds.
 
 ### DEC-003: Compost is the primary soil amendment
@@ -34,5 +40,8 @@ No synthetic fertilizers under any circumstances.
 Reasoning: Builds long-term soil health, aligns with operating principle #2.
 Alternatives Rejected: Synthetic NPK (faster but degrades soil long term),
 manure-only (smell, weed seed risk).
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]
 Impact: Compost bin must be active year-round. Output limits how many
 beds can be amended per season.

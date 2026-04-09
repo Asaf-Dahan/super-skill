@@ -33,6 +33,27 @@ out of 100. Anything below 70 is rejected by default.
 | EVAL-002 | Single-stock MSFT 10%    | 48    | Rejected (concentration cap) |
 | EVAL-003 | Bond ladder 3/5/7 years  | 84    | Adopted   |
 
+## Pareto Axes
+
+Every evaluation is plotted on two axes, not scored on a single number.
+
+### Primary axis: Risk-adjusted return
+What matters most: expected return relative to volatility and drawdown
+risk over a 3-year horizon.
+
+### Secondary axis: Liquidity and tax cost
+What you pay: days to exit plus estimated capital gains tax impact
+of the position.
+
+### Tradeoff rule
+Accept lower liquidity (up to 10-day exit) only if risk-adjusted return
+improves by at least 1.5 percentage points annually. Never accept any
+position that cannot be fully exited within 30 days.
+
+When evaluating: plot the candidate on both axes relative to the
+existing three-fund baseline. Recommend only if Pareto-dominant or
+tradeoff rule permits.
+
 ## Red Flags
 
 - Any position that pushes single-name concentration beyond 15%

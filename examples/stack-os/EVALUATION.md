@@ -89,6 +89,27 @@ explicitly justified before proceeding.
 4. The owner reviews, asks questions, and decides: adopt, reject, or defer
 5. Outcome is recorded in the Evaluation Log below
 
+## Pareto Axes
+
+Every evaluation is plotted on two axes, not scored on a single number.
+
+### Primary axis: Reliability at current scale
+What matters most: uptime, data integrity, and operational simplicity
+for a solo operator running two products.
+
+### Secondary axis: Monthly cost
+What you pay: total dollar cost per month including all usage-based
+charges at current traffic levels.
+
+### Tradeoff rule
+Accept up to $10/month increase only if it eliminates a known
+reliability risk or removes a manual operational step. Never exceed
+$50/month total stack cost until monthly revenue covers 3x the spend.
+
+When evaluating: plot the candidate on both axes relative to the
+current tool it would replace. Recommend only if Pareto-dominant or
+tradeoff rule permits.
+
 ## Evaluation Log
 
 No evaluations completed yet.

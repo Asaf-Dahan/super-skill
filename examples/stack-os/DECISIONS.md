@@ -24,6 +24,9 @@ free tier has sufficient capacity for both products at current scale.
 Rejected alternative: Separate DBHost instances per product -- higher
 operational overhead with no benefit at current scale. Can revisit if
 one product outgrows free tier limits independently.
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]
 
 ### DEC-002: AppHost for PulseLog backend, not for GreenLedger
 Date: 2026-03-15
@@ -37,6 +40,9 @@ processing that Edge Functions cannot support. AppHost Hobby at $5/month
 is the simplest option for a containerized Python service.
 Rejected alternative: Running PulseLog backend on a local machine --
 no reliability guarantees, no public API access, no persistence.
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]
 
 ### DEC-003: Frontend builds and database migrations through UIBuilder only
 Date: 2026-03-18
@@ -51,6 +57,9 @@ and failed deployments. A single source of truth for schema changes
 eliminates an entire category of operational risk.
 Rejected alternative: Generating migrations from Claude Code or manual
 SQL -- too risky without the safety checks that UIBuilder provides.
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]
 
 ### DEC-004: Free and hobby tiers until revenue justifies upgrades
 Date: 2026-03-18
@@ -64,6 +73,9 @@ are explicit: a tier limit is reached, or monthly revenue exceeds
 the cost of the upgrade by at least 3x.
 Rejected alternative: Starting on paid tiers for reliability -- the
 current scale does not justify the cost.
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]
 
 ### DEC-005: Make.com free tier for automation, not a custom solution
 Date: 2026-03-22
@@ -78,3 +90,6 @@ automation would add code to maintain and debug -- the opposite of
 what a solo operator needs.
 Rejected alternative: Custom Node.js or Python scripts for automation --
 more flexible but adds maintenance burden and deployment complexity.
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]

@@ -18,6 +18,9 @@ rebalance. The remaining 40% is reserved for specific themes, REITs,
 and cash.
 Alternatives Rejected: Active funds (cost), single-name only (concentration),
 target-date funds (lower customization).
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]
 Impact: Sets the floor of the portfolio. Any new position must justify
 itself relative to this baseline.
 
@@ -29,6 +32,9 @@ form of concentration risk. 15% leaves room for high-conviction names
 without portfolio-destroying exposure.
 Alternatives Rejected: 10% (too restrictive for conviction), 20% (too loose),
 no cap (unacceptable).
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]
 Impact: Drives the EVAL-002 rejection. Any future single-name addition
 must check the current concentration before purchase.
 
@@ -40,4 +46,7 @@ Reasoning: Calendar rebalancing creates unnecessary tax events.
 Drift-based rebalancing only acts when there is a real need.
 Alternatives Rejected: Quarterly (forces unneeded trades), annual
 (allows excessive drift), never (defeats the purpose of having targets).
+Tested: [Not recorded -- pre-v2.7]
+Held constant: [Not recorded -- pre-v2.7]
+Confounds: [Not recorded -- pre-v2.7]
 Impact: Requires monthly drift checks (see MONITORING.md).
