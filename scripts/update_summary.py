@@ -202,6 +202,7 @@ def generate_summary(repo_path: Path) -> str:
     output.append("| Evaluation of new tool | EVALUATION.md         |")
     output.append("| Learning content       | LEARNING.md           |")
     output.append("| Expert council or debates | experts/COUNCIL.md |")
+    output.append("| Change history or audit   | LOG.md             |")
     output.append("")
     output.append("Default: work from this summary only.")
     output.append("")

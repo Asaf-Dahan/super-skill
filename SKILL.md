@@ -37,6 +37,7 @@ remaining layer files as needed for the current task:
   DECISIONS.md           - decisions made and reasoning
   MONITORING.md          - sources to watch for drift
   LEARNING.md            - NotebookLM integration structure
+  LOG.md                 - change log and audit trail
   experts/COUNCIL.md     - active expert council and debates
 
 Individual expert profiles (experts/[name].md) load on demand only,
@@ -59,6 +60,7 @@ For ongoing tasks, use slash commands:
   /ss-eval       Evaluate a new tool or method
   /ss-learn      Generate a learning module
   /ss-pending    Review and approve pending items
+  /ss-query      Search wiki notes by keyword
   /ss-sync       Pull updates and check for drift
   /ss-summary    Regenerate SUMMARY.md
   /ss-drift      Check monitored sources for changes

@@ -30,7 +30,7 @@ Available prompts:
   Prompt 7: Run an Expert Debate session
 
 Slash commands for ongoing use:
-  /ss-eval, /ss-learn, /ss-pending, /ss-sync,
+  /ss-eval, /ss-learn, /ss-pending, /ss-query, /ss-sync,
   /ss-summary, /ss-drift, /ss-council, /ss-expert, /ss-synthesize
 
 ## When to Load Full Files
@@ -45,6 +45,7 @@ Slash commands for ongoing use:
 | Generate learning content        | LEARNING.md            |
 | Expert council or debates        | experts/COUNCIL.md     |
 | Individual expert profile        | experts/[name].md      |
+| Change history or audit trail    | LOG.md                 |
 
 Never load a file the current task does not require.
 Individual expert profiles load on demand only, not by default.

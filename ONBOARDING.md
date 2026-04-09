@@ -120,7 +120,7 @@ moving to the next. Pause after Stage 2 and wait for my response.
 Scan the local environment to infer as much context as possible before asking.
 Ask me at most 3 questions. Infer everything you can first.
 
-After my answers, generate all 10 files directly into this repository,
+After my answers, generate all 11 files directly into this repository,
 replacing the empty placeholder files at the ROOT of the repo. Do not
 edit anything inside the template/ directory -- those are pristine
 scaffolds and must stay untouched. Working copy lives at the root.
@@ -133,6 +133,7 @@ scaffolds and must stay untouched. Working copy lives at the root.
   MONITORING.md     (Layer 5: What to watch and how often to check it)
   LEARNING.md       (Layer 6: NotebookLM learning module plan)
   PENDING.md        (Layer 7: Approval queue -- start empty)
+  LOG.md            (Change log -- initialize with LOG-001 activation entry)
   CLAUDE.md         (How Claude Code should operate in this domain)
   SKILL.md          (Agent Skills entry point with domain metadata)
 
@@ -168,18 +169,21 @@ cp -r template/.claude/commands/ .claude/commands/
 cp -r template/.claude/agents/ .claude/agents/
 ```
 
-Confirm the .claude/commands/ directory contains 9 command files.
+Confirm the .claude/commands/ directory contains 10 command files.
 
 Create the experts/debates/ directory for future debate sessions.
+Create the wiki/ directory for quick-reference notes.
 
 ```
 # Windows
 if not exist experts\debates mkdir experts\debates
+if not exist wiki mkdir wiki
 ```
 
 ```
 # macOS / Linux
 mkdir -p experts/debates
+mkdir -p wiki
 ```
 
 Add this item to PENDING.md under the Queue section:
@@ -193,7 +197,15 @@ Add this item to PENDING.md under the Queue section:
   Decision:
   Outcome:
 
-After all 10 files, SUMMARY.md, .claude/ setup, and experts/debates/ are complete, confirm:
+Initialize LOG.md with the first entry:
+
+  ### LOG-001: Domain activated
+  Date: [today's date]
+  Action: activated
+  Item: Initial activation via Prompt 1
+  Files changed: All layer files created
+
+After all 11 files, SUMMARY.md, .claude/ setup, and experts/debates/ are complete, confirm:
 "Stage 1 complete. Proceeding to Expert Council."
 
 --- STAGE 2: Expert Council Research ---
@@ -388,15 +400,18 @@ For each item, ask: "Approve, reject, or defer?"
 On approval:
   Move the item to the correct layer file.
   Mark it as Approved in PENDING.md with the date.
+  Append a LOG-NNN entry to LOG.md: date, item ID, "approved", files changed.
   Run: python scripts/update_summary.py .
 
 On rejection:
   Move the item to the Resolved section in PENDING.md.
   Include the reason for rejection and the date.
+  Append a LOG-NNN entry to LOG.md: date, item ID, "rejected", reason.
 
 On defer:
   Leave the item in place.
   Add a note: "Deferred: [date] -- [reason if given]"
+  Append a LOG-NNN entry to LOG.md: date, item ID, "deferred", reason.
 
 After all items are reviewed, report:
   "[N] approved, [N] rejected, [N] deferred."

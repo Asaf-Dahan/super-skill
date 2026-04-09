@@ -278,6 +278,7 @@ Everything runs through slash commands. Type any of these into Claude Code:
 | /ss-eval | Evaluate a new tool, method, or approach against your domain | `/ss-eval Stripe Connect` |
 | /ss-learn | Generate a learning module on any topic in your domain | `/ss-learn drip irrigation` |
 | /ss-pending | Show all items waiting for your approval | `/ss-pending` |
+| /ss-query | Search wiki notes by keyword | `/ss-query caching` |
 | /ss-sync | Pull updates from all your Super Skills and check for drift | `/ss-sync` |
 | /ss-summary | Regenerate your SUMMARY.md from all layer files | `/ss-summary` |
 | /ss-drift | Check your monitored sources for changes | `/ss-drift weekly` |
@@ -339,10 +340,12 @@ DECISIONS.md        layer 4: decisions log and reasoning
 MONITORING.md       layer 5: drift detection sources
 LEARNING.md         layer 6: NotebookLM notebook plan
 PENDING.md          layer 7: approval queue
+LOG.md              change log and audit trail
 experts/COUNCIL.md  layer X: expert council and debates
 experts/[name].md   individual expert profiles
 notebooks/          NotebookLM-ready learning files
                     (gitignored by design -- user-generated, not part of template)
+wiki/               quick-reference notes, searchable via /ss-query
 template/SCHEDULE.md  scheduled maintenance tasks
 scripts/            automation: feed, generate, check, sync, update_summary, scheduled_tasks
 template/.claude/commands/   slash commands for Claude Code

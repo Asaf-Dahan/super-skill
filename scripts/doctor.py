@@ -21,7 +21,7 @@ REPO = Path(__file__).resolve().parent.parent
 LAYER_FILES = [
     "CONTEXT.md", "DOMAIN_MAP.md", "CURRENT_STATE.md", "EVALUATION.md",
     "DECISIONS.md", "MONITORING.md", "LEARNING.md", "PENDING.md",
-    "SKILL.md", "SUMMARY.md",
+    "LOG.md", "SKILL.md", "SUMMARY.md",
 ]
 
 # A placeholder line is one whose stripped content starts with "[" and is
@@ -30,32 +30,47 @@ LAYER_FILES = [
 _PLACEHOLDER_RE = re.compile(r"^\[[^\]]*\]?\s*$")
 
 
-def _has_placeholder(path: Path) -> bool:
+def _placeholder_ratio(path: Path) -> tuple:
+    """Return (placeholder_count, total_content_lines) for a file."""
     try:
         text = path.read_text(encoding="utf-8", errors="ignore")
     except OSError:
-        return False
+        return 0, 0
+    placeholders = 0
+    content_lines = 0
     for line in text.splitlines():
         stripped = line.strip()
+        if not stripped or stripped.startswith("#") or stripped.startswith("<!--"):
+            continue
+        content_lines += 1
         if not stripped.startswith("["):
             continue
         if "](" in stripped:  # Markdown link, not a placeholder
             continue
         if _PLACEHOLDER_RE.match(stripped):
-            return True
-    return False
+            placeholders += 1
+    return placeholders, content_lines
 
 
 def check_activation():
     """Exit early if any root layer file still contains [placeholder] text."""
-    unactivated = [
-        f for f in LAYER_FILES
-        if (REPO / f).exists() and _has_placeholder(REPO / f)
-    ]
+    unactivated = []
+    for f in LAYER_FILES:
+        p = REPO / f
+        if not p.exists():
+            continue
+        ph, total = _placeholder_ratio(p)
+        if ph > 0:
+            pct = int(ph / total * 100) if total else 100
+            unactivated.append(
+                f"{f} ({ph} placeholder{'s' if ph != 1 else ''}, "
+                f"{pct}% of content)"
+            )
     if unactivated:
         print("Layer files are not activated yet. "
               "Run Prompt 1 from ONBOARDING.md first.")
-        print(f"Unactivated: {', '.join(unactivated)}")
+        for item in unactivated:
+            print(f"  - {item}")
         sys.exit(1)
 
 EXPECTED_SCRIPTS = [
@@ -93,9 +108,9 @@ def main():
     # Check 2: All 10 layer files exist at root
     missing = [f for f in LAYER_FILES if not (REPO / f).exists()]
     score += check(
-        "All 10 layer files present at root",
+        "All 11 layer files present at root",
         not missing,
-        f"missing: {', '.join(missing)}" if missing else "10/10",
+        f"missing: {', '.join(missing)}" if missing else "11/11",
     )
 
     # Check 3: .claude/commands/ has 9 .md files
@@ -105,8 +120,8 @@ def main():
         cmd_dir = REPO / "template" / ".claude" / "commands"
     cmd_files = sorted(cmd_dir.glob("*.md")) if cmd_dir.exists() else []
     score += check(
-        ".claude/commands has 9 .md files",
-        len(cmd_files) == 9,
+        ".claude/commands has 10 .md files",
+        len(cmd_files) == 10,
         f"found {len(cmd_files)} in {cmd_dir.relative_to(REPO) if cmd_dir.exists() else '<missing>'}",
     )
 
