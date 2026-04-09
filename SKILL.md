@@ -22,11 +22,7 @@ Never skip this sequence. Context before action, always.
 
 ## Operating Principle
 
-The model proposes. The human decides.
-The Super Skill records. The system executes.
-
-Write all proposals and evaluations to PENDING.md.
-Do not modify any layer file without explicit human approval.
+Iron Principle: propose → PENDING.md → human decides → system executes.
 
 ## Domain Files
 
@@ -44,40 +40,14 @@ remaining layer files as needed for the current task:
 Individual expert profiles (experts/[name].md) load on demand only,
 not by default. Load them when a specific expert's perspective is needed.
 
-## Learning Generation
-
-To generate learning content from this Super Skill:
-  python scripts/generate_learning.py audio
-  python scripts/generate_learning.py quiz
-  python scripts/generate_learning.py mindmap
-
 ## How Prompts Work
 
 All prompts live in ONBOARDING.md.
 Claude Code reads and runs them automatically.
 Users do not copy prompts after the initial Bootstrap setup.
 
-For ongoing tasks, use slash commands:
-  /ss-eval       Evaluate a new tool or method
-  /ss-graph      Generate the knowledge graph
-  /ss-learn      Generate a learning module
-  /ss-pending    Review and approve pending items
-  /ss-query      Search wiki notes by keyword
-  /ss-sync       Pull updates and check for drift
-  /ss-summary    Regenerate SUMMARY.md
-  /ss-drift      Check monitored sources for changes
-  /ss-council    Review active Expert Council debates
-  /ss-expert     Run a structured debate session
-  /ss-synthesize Synthesize insights across layers
+Slash commands: see CLAUDE.md
 
 ## Capabilities
 
-### File operations (no shell required)
-- Reading and explaining any layer file
-- Writing proposals to PENDING.md
-- Generating learning content to notebooks/
-
-### Shell required
-- python scripts/update_summary.py   (regenerate SUMMARY.md)
-- python scripts/feed_notebook.py    (push files to NotebookLM)
-- python scripts/generate_learning.py audio | quiz | mindmap
+Operating rules and capabilities: see CLAUDE.md

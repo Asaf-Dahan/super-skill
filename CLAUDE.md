@@ -14,23 +14,7 @@ the specific task requires it. See the Load Protocol table in SUMMARY.md.
 
 ## How to Find Available Prompts
 
-All activation and operational prompts live in ONBOARDING.md.
-Read ONBOARDING.md to find the correct prompt for any task.
-Do not ask the user to copy prompts manually.
-Run the appropriate prompt yourself based on the task requested.
-
-Available prompts:
-  Prompt 0: Set up a new Super Skill
-  Prompt 1: Activate domain layers and Expert Council
-  Prompt 2: Create or update the global router
-  Prompt 3: Evaluate something new
-  Prompt 4: Generate a learning module
-  Prompt 6: Approve a PENDING item
-  Prompt 7: Run an Expert Debate session
-
-Slash commands for ongoing use:
-  /ss-eval, /ss-graph, /ss-learn, /ss-pending, /ss-query, /ss-sync,
-  /ss-summary, /ss-drift, /ss-council, /ss-expert, /ss-synthesize
+All prompts and slash commands: see ONBOARDING.md
 
 ## When to Load Full Files
 
@@ -52,17 +36,8 @@ Individual expert profiles load on demand only, not by default.
 
 ## Graph Navigation Protocol
 
-Before loading any layer file, check wiki/graph.json if it exists.
-It contains:
-  - layer_index: which file answers which type of question
-  - hotspots: which files have the most active changes right now
-  - navigation_hints: pre-computed answers for common question types
-  - open_pending count: how many items need the owner's attention
-
-Use graph.json as a routing layer, not as a replacement for the actual files.
-graph.json tells you WHERE to look. The layer files tell you WHAT is there.
-
-If graph.json does not exist yet: suggest the user run /ss-graph to generate it.
+Before loading layer files, check wiki/graph.json if it exists.
+It routes you to the right file without loading everything.
 
 ## Operating Rules
 
