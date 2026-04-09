@@ -34,6 +34,7 @@ Load additional files only if the specific task requires them:
 | Evaluating something new    | EVALUATION.md      |
 | Generating learning content | LEARNING.md        |
 | Expert council or debates   | experts/COUNCIL.md |
+| Execution trace or causal analysis | traces/       |
 | Approval action             | PENDING.md         |
 
 Individual expert profiles (experts/[name].md) load on demand only,

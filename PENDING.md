@@ -19,14 +19,7 @@ Outcome: [What happened after the decision.]
 
 ## Queue
 
-### PENDING-GRAPH-001: Knowledge graph integration complete
-Type: update
-Proposed: 2026-04-09
-Summary: Knowledge graph system added to the Super Skill framework. New scripts generate_graph.py and generate_global_graph.py produce wiki/graph.json (machine-readable domain map with layer_index, hotspots, staleness, navigation_hints), wiki/knowledge-graph.html (interactive D3.js force-directed visual), and wiki/GRAPH_SUMMARY.md (prose summary for NotebookLM). New /ss-graph slash command added. Graph Navigation Protocol added to CLAUDE.md. doctor.py includes INFO-level graph check. feed_notebook.py updated to include GRAPH_SUMMARY.md. NotebookLM decision: YES to GRAPH_SUMMARY.md (prose), NO to raw graph.json. All changes are additive -- no existing behavior removed or changed. Human review required before merging.
-Affected layers: CLAUDE.md, SKILL.md, ONBOARDING.md, README.md, doctor.py, feed_notebook.py
-Recommended action: review and adopt
-Decision:
-Outcome:
+[Empty -- items appear here when proposed by the agent or by scheduled tasks.]
 
 ## Resolved Items
 [Approved and rejected items move here after decision.]

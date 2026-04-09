@@ -12,6 +12,16 @@ Owner: Tomer Naveh / Raincode Labs (fictional)
 Domain: AI-first solopreneur technical stack (GreenLedger + PulseLog)
 Activated: April 2026
 
+## Service Name Convention
+
+This example uses generic service names to avoid implying endorsement
+of any specific vendor. Each name maps to a category:
+
+  DBHost = database hosting service (e.g. Supabase, PlanetScale, Neon)
+  CDNLayer = DNS and CDN provider (e.g. Cloudflare, Vercel)
+  UIBuilder = AI full-stack builder (e.g. Lovable, v0, Bolt)
+  AppHost = container hosting (e.g. Railway, Render, Fly.io)
+
 ## Files in this example
 
 All 10 layer files are populated with fictional demo data:

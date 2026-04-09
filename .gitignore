@@ -13,6 +13,11 @@ notebooks/
 !.claude/agents/
 !.claude/agents/**
 
+# Generated wiki artifacts (regenerate with /ss-graph)
+wiki/graph.json
+wiki/knowledge-graph.html
+wiki/GRAPH_SUMMARY.md
+
 # OS files
 .DS_Store
 Thumbs.db

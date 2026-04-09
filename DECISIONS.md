@@ -15,6 +15,9 @@ Date: [YYYY-MM-DD]
 Decision: [What was decided, in one sentence.]
 Reasoning: [Why this was the right choice.]
 Alternatives Rejected: [What else was considered and why it was not chosen.]
+Tested: [What specific change or variable was tested before deciding.]
+Held constant: [What was deliberately not changed during this test.]
+Confounds: [Known factors that could have influenced the result but were not controlled. "None identified" if clean.]
 Impact: [What this decision affects in other sub-domains.]
 
 ## Decision Log

@@ -1,5 +1,11 @@
 # Super Skill
 
+![License: MIT](https://img.shields.io/badge/license-MIT-blue)
+![Version: 2.6.0](https://img.shields.io/badge/version-2.6.0-green)
+![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
+
+**The domain expert your AI agents need. One repo. Always current.**
+
 Super Skill is an open framework for creating private domain experts
 for you and your AI agents.
 
@@ -23,6 +29,21 @@ Multiple agents. One source of truth. Always current.
 > Early-stage open-source project. No SLA, no commercial support.
 > AI outputs are not guaranteed to be accurate or suitable for any purpose.
 > Verify all AI-generated content before use. MIT License -- no warranty of any kind.
+
+---
+
+## TL;DR
+
+```bash
+git clone https://github.com/Asaf-Dahan/super-skill.git super-skill-mydomain
+cd super-skill-mydomain
+claude .
+```
+
+Paste the output of `cat scripts/bootstrap.md` into Claude Code.
+Answer three questions. Your Super Skill is live in under 15 minutes.
+
+New to Super Skill? Read on.
 
 ---
 
@@ -82,197 +103,31 @@ Open a terminal in your `super-skills` folder and run:
 
   claude .
 
-### Step 3: Copy and paste the Bootstrap prompt
+### Step 3: Paste the Bootstrap prompt
 
-Copy the entire block below. Paste it into Claude Code. That is all.
+In the Claude Code terminal, run:
 
-Or download and paste: `cat scripts/bootstrap.md`
+    cat scripts/bootstrap.md
 
-After cloning, run `python scripts/doctor.py` to confirm your setup is complete.
+Copy the full output and paste it into Claude Code.
 
 Claude Code will check your setup, ask you about your domain,
 offer to read your existing files or AI context for personalization,
 download the template, and build your complete Super Skill automatically.
 
-```
-You are setting up a Super Skill.
-Work through the following steps in order.
-Stop and explain clearly if anything is missing before continuing.
+After activation, run `python scripts/doctor.py` to confirm setup.
 
-STEP 1: Environment Check
+---
 
-Check git:
-  run: git --version
+## Next Steps After Activation
 
-If git is NOT installed, stop and tell the user:
-  "Git is not installed.
-   Git downloads the Super Skill template to your computer.
-   Download it here: https://git-scm.com/download
-   Windows: run the installer, keep all default settings.
-   Mac: run the installer or type 'xcode-select --install' in Terminal.
-   After installing, come back and paste this prompt again."
-
-Check Python:
-  run: python3 --version
-  if that fails try: python --version
-
-If Python is NOT installed, stop and tell the user:
-  "Python is not installed.
-   Python runs the Super Skill scripts.
-   Download it here: https://python.org/downloads
-   Windows: run the installer. Check the box that says
-   'Add Python to PATH' before clicking Install.
-   Mac: run the installer.
-   After installing, come back and paste this prompt again."
-
-Report: git version, python version, working directory. Then continue.
-
-STEP 2: Domain Name and Description
-
-Ask the user exactly this and wait for the answer:
-  "What is your domain?
-   This becomes the name of your Super Skill folder.
-   Examples: garden, investments, fitness, marketing, stack
-   One word or short phrase, no spaces."
-
-Use the answer as [domain] in all following steps.
-
-Then ask:
-  "Describe your domain in one to three sentences.
-   What does it cover? What are you building or managing?"
-
-Use the answer as [domain-description] in Step 5.
-
-Then ask:
-  "What do you want to achieve with this Super Skill? One sentence."
-
-Use the answer as [domain-goal] in Step 5.
-
-STEP 3: Clone
-
-run: git clone https://github.com/Asaf-Dahan/super-skill.git super-skill-[domain]
-
-Forking this template? Replace the URL above with your own fork's URL.
-
-Confirm all template files are present before continuing.
-
-If you plan to use NotebookLM: copy .env.example to .env
-and add your notebook ID after completing the NotebookLM setup
-in NOTEBOOKLM_GUIDE.md.
-
-STEP 4: Git Identity
-
-Check:
-  git -C super-skill-[domain] config user.name
-  git -C super-skill-[domain] config user.email
-
-If either is empty, ask:
-  "What name should appear on your saved changes?"
-  "What email address should be linked to them?"
-
-Then set them:
-  git -C super-skill-[domain] config user.name "[name]"
-  git -C super-skill-[domain] config user.email "[email]"
-
-STEP 5: Activate
-
-Change into the cloned repository first:
-  cd super-skill-[domain]
-
-Read: SUPER_SKILL_MANIFESTO.md
-Read: ONBOARDING.md
-
-Run Prompt 1 from ONBOARDING.md in full.
-All file operations happen inside this folder.
-All generated files go here. Do not ask the user to copy Prompt 1.
-Run it yourself.
-
-When Prompt 1 reaches the placeholders at the end, fill them in
-using the answers collected in Step 2:
-  My domain: [domain-description]
-  What I want to achieve: [domain-goal]
-Do not ask the user again. Use the answers already collected.
-
-STEP 6: First Commit
-
-After all files are generated and SUMMARY.md exists:
-
-git -C super-skill-[domain] add .
-git -C super-skill-[domain] commit -m "feat: activate Super Skill -- [domain]"
-
-STEP 7: Back up to GitHub (optional)
-
-Ask the user exactly this and wait for the answer:
-  "Do you want to save your Super Skill to GitHub?
-   This keeps a backup online and lets you access it
-   from any computer. You will need a free GitHub account
-   at https://github.com
-   Answer yes or no."
-
-If yes:
-  Check if GitHub CLI is available:
-    gh --version
-
-  If gh IS available:
-    Run:
-      gh repo create super-skill-[domain] --private --source=super-skill-[domain] --remote=origin --push
-    Capture the returned URL.
-    Add a line to CONTEXT.md under the identity or header section:
-      Repository: [URL]
-    Tell the user:
-      "Repository created and pushed automatically.
-       The remote URL has been recorded in CONTEXT.md."
-
-  If gh is NOT available:
-    Ask the user:
-      "GitHub CLI is not installed.
-       Option A: install it now -- https://cli.github.com (paste 'done' when ready)
-       Option B: paste a GitHub repo URL and I will push to it
-       Option C: skip GitHub backup for now"
-
-    Wait for the answer.
-
-    If Option A:
-      Wait for 'done'. Verify gh --version. Then run gh repo create as above.
-
-    If Option B:
-      Wait for the URL. Then run:
-        git -C super-skill-[domain] remote set-url origin [URL]
-        git -C super-skill-[domain] push -u origin main
-      Add Repository: [URL] to CONTEXT.md.
-      Tell the user: "Pushed to GitHub. Remote URL recorded in CONTEXT.md."
-
-    If Option C:
-      Continue without GitHub. Record a PENDING item (see below).
-
-If no:
-  Add this item to PENDING.md under the Queue section:
-
-    ### PENDING-001: GitHub backup not configured
-    Type: update
-    Proposed: [today's date]
-    Summary: GitHub backup was skipped during activation. To add later: create a repository at https://github.com/new, then run git remote set-url origin [URL] followed by git push -u origin main.
-    Affected layers: CONTEXT.md
-    Recommended action: adopt when ready
-    Decision:
-    Outcome:
-
-  Tell the user:
-    "Skipped. Your Super Skill is saved locally only.
-     A reminder has been added to PENDING.md.
-     Run /ss-pending when you are ready to set up GitHub backup."
-
-Then tell the user:
-  "Your Super Skill is live.
-   To open it next time: open Claude Code on the
-   super-skill-[domain] folder.
-   Use /ss-eval, /ss-learn, /ss-pending and other
-   slash commands for everything from here.
-
-   Optional next step: connect the NotebookLM learning layer.
-   See NOTEBOOKLM_GUIDE.md to generate audio, quizzes, and mind maps
-   from your domain knowledge."
-```
+| When you want to... | Do this |
+|---|---|
+| Add a second Super Skill | Run Prompt 0 from ONBOARDING.md in a new terminal |
+| Set up the global router | Run Prompt 2 from ONBOARDING.md |
+| Connect NotebookLM | Follow NOTEBOOKLM_GUIDE.md |
+| Set up automatic sync | Follow SYNC_SETUP.md |
+| Verify your setup | Run `python scripts/doctor.py` |
 
 ---
 

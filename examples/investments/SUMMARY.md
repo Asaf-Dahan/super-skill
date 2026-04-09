@@ -35,6 +35,8 @@ Read this file first. Load full files only when the task requires it.
 | Evaluation of new tool | EVALUATION.md         |
 | Learning content       | LEARNING.md           |
 | Expert council or debates | experts/COUNCIL.md |
+| Change history or audit   | LOG.md             |
+| Execution trace or root-cause | traces/          |
 
 Default: work from this summary only.
 

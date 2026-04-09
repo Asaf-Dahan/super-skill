@@ -1,17 +1,21 @@
-# super-skill -- Summary
-Generated: 2026-04-08 | Verified: see CURRENT_STATE.md
+# [repo-name] -- Summary
+# Title is auto-set by update_summary.py from the repo folder name.
+Generated: [YYYY-MM-DD] | Verified: [YYYY-MM-DD]
 
 ## Domain
-[see CONTEXT.md]
+[One sentence describing what this Super Skill covers]
 
 ## Owner
-[see CONTEXT.md]
+[Your name] -- [Your organization]
 
 ## Current State
-- [see CURRENT_STATE.md]
+- [Tool or service]: [Current status or version]
+- [Tool or service]: [Current status or version]
+- [Tool or service]: [Current status or version]
 
 ## Active Decisions
-- [see DECISIONS.md]
+- DEC-001: [First decision summary]
+- DEC-002: [Second decision summary]
 
 ## Open Pending
 - Queue clear
@@ -29,6 +33,7 @@ Read this file first. Load full files only when the task requires it.
 | Evaluation of new tool | EVALUATION.md         |
 | Learning content       | LEARNING.md           |
 | Expert council or debates | experts/COUNCIL.md |
+| Execution trace or root-cause | traces/          |
 
 Default: work from this summary only.
 

@@ -382,54 +382,12 @@ Open NOTEBOOKLM_GUIDE.md or run /ss-learn when ready."
 
 Then ask exactly:
 "Would you like to set up NotebookLM now?
- Yes: I will set it up automatically.
+ Yes: I will walk you through it.
  No: A reminder is already in PENDING.md. Run /ss-learn when ready."
 
 If yes:
-  Check if notebooklm-py is installed:
-    python -c "import notebooklm; print('OK')" 2>&1
-
-  If not installed:
-    pip install "notebooklm-py[browser]" --break-system-packages
-    playwright install chromium
-
-  Check if a valid session exists:
-    python -c "
-import asyncio
-from notebooklm.auth import AuthTokens
-async def check():
-    try:
-        await AuthTokens.from_storage()
-        print('SESSION_VALID')
-    except:
-        print('SESSION_MISSING')
-asyncio.run(check())
-"
-
-  If SESSION_MISSING:
-    Tell the user: "A browser window will open. Log in with your Google account."
-    Run: notebooklm login
-    After login, continue automatically.
-
-  If SESSION_VALID:
-    Continue. Do not ask the user anything.
-
-  Create notebook automatically:
-    notebooklm create "[domain] -- Super Skill"
-  Save the returned ID:
-    Write NOTEBOOK_ID=[id] to .env
-    Record Notebook ID in CONTEXT.md
-
-  Feed files automatically:
-    python scripts/feed_notebook.py
-
-  Generate audio overview:
-    python scripts/generate_learning.py audio
-
-  If any step fails, present options:
-    "Option A: retry the failed step
-     Option B: switch to manual setup (see NOTEBOOKLM_GUIDE.md)
-     Option C: skip NotebookLM for now -- a reminder is in PENDING.md"
+  Read NOTEBOOKLM_GUIDE.md and follow the setup path the user prefers
+  (Manual Setup recommended, Automated Setup for advanced users).
 
 If no: confirm the PENDING item about NotebookLM is present and continue.
 
@@ -487,55 +445,13 @@ New Super Skill to add:
 
 ## NotebookLM -- Connect the Learning Layer (Optional)
 
-Full setup guide: NOTEBOOKLM_GUIDE.md -- we recommend the Manual Setup
-path (no installs, never breaks).
+Full setup guide: NOTEBOOKLM_GUIDE.md
 
-Recommended path:
-  1. Go to https://notebooklm.google.com and create a new notebook
-  2. Upload your layer .md files as sources
-  3. Use the chat, audio overview, mind map, and quiz features in the UI
+Two paths available:
+  - Manual Setup (recommended): upload files at notebooklm.google.com
+  - Automated Setup (advanced): uses notebooklm-py, may break
 
-Advanced path (uses the unofficial notebooklm-py library, may break):
-
-  Check if notebooklm-py is installed:
-    python -c "import notebooklm; print('OK')" 2>&1
-
-  If not installed:
-    pip install "notebooklm-py[browser]" --break-system-packages
-    playwright install chromium
-
-  Check if a valid session exists:
-    python -c "
-import asyncio
-from notebooklm.auth import AuthTokens
-async def check():
-    try:
-        await AuthTokens.from_storage()
-        print('SESSION_VALID')
-    except:
-        print('SESSION_MISSING')
-asyncio.run(check())
-"
-
-  If SESSION_MISSING:
-    Tell the user: "A browser window will open. Log in with your Google account."
-    Run: notebooklm login
-    After login, continue automatically.
-
-  If SESSION_VALID:
-    Continue. Do not ask the user anything.
-
-  Create notebook automatically:
-    notebooklm create "[Domain] -- Super Skill"
-  Save the returned ID:
-    Write NOTEBOOK_ID=[id] to .env
-    Record Notebook ID in CONTEXT.md
-
-  Feed files automatically:
-    python scripts/feed_notebook.py
-
-  Generate audio overview:
-    python scripts/generate_learning.py audio
+See NOTEBOOKLM_GUIDE.md for step-by-step instructions.
 
 ---
 

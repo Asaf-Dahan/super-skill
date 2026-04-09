@@ -55,6 +55,24 @@ remaining layer files as needed for the current task:
   DECISIONS.md      - decisions made and reasoning
   MONITORING.md     - sources to watch for drift
   LEARNING.md       - NotebookLM integration structure
+  traces/           - execution traces for causal reasoning
+
+## Evidence Routing
+
+Before proposing any change, load the files most likely to contain
+relevant evidence for your task type.
+
+| Task type                    | Evidence files (load in order)                    |
+|------------------------------|---------------------------------------------------|
+| Evaluate a new tool/method   | EVALUATION.md, CURRENT_STATE.md, DECISIONS.md     |
+| Propose architecture change  | DECISIONS.md, DOMAIN_MAP.md, CURRENT_STATE.md     |
+| Investigate drift or breakage | MONITORING.md, CURRENT_STATE.md, traces/          |
+| Resolve a PENDING item       | PENDING.md, DECISIONS.md, EVALUATION.md           |
+| Generate learning content    | LEARNING.md, CONTEXT.md, CURRENT_STATE.md         |
+| Root-cause analysis          | traces/, DECISIONS.md, LOG.md                     |
+| Cross-domain impact check    | DOMAIN_MAP.md, CURRENT_STATE.md, DECISIONS.md     |
+
+Load the minimum set. Do not load files not listed for your task type.
 
 ## Learning Generation
 

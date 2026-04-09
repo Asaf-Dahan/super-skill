@@ -113,33 +113,44 @@ Ask the user exactly this and wait for the answer:
    Answer yes or no."
 
 If yes:
-  Tell the user:
-    "Go to https://github.com/new
-     - Repository name: super-skill-[domain]
-     - Visibility: Private
-     - Leave all checkboxes unchecked (no README, no .gitignore, no license)
-     - Click 'Create repository'
+  Check if GitHub CLI is available:
+    gh --version
 
-     After the page reloads, look for the section titled:
-       '...or push an existing repository from the command line'
-     Copy the URL from that section. It looks like:
-       https://github.com/your-username/super-skill-[domain].git
+  If gh IS available:
+    Run:
+      gh repo create super-skill-[domain] --private --source=super-skill-[domain] --remote=origin --push
+    Capture the returned URL.
+    Add a line to CONTEXT.md under the identity or header section:
+      Repository: [URL]
+    Tell the user:
+      "Repository created and pushed automatically.
+       The remote URL has been recorded in CONTEXT.md."
 
-     Important: complete all steps on github.com/new before pasting.
-     Do not paste the URL until after clicking 'Create repository.'
+  If gh is NOT available:
+    Tell the user:
+      "GitHub CLI is not installed.
+       Go to https://github.com/new
+         - Repository name: super-skill-[domain]
+         - Visibility: Private
+         - Leave all checkboxes unchecked
+         - Click 'Create repository'
 
-     Paste it here."
+       After the page reloads, look for the section titled:
+         '...or push an existing repository from the command line'
+       Copy the URL from that section. It looks like:
+         https://github.com/your-username/super-skill-[domain].git
 
-  Wait for the URL. Then run:
-    git -C super-skill-[domain] remote set-url origin [URL]
-    git -C super-skill-[domain] push -u origin main
+       Paste it here."
 
-  Add a line to CONTEXT.md under the identity or header section:
-    Repository: [URL]
+    Wait for the URL. Then run:
+      git -C super-skill-[domain] remote set-url origin [URL]
+      git -C super-skill-[domain] push -u origin main
 
-  Tell the user:
-    "Your Super Skill is backed up to GitHub.
-     The remote URL has been recorded in CONTEXT.md."
+    Add a line to CONTEXT.md under the identity or header section:
+      Repository: [URL]
+    Tell the user:
+      "Your Super Skill is backed up to GitHub.
+       The remote URL has been recorded in CONTEXT.md."
 
 If no:
   Add this item to PENDING.md under the Queue section:

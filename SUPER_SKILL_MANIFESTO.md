@@ -215,40 +215,12 @@ Knowledge does not sit in one place. It circulates.
 
 ## The Activation Process
 
-A Super Skill is not configured by a developer.
-It is activated by any user, through any AI agent, in under 15 minutes (with prerequisites installed).
+Clone. Paste one prompt. Answer three questions. Your Super Skill is live.
 
-```
-Step 1  Clone or fork the Super Skill repository.
-        The repository contains the layer structure, empty and ready.
-
-Step 2  Paste the Activation Prompt into any AI agent.
-        The agent reads the layer structure.
-        The agent asks the minimum number of questions needed to fill it.
-        Maximum 3 questions. The agent infers everything it can first.
-
-Step 3  Answer the agent's questions.
-        The agent generates the complete configured Super Skill.
-        All layers populated for your specific domain and context.
-
-Step 4  Review and commit the generated files.
-        The Super Skill is live.
-```
-
-From that point, any AI agent that reads this Super Skill has full domain context.
-The model does not need to be re-explained.
-It does not start from zero.
-It starts from a complete, current, layered understanding of exactly what you defined.
-
----
-
-## Activation
-
-All activation prompts live in ONBOARDING.md.
-Clone the repository and open ONBOARDING.md to begin.
-
-The full prompt sequence is maintained there and kept current.
-The MANIFESTO describes the framework -- ONBOARDING.md runs it.
+The full activation sequence, including environment checks, personalization,
+and expert council setup, is in README.md (Bootstrap prompt) and
+ONBOARDING.md (Prompt 1). The MANIFESTO describes the framework --
+README.md and ONBOARDING.md run it.
 
 ---
 
@@ -294,73 +266,20 @@ your specific decisions, and your specific goals.
 
 ## Domain Types
 
-Super Skill is universal. The layer architecture applies across all domains.
+Super Skill works for any domain where knowledge accumulates and
+decisions matter: technical, professional, personal, or craft.
 
-Technical domains:
-- Software infrastructure and stack management
-- Database architecture and data modeling
-- Security and compliance frameworks
-- DevOps and deployment pipelines
-- Product development methodology
-
-Non-technical domains:
-- Investment portfolio management
-- Legal due diligence and contract review
-- Medical documentation and clinical protocols
-- Marketing strategy and brand management
-- Real estate analysis and acquisition
-- Educational curriculum design
-- Financial modeling and forecasting
-- Operations and supply chain management
-
-The structure is identical across all of these.
-Only the content of each layer changes.
+See README.md for the full list of domain types with examples.
 
 ---
 
-## Repository Structure for Every Super Skill
+## Repository Structure
 
-Note: paths marked with (*) are created during activation,
-not present in the cloned template.
-
-```
-super-skill-[domain]/
-  SUPER_SKILL_MANIFESTO.md    this document
-  SKILL.md                    agent skills format entry point
-  CLAUDE.md                   Claude Code specific instructions
-  AGENTS.md                   instructions for any other agent
-  CONTEXT.md                  layer 0: identity
-  DOMAIN_MAP.md               layer 1: domain structure
-  CURRENT_STATE.md            layer 2: verified current state
-  EVALUATION.md               layer 3: evaluation framework
-  DECISIONS.md                layer 4: decisions log
-  MONITORING.md               layer 5: drift detection
-  LEARNING.md                 layer 6: NotebookLM structure
-  PENDING.md                  layer 7: approval queue
-  experts/COUNCIL.md          layer X: expert council and debates
-  experts/[name].md           individual expert profiles
-  template/experts/EXPERT_TEMPLATE.md  template for expert profiles
-  notebooks/                  notebooklm-ready learning files
-  template/SCHEDULE.md        scheduled maintenance tasks
-  scripts/                    automation for monitoring and feeding
-  .claude/commands/ (*)       slash commands for Claude Code
-  .claude/agents/domain-agent.md (*)  domain-specific agent definition
-  experts/debates/ (*)        parallel expert debate sessions
-```
+Every Super Skill contains the same structural layers regardless
+of domain. The full file list with descriptions is in README.md.
 
 ---
 
-## Starting Your First Super Skill
-
-Clone the repository. Then follow the Bootstrap instructions
-in README.md -- they will guide you through the full activation
-sequence including environment checks, domain setup, and first commit.
-
-The MANIFESTO describes the framework.
-README.md runs it.
-
----
-
-*Super Skill - Version 2.3.1 - April 2026*
+*Super Skill v2.6.0 - April 2026*
 *Authored by Asaf Dahan*
 *MIT License - Fork it. Build your own.*

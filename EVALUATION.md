@@ -34,5 +34,24 @@ Score 1: Reject - conflicts with operating principles
 [Total score required to recommend adoption.
 Example: "Must score 4 or above on criteria 1 and 2 to proceed."]
 
+## Pareto Axes
+
+Every evaluation is plotted on two axes, not scored on a single number.
+
+### Primary axis: [DOMAIN OBJECTIVE]
+What matters most. Example: accuracy, yield, reliability, return.
+
+### Secondary axis: [COST OBJECTIVE]
+What you pay. Example: context tokens, dollars, maintenance hours, risk.
+
+### Tradeoff rule
+[When is it worth paying more on the secondary axis to gain on the primary?
+Example: "Accept up to 2x cost increase for any measurable accuracy gain."
+Example: "Never exceed $50/month regardless of accuracy improvement."]
+
+When evaluating: plot the candidate on both axes relative to the current
+baseline. Recommend only if it is Pareto-dominant (better on one axis,
+no worse on the other) or if the tradeoff rule explicitly permits it.
+
 ## Evaluation Log
 [Past evaluations go here after approval.]
