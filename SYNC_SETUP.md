@@ -173,5 +173,5 @@ Python not found:
 
 ---
 
-*Super Skill v2.6.0 -- April 2026*
+*Super Skill v2.7.0 -- April 2026*
 *github.com/Asaf-Dahan/super-skill*

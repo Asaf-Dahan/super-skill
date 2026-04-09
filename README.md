@@ -1,7 +1,7 @@
 # Super Skill
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
-![Version: 2.6.0](https://img.shields.io/badge/version-2.6.0-green)
+![Version: 2.7.0](https://img.shields.io/badge/version-2.7.0-green)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
 
 **The domain expert your AI agents need. One repo. Always current.**
@@ -320,7 +320,7 @@ If you can describe it, a Super Skill can master it.
 
 ## Version
 
-Super Skill v2.6.0
+Super Skill v2.7.0
 
 ## License
 
