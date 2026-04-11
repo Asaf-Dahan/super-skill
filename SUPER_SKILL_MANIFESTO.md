@@ -41,10 +41,10 @@ The changes cannot be updated without retraining the entire model.
 
 A Super Skill is none of these things.
 
-It is a growing repository of structured knowledge, organized in layers, connected to live sources, capable of generating learning artifacts, and designed to be operated by any language model on behalf of any human who defines their domain and their context.
+It is a growing repository of structured knowledge, organized in layers, connected to live sources, capable of generating learning artifacts, and designed to be operated by any language model on behalf of any user who defines their domain and their context.
 
 The model that reads a Super Skill does not just know what to do.
-It knows why things are done this way, what has been decided and why, what is being watched, what is uncertain, and what needs human approval before anything changes.
+It knows why things are done this way, what has been decided and why, what is being watched, what is uncertain, and what needs user approval before anything changes.
 
 ---
 
@@ -116,7 +116,7 @@ LAYER 3: EVALUATION FRAMEWORK
   How to assess anything new entering the domain.
   Scoring criteria: compatibility, complexity, lock-in risk, cost.
   A log of everything evaluated and the outcome.
-  A gate requiring human approval before any change is recorded as accepted.
+  A gate requiring user approval before any change is recorded as accepted.
 
 LAYER 4: DECISIONS AND REASONING
   Every significant decision made within this domain.
@@ -127,19 +127,19 @@ LAYER 4: DECISIONS AND REASONING
 LAYER 5: MONITORING AND DRIFT DETECTION
   What sources are watched for changes in the domain.
   What constitutes a meaningful change requiring attention.
-  Where detected changes are written for human review.
+  Where detected changes are written for user review.
   Nothing is updated automatically. Everything is proposed first.
 
 LAYER 6: LEARNING GENERATION
   Structured summaries ready for NotebookLM ingestion.
   Audio overview generation from domain content.
   Quiz, flashcard, and mind map generation.
-  The Super Skill teaches the AI agent and teaches the human.
+  The Super Skill teaches the AI agent and teaches the user.
 
 LAYER 7: PENDING APPROVALS
-  Nothing changes in a Super Skill without human approval.
+  Nothing changes in a Super Skill without user approval.
   All proposed changes, evaluations, and updates live here.
-  The human reviews and decides.
+  The user reviews and decides.
   The model executes only after explicit approval.
 
 LAYER X: EXPERT COUNCIL
@@ -149,7 +149,7 @@ LAYER X: EXPERT COUNCIL
   and domain-specific questions.
   Disagreements between experts surface as debates in COUNCIL.md.
   Expert positions that conflict with DECISIONS.md go to PENDING.md
-  for human review.
+  for user review.
   Claude Code surfaces expert perspectives only when genuine
   friction exists, not on routine tasks.
   NotebookLM sources per expert load into the domain notebook.
@@ -186,9 +186,9 @@ A Super Skill knows why, what else changes if you do, and whether you should.
 ## The NotebookLM Integration: The Memory Layer
 
 A Super Skill does not only serve the AI agent.
-It serves the human.
+It serves the user.
 
-Every layer of a Super Skill can be converted into structured learning content and pushed into NotebookLM as a source. The human receives:
+Every layer of a Super Skill can be converted into structured learning content and pushed into NotebookLM as a source. The user receives:
 
 - Audio overviews of their own domain knowledge
 - Quizzes generated from their own decisions log
@@ -199,8 +199,8 @@ This creates a feedback loop no existing system offers.
 
 ```
 The Super Skill teaches the AI agent.
-The Super Skill also teaches the human.
-As the human learns, they make better decisions.
+The Super Skill also teaches the user.
+As the user learns, they make better decisions.
 Better decisions improve the Super Skill.
 A better Super Skill makes the AI agent more accurate.
 A more accurate agent produces better outputs.
@@ -228,18 +228,18 @@ README.md and ONBOARDING.md run it.
 
 ```
 The model proposes.
-The human decides.
+The user decides.
 The Super Skill records.
 The system executes.
 ```
 
 This principle is structural, not optional.
 It is encoded into Layer 7 of every Super Skill.
-No change to any layer is accepted without passing through the human approval gate.
+No change to any layer is accepted without passing through the user approval gate.
 
 This is what makes a Super Skill safe to run continuously.
 The model monitors, evaluates, detects, and proposes at any frequency.
-The human controls what actually changes.
+The user controls what actually changes.
 
 ---
 
@@ -250,10 +250,10 @@ A user who activates and maintains a Super Skill will have an AI agent that:
 - Knows every element of their defined domain and how those elements relate
 - Knows what has been decided, why, and what was rejected
 - Knows the current verified state and when it was last confirmed
-- Detects drift and surfaces it for human review before it causes problems
+- Detects drift and surfaces it for user review before it causes problems
 - Evaluates new entrants against established criteria
-- Generates learning content that keeps the human growing alongside the model
-- Never acts on a proposed change without explicit human approval
+- Generates learning content that keeps the user growing alongside the model
+- Never acts on a proposed change without explicit user approval
 
 There is no existing system that produces all of these properties together.
 

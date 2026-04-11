@@ -42,5 +42,5 @@ This Super Skill does NOT cover:
 
 ## Operating Rule
 
-The model proposes. The human decides.
+The model proposes. The user decides.
 The Super Skill records. The system executes.

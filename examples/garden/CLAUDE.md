@@ -101,6 +101,6 @@ Do not mention experts on routine tasks or settled decisions with no friction.
 ## Iron Principle
 
 The model proposes.
-The human decides.
+The user decides.
 The Super Skill records.
 The system executes.

@@ -3,7 +3,7 @@
 
 ## Operating Rule
 Nothing changes in this Super Skill without appearing here first.
-The model proposes. The human decides. The Super Skill records. The system executes.
+The model proposes. The user decides. The Super Skill records. The system executes.
 
 ## Queue
 

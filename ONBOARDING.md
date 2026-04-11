@@ -597,4 +597,4 @@ Other agents: Any agent that supports file read/write and follows
 the Agent Skills standard can operate a Super Skill. See AGENTS.md.
 
 The Iron Principle applies regardless of agent:
-The model proposes. The human decides. The Super Skill records. The system executes.
+The model proposes. The user decides. The Super Skill records. The system executes.

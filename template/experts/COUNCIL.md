@@ -54,7 +54,7 @@ The owner reviews the challenge and decides whether to:
 - Reopen the decision for re-evaluation
 - Record the expert's position as a dissenting view
 
-Challenges do not override decisions. The human decides.
+Challenges do not override decisions. The user decides.
 
 | Challenge ID | Expert | Decision Challenged | Status |
 |--------------|--------|---------------------|--------|

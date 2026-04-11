@@ -4,7 +4,7 @@
 
 ## Operating Rule
 Nothing changes in this Super Skill without appearing here first.
-The model proposes. The human decides. The Super Skill records. The system executes.
+The model proposes. The user decides. The Super Skill records. The system executes.
 
 ## Pending Item Template
 
@@ -14,7 +14,7 @@ Proposed: [YYYY-MM-DD]
 Summary: [What is being proposed and why.]
 Affected layers: [Which files would change if approved.]
 Recommended action: [What the agent recommends - adopt / reject / defer]
-Decision: [APPROVED / REJECTED / DEFERRED - filled in by human]
+Decision: [APPROVED / REJECTED / DEFERRED - filled in by user]
 Outcome: [What happened after the decision.]
 
 ## Queue

@@ -26,17 +26,17 @@ tags:
 Read these files in this order:
   1. CONTEXT.md        - who owns this, what domain, what goals
   2. CURRENT_STATE.md  - what the domain looks like right now
-  3. PENDING.md        - what is waiting for human approval
+  3. PENDING.md        - what is waiting for user approval
 
 Never skip this sequence. Context before action, always.
 
 ## Operating Principle
 
-The model proposes. The human decides.
+The model proposes. The user decides.
 The Super Skill records. The system executes.
 
 Write all proposals and evaluations to PENDING.md.
-Do not modify any layer file without explicit human approval.
+Do not modify any layer file without explicit user approval.
 
 ## Domain Scope
 

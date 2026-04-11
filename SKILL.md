@@ -16,13 +16,13 @@ author: "[YOUR NAME OR ORGANIZATION]"
 Read these files in this order:
   1. CONTEXT.md        - who owns this, what domain, what goals
   2. CURRENT_STATE.md  - what the domain looks like right now
-  3. PENDING.md        - what is waiting for human approval
+  3. PENDING.md        - what is waiting for user approval
 
 Never skip this sequence. Context before action, always.
 
 ## Operating Principle
 
-Iron Principle: propose → PENDING.md → human decides → system executes.
+Iron Principle: propose → PENDING.md → user decides → system executes.
 
 ## Domain Files
 

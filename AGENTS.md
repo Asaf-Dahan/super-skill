@@ -16,7 +16,7 @@ to understand the operating rules. Everything you need is here.
 Read files in this order before any task:
 
   1. SUMMARY.md        -- 80-line overview of the full domain (read this first, always)
-  2. PENDING.md        -- what is waiting for human approval
+  2. PENDING.md        -- what is waiting for user approval
 
 Load additional files only if the specific task requires them:
 
@@ -50,10 +50,10 @@ Shell required:
 
 ## The One Rule
 
-The model proposes. The human decides.
+The model proposes. The user decides.
 The Super Skill records. The system executes.
 Write all proposals to PENDING.md.
-Do not modify any layer file without explicit human approval.
+Do not modify any layer file without explicit user approval.
 
 ## What Requires Approval
 
@@ -74,7 +74,7 @@ Do not modify any layer file without explicit human approval.
 If multiple agents are writing to this repository:
 
 - Each agent writes proposals to PENDING.md independently
-- The human resolves all conflicts and approves decisions
+- The user resolves all conflicts and approves decisions
 - Before writing a new PENDING item, check PENDING.md to avoid duplicates
 - Use unique proposal IDs: EVAL-NNN, DRIFT-NNN, UPDATE-NNN
 

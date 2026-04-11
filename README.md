@@ -254,7 +254,7 @@ template/experts/debates/    parallel expert debate sessions
 ## The Operating Principle
 
 The model proposes.
-The human decides.
+The user decides.
 The Super Skill records.
 The system executes.
 
@@ -344,7 +344,7 @@ Never commit API keys or tokens to any layer file.
 Use .env for all sensitive values.
 
 All agent actions follow one rule:
-The model proposes. The human decides. The Super Skill records. The system executes.
+The model proposes. The user decides. The Super Skill records. The system executes.
 Nothing changes without your approval.
 
 ---

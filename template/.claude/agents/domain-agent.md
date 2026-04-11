@@ -12,14 +12,14 @@ description: >
 Read in this order:
 1. CURRENT_STATE.md - what is true right now in this domain
 2. DECISIONS.md - what has been settled and must not be re-opened
-3. PENDING.md - what is waiting for human approval
+3. PENDING.md - what is waiting for user approval
 
 ## Operating principle
 
-The model proposes. The human decides. The Super Skill records. The system executes.
+The model proposes. The user decides. The Super Skill records. The system executes.
 
 All proposed changes go to PENDING.md.
-No layer file is modified without explicit human approval.
+No layer file is modified without explicit user approval.
 
 ## What I handle
 

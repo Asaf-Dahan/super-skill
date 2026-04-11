@@ -111,4 +111,4 @@ Quarterly tasks include monthly and weekly tasks.
 
 All task output goes to PENDING.md as the appropriate item type.
 Nothing is written to layer files directly.
-The model proposes. The human decides. The Super Skill records. The system executes.
+The model proposes. The user decides. The Super Skill records. The system executes.
