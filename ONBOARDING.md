@@ -256,22 +256,29 @@ cp -r template/.claude/commands/ .claude/commands/
 cp -r template/.claude/agents/ .claude/agents/
 ```
 
-Confirm the .claude/commands/ directory contains 11 command files.
+Confirm the .claude/commands/ directory contains 12 command files.
 
 Create the experts/debates/ directory for future debate sessions.
 Create the wiki/ directory for quick-reference notes.
+Create the traces/ directory for execution traces.
 
 ```
 # Windows
 if not exist experts\debates mkdir experts\debates
 if not exist wiki mkdir wiki
+if not exist traces mkdir traces
 ```
 
 ```
 # macOS / Linux
 mkdir -p experts/debates
 mkdir -p wiki
+mkdir -p traces
 ```
+
+Note: SCHEDULE.md lives in template/ and is not copied to root during
+activation. Reference it from template/SCHEDULE.md for scheduled task
+definitions.
 
 Add this item to PENDING.md under the Queue section:
 

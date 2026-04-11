@@ -19,7 +19,7 @@ Outcome: [What happened after the decision.]
 
 ## Queue
 
-[Empty -- items appear here when proposed by the agent or by scheduled tasks.]
+[Empty - items are added here by the agent and resolved by the user.]
 
 ## Resolved Items
 [Approved and rejected items move here after decision.]

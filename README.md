@@ -289,7 +289,9 @@ Connect it via the NotebookLM section in ONBOARDING.md. Skip it and add it later
 
 During activation, Claude Code researches your domain and proposes
 10 real, leading experts with verifiable published work. You choose
-who joins your council. Each expert is assigned to the layer they
+who joins your council. Expert profiles are structured representations
+based on public information. They are not endorsed by the experts
+named and do not represent their official positions. Each expert is assigned to the layer they
 contribute most to and given a full profile with methodology,
 frameworks, red lines, and five questions they would ask you.
 

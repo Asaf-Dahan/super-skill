@@ -100,8 +100,8 @@ def main():
     # Check 1: Python version
     v = sys.version_info
     score += check(
-        "Python >= 3.8",
-        v >= (3, 8),
+        "Python >= 3.10",
+        v >= (3, 10),
         f"found {v.major}.{v.minor}.{v.micro}",
     )
 
@@ -120,7 +120,7 @@ def main():
         cmd_dir = REPO / "template" / ".claude" / "commands"
     cmd_files = sorted(cmd_dir.glob("*.md")) if cmd_dir.exists() else []
     score += check(
-        ".claude/commands has 12 .md files",
+        ".claude/commands has 12 slash command files",
         len(cmd_files) == 12,
         f"found {len(cmd_files)} in {cmd_dir.relative_to(REPO) if cmd_dir.exists() else '<missing>'}",
     )
@@ -131,7 +131,7 @@ def main():
         s for s in EXPECTED_SCRIPTS if not (scripts_dir / s).exists()
     ]
     score += check(
-        "scripts/ has 5 expected scripts",
+        "scripts/ has 5 core scripts (11 total)",
         not missing_scripts,
         f"missing: {', '.join(missing_scripts)}" if missing_scripts else "5/5",
     )

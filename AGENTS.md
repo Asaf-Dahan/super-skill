@@ -13,6 +13,11 @@ to understand the operating rules. Everything you need is here.
 
 ## Load Protocol
 
+Note: This file is the entry point for non-Claude agents.
+It uses the lightweight SUMMARY.md-first protocol.
+Claude Code uses SKILL.md or CLAUDE.md which follow a different
+load sequence designed for its specific capabilities.
+
 Read files in this order before any task:
 
   1. SUMMARY.md        -- 80-line overview of the full domain (read this first, always)

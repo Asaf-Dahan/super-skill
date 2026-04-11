@@ -280,6 +280,6 @@ of domain. The full file list with descriptions is in README.md.
 
 ---
 
-*Super Skill v2.7.0 - April 2026*
+*Super Skill v2.7.0 -- April 2026*
 *Authored by Asaf Dahan*
 *MIT License - Fork it. Build your own.*

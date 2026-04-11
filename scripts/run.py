@@ -19,6 +19,15 @@ SCRIPTS_DIR = Path(__file__).resolve().parent
 # Short aliases that map to full script filenames
 ALIASES = {
     "dashboard": "generate_dashboard.py",
+    "graph": "generate_graph.py",
+    "global_graph": "generate_global_graph.py",
+    "sync": "super-skill-sync.py",
+    "doctor": "doctor.py",
+    "summary": "update_summary.py",
+    "feed": "feed_notebook.py",
+    "learn": "generate_learning.py",
+    "check": "check_state.py",
+    "scheduled": "scheduled_tasks.py",
 }
 
 

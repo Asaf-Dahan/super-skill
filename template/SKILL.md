@@ -38,8 +38,10 @@ remaining layer files as needed for the current task:
   DECISIONS.md           - decisions made and reasoning
   MONITORING.md          - sources to watch for drift
   LEARNING.md            - NotebookLM integration structure
+  LOG.md                 - change log and audit trail
   experts/COUNCIL.md     - active expert council and debates
   traces/                - execution traces for causal reasoning
+  wiki/graph.json        - domain structure map (optional; run /ss-graph to generate)
 
 Individual expert profiles (experts/[name].md) load on demand only,
 not by default. Load them when a specific expert's perspective is needed.
@@ -62,12 +64,13 @@ relevant evidence for your task type. This prevents blind proposals.
 
 Load the minimum set. Do not load files not listed for your task type.
 
-## Domain Scope
+## How Prompts Work
 
-Products: [LIST YOUR PRODUCTS OR PROJECTS]
-Shared services: [SERVICES USED ACROSS PRODUCTS]
-[Product A]-specific: [SERVICES UNIQUE TO THIS PRODUCT]
-[Product B]-specific: [SERVICES UNIQUE TO THIS PRODUCT]
+All prompts live in ONBOARDING.md.
+Claude Code reads and runs them automatically.
+Users do not copy prompts after the initial Bootstrap setup.
+
+Slash commands: see CLAUDE.md
 
 ## Learning Generation
 

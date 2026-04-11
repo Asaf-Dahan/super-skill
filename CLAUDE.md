@@ -25,12 +25,14 @@ Available prompts:
   Prompt 2: Create or update the global router
   Prompt 3: Evaluate something new
   Prompt 4: Generate a learning module
+  Prompt 5: reserved for future use
   Prompt 6: Approve a PENDING item
   Prompt 7: Run an Expert Debate session
 
 Slash commands for ongoing use:
   /ss-eval, /ss-graph, /ss-learn, /ss-pending, /ss-query, /ss-sync,
-  /ss-summary, /ss-drift, /ss-council, /ss-expert, /ss-synthesize
+  /ss-summary, /ss-drift, /ss-council, /ss-expert, /ss-synthesize,
+  /ss-dashboard
 
 ## When to Load Full Files
 
