@@ -28,6 +28,8 @@ ALIASES = {
     "learn": "generate_learning.py",
     "check": "check_state.py",
     "scheduled": "scheduled_tasks.py",
+    "channels": "setup_channels.py",
+    "setup_channels": "setup_channels.py",
 }
 
 

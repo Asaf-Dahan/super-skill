@@ -154,6 +154,16 @@ Everything runs through slash commands. Type any of these into Claude Code:
 | /ss-synthesize | Synthesize insights across multiple layers | `/ss-synthesize tax efficiency` |
 | /ss-dashboard | Generate the interactive dashboard for one or all Super Skills | `/ss-dashboard` |
 
+### Mobile Access via Channels (Optional)
+
+Claude Code Channels lets you send slash commands to a running Claude Code
+session from your phone via Telegram or Discord. Review PENDING items,
+trigger drift checks, and approve proposals -- all without opening a laptop.
+Your data stays local; the bot is a remote control for your existing session.
+
+Setup requires tmux (to keep the session alive) and a Telegram bot (free,
+takes 5 minutes). Full guide: CHANNELS_GUIDE.md
+
 ### Scripts reference
 
 | Script | Purpose |
@@ -168,6 +178,7 @@ Everything runs through slash commands. Type any of these into Claude Code:
 | `generate_learning.py` | (NotebookLM, optional) generates audio / quiz / mind map |
 | `check_state.py` | (NotebookLM, optional) asks the notebook 3 standard questions |
 | `generate_dashboard.py` | Generates wiki/dashboard.html with health scores, insights, and trends |
+| `setup_channels.py` | (Channels, optional) checks prerequisites for mobile access |
 | `run.py` | Cross-platform launcher: `python scripts/run.py <name>` |
 
 ### Knowledge Graph

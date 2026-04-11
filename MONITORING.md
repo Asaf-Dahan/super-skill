@@ -27,3 +27,11 @@ Example: "Any change that affects more than one sub-domain."]
 ## Drift Log
 [Detected changes go here before they are approved and moved
 to CURRENT_STATE.md or DECISIONS.md.]
+
+## Mobile Review via Channels
+
+PENDING items and drift alerts can be reviewed and approved from your
+phone using Claude Code Channels. When connected via Telegram, send
+/ss-pending to see open items or /ss-drift to trigger a drift check.
+All approvals made via Channels are recorded in LOG.md with source:
+channels. Setup guide: CHANNELS_GUIDE.md

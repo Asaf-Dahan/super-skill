@@ -120,8 +120,8 @@ def main():
         cmd_dir = REPO / "template" / ".claude" / "commands"
     cmd_files = sorted(cmd_dir.glob("*.md")) if cmd_dir.exists() else []
     score += check(
-        ".claude/commands has 12 slash command files",
-        len(cmd_files) == 12,
+        ".claude/commands has 13 slash command files",
+        len(cmd_files) == 13,
         f"found {len(cmd_files)} in {cmd_dir.relative_to(REPO) if cmd_dir.exists() else '<missing>'}",
     )
 
@@ -172,6 +172,19 @@ def main():
             print(f"[WARN] wiki/graph.json exists but unreadable: {e}")
     else:
         print("[INFO] wiki/graph.json not found -- run /ss-graph to generate the domain knowledge map.")
+
+    # Check 8 (INFO only): Channels setup
+    channels_guide = REPO / "CHANNELS_GUIDE.md"
+    if channels_guide.exists():
+        print("[OK]   Channels guide present")
+        # Check tmux availability (informational)
+        import shutil as _shutil
+        if _shutil.which("tmux"):
+            print("[OK]   tmux installed")
+        else:
+            print("[INFO] tmux not found -- required for Channels (optional)")
+    else:
+        print("[INFO] Channels is optional -- see CHANNELS_GUIDE.md")
 
     print("=" * 40)
     print(f"Score: {score}/{total}")

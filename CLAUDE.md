@@ -115,6 +115,25 @@ Expert Perspectives block format:
 Maximum 3 experts per block. Maximum 1 line per expert.
 Do not mention experts on routine tasks or settled decisions with no friction.
 
+## Channels Audit Protocol
+
+When an approval, rejection, or deferral action is performed via
+Claude Code Channels (Telegram or Discord), write the following
+entry to LOG.md immediately after the action completes:
+
+  ### LOG-NNN: [item title]
+  Date: [YYYY-MM-DD]
+  Action: [approved | rejected | deferred]
+  Item: [PENDING item ID or description]
+  Source: channels
+  Session: [tmux session name if available]
+  Files changed: [list of affected files]
+
+The source: channels field distinguishes mobile actions from
+desktop actions in the audit trail. The Iron Principle applies
+identically to Channels actions: the model proposes, the user
+decides via Telegram, the Super Skill records with full provenance.
+
 ## Iron Principle
 
 The model proposes.
