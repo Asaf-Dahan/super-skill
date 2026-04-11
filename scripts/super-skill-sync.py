@@ -53,9 +53,8 @@ def git_pull(path):
     expanded = Path(path).expanduser()
     if not expanded.exists():
         return False, f"path not found: {expanded}"
-    code, out = run(["git", "pull", "--rebase", "origin", "main"], cwd=expanded)
-    if code != 0:
-        code, out = run(["git", "pull", "--rebase", "origin", "master"], cwd=expanded)
+    # pulls from tracking branch -- no branch name assumption
+    code, out = run(["git", "pull", "--rebase"], cwd=expanded)
     return code == 0, out
 
 
@@ -149,9 +148,10 @@ def main():
         print("Open scripts/super-skill-sync.py and add your domains to the")
         print("REGISTRY list. See SYNC_SETUP.md for step-by-step instructions.")
         print("")
-        return
+        return 0
 
     results = []
+    drift_detected = False
 
     for ss in REGISTRY:
         name = ss["name"]
@@ -170,6 +170,7 @@ def main():
                 print(f"  url: ok -- {domain}")
             else:
                 print(f"  url: FAIL ({detail}) -- {domain}")
+                drift_detected = True
                 if not DRY_RUN:
                     write_drift(ss["path"], name, url, detail)
 
@@ -185,12 +186,15 @@ def main():
         print()
 
     pulled = sum(1 for r in results if r["pulled"])
+    failed = len(results) - pulled
     print("=" * 54)
     print(f"Done. {pulled}/{len(results)} repos updated.")
     if not FEED_NLM:
         print("Tip: run with --feed to also push updates to NotebookLM.")
     print()
 
+    return 1 if (failed > 0 or drift_detected) else 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

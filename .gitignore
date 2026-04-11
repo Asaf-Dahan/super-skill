@@ -5,6 +5,8 @@ __pycache__/
 venv/
 .notebooklm/
 notebooks/
+# .claude/ contains Claude Code session data (gitignored) but commands and agents subdirs
+# must be tracked. The negation pattern below preserves those subdirs while ignoring the rest.
 .claude/
 !template/.claude/
 !.claude/
@@ -23,12 +25,18 @@ wiki/dashboard_history.json
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Editor files
 .vscode/
 .idea/
 *.swp
 *.swo
+
+# Runtime artifacts
+traces/
+*.db
+*.sqlite
 
 # Additional sensitive file patterns (public template hygiene)
 .env.*

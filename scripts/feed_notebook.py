@@ -12,15 +12,16 @@ import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
-load_dotenv()
 
-NOTEBOOK_ID = os.getenv("NOTEBOOK_ID")
-if not NOTEBOOK_ID:
-    print("Error: NOTEBOOK_ID not set.")
-    print("Copy .env.example to .env and add your notebook ID.")
-    exit(1)
 
 async def main():
+    load_dotenv()
+
+    notebook_id = os.getenv("NOTEBOOK_ID")
+    if not notebook_id:
+        print("Error: NOTEBOOK_ID not set.")
+        print("Copy .env.example to .env and add your notebook ID.")
+        sys.exit(1)
     try:
         from notebooklm import NotebookLMClient
         from notebooklm.auth import AuthTokens
@@ -51,7 +52,7 @@ async def main():
         print("No .md files found to feed.")
         sys.exit(1)
 
-    print(f"Feeding notebook: {NOTEBOOK_ID}")
+    print(f"Feeding notebook: {notebook_id}")
     print(f"Found {len(knowledge_files)} files to load.\n")
 
     try:
@@ -71,7 +72,7 @@ async def main():
             print(f"  Loading {filename}...")
             content = filepath.read_text(encoding="utf-8")
             try:
-                await client.sources.add_text(NOTEBOOK_ID, filename, content)
+                await client.sources.add_text(notebook_id, filename, content)
                 added.append(filename)
                 fed_count += 1
             except Exception as e:

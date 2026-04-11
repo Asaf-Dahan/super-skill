@@ -13,17 +13,19 @@ import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
-load_dotenv()
-
-NOTEBOOK_ID = os.getenv("NOTEBOOK_ID")
-if not NOTEBOOK_ID:
-    print("Error: NOTEBOOK_ID not set.")
-    print("Copy .env.example to .env and add your notebook ID.")
-    exit(1)
 
 VALID_MODES = ["audio", "quiz", "mindmap"]
 
+
 async def main():
+    load_dotenv()
+
+    notebook_id = os.getenv("NOTEBOOK_ID")
+    if not notebook_id:
+        print("Error: NOTEBOOK_ID not set.")
+        print("Copy .env.example to .env and add your notebook ID.")
+        sys.exit(1)
+
     if len(sys.argv) < 2 or sys.argv[1] not in VALID_MODES:
         print(f"Usage: python3 generate_learning.py [{' | '.join(VALID_MODES)}]")
         sys.exit(1)
@@ -42,7 +44,7 @@ async def main():
     output_dir = root / "notebooks"
     output_dir.mkdir(exist_ok=True)
 
-    print(f"Generating {mode} for notebook: {NOTEBOOK_ID}")
+    print(f"Generating {mode} for notebook: {notebook_id}")
 
     try:
         auth_tokens = await AuthTokens.from_storage()
@@ -54,47 +56,47 @@ async def main():
     async with NotebookLMClient(auth=auth_tokens) as client:
         if mode == "audio":
             print("Generating audio overview (this may take a few minutes)...")
-            status = await client.artifacts.generate_audio(NOTEBOOK_ID)
+            status = await client.artifacts.generate_audio(notebook_id)
             if status.is_failed:
                 print(f"ERROR: Audio generation failed: {status.error}")
                 sys.exit(1)
             print(f"Audio generation started (task: {status.task_id}), polling...")
             result = await client.artifacts.wait_for_completion(
-                NOTEBOOK_ID, status.task_id, timeout=600.0
+                notebook_id, status.task_id, timeout=600.0
             )
             if result.is_failed:
                 print(f"ERROR: Audio generation failed: {result.error}")
                 sys.exit(1)
             output_path = output_dir / "audio-overview.mp3"
             await client.artifacts.download_audio(
-                NOTEBOOK_ID, str(output_path)
+                notebook_id, str(output_path)
             )
             size = output_path.stat().st_size
             print(f"Audio saved to: {output_path} ({size:,} bytes)")
 
         elif mode == "quiz":
             print("Generating quiz...")
-            status = await client.artifacts.generate_quiz(NOTEBOOK_ID)
+            status = await client.artifacts.generate_quiz(notebook_id)
             if status.is_failed:
                 print(f"ERROR: Quiz generation failed: {status.error}")
                 sys.exit(1)
             print(f"Quiz generation started (task: {status.task_id}), polling...")
             result = await client.artifacts.wait_for_completion(
-                NOTEBOOK_ID, status.task_id, timeout=600.0
+                notebook_id, status.task_id, timeout=600.0
             )
             if result.is_failed:
                 print(f"ERROR: Quiz generation failed: {result.error}")
                 sys.exit(1)
             output_path = output_dir / "quiz.json"
             await client.artifacts.download_quiz(
-                NOTEBOOK_ID, str(output_path)
+                notebook_id, str(output_path)
             )
             size = output_path.stat().st_size
             print(f"Quiz saved to: {output_path} ({size:,} bytes)")
 
         elif mode == "mindmap":
             print("Generating mind map (no polling needed)...")
-            result = await client.artifacts.generate_mind_map(NOTEBOOK_ID)
+            result = await client.artifacts.generate_mind_map(notebook_id)
             mind_map = result.get("mind_map")
             note_id = result.get("note_id")
             if mind_map is None:

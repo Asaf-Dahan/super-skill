@@ -27,3 +27,5 @@ Write your analysis to: experts\debates\$ARGUMENTS[1]-$ARGUMENTS[0].md
 Do not approve or reject anything.
 Do not modify any layer file.
 End with: "Analysis written. Run /ss-council to see full debate status."
+
+After all expert sessions are complete, run /ss-synthesize [session-name] to resolve any opposing positions. Do not attempt resolution within this command.

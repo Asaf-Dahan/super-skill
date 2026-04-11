@@ -11,13 +11,6 @@ import os
 import sys
 
 from dotenv import load_dotenv
-load_dotenv()
-
-NOTEBOOK_ID = os.getenv("NOTEBOOK_ID")
-if not NOTEBOOK_ID:
-    print("Error: NOTEBOOK_ID not set.")
-    print("Copy .env.example to .env and add your notebook ID.")
-    exit(1)
 
 STANDARD_QUESTIONS = [
     "What is the current state of this domain?",
@@ -26,6 +19,14 @@ STANDARD_QUESTIONS = [
 ]
 
 async def main():
+    load_dotenv()
+
+    notebook_id = os.getenv("NOTEBOOK_ID")
+    if not notebook_id:
+        print("Error: NOTEBOOK_ID not set.")
+        print("Copy .env.example to .env and add your notebook ID.")
+        sys.exit(1)
+
     try:
         from notebooklm import NotebookLMClient
         from notebooklm.auth import AuthTokens
@@ -34,7 +35,7 @@ async def main():
         print("Install it with: pip install \"notebooklm-py[browser]\"")
         sys.exit(1)
 
-    print(f"Checking state for notebook: {NOTEBOOK_ID}")
+    print(f"Checking state for notebook: {notebook_id}")
 
     try:
         auth_tokens = await AuthTokens.from_storage()
@@ -49,7 +50,7 @@ async def main():
             print(f"Question {i}: {question}")
             print(f"{'='*60}")
             try:
-                response = await client.chat.ask(NOTEBOOK_ID, question)
+                response = await client.chat.ask(notebook_id, question)
                 print(response.answer)
             except Exception as e:
                 print(f"ERROR: {e}")

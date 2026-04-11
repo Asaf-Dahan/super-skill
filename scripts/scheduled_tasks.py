@@ -21,6 +21,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 DRY_RUN = False
+FINDINGS_WRITTEN = False
 
 WEEKLY_TASKS    = ["drift-check", "summary-refresh", "pending-check"]
 MONTHLY_TASKS   = WEEKLY_TASKS + ["notebooklm-sync", "council-review", "monitoring-audit"]
@@ -54,11 +55,13 @@ def read_file(path):
 
 
 def append_pending(repo_path, entry):
+    global FINDINGS_WRITTEN
     pending = Path(repo_path) / "PENDING.md"
     if not pending.exists():
         print(f"  PENDING.md not found at {pending}")
         return
     content = pending.read_text(encoding="utf-8")
+    FINDINGS_WRITTEN = True
     if not DRY_RUN:
         pending.write_text(content.rstrip() + "\n\n" + entry, encoding="utf-8")
         print(f"  Written to PENDING.md")
@@ -367,6 +370,8 @@ def main():
         print("Review PENDING.md for any new items.")
     print()
 
+    return 1 if FINDINGS_WRITTEN else 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

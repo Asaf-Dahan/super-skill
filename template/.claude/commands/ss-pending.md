@@ -20,3 +20,6 @@ Report all open items grouped by type:
 For each item show: ID, title, date added, days waiting, recommended action.
 If queue is empty, report: "Queue clear. No items awaiting approval."
 Do not modify PENDING.md.
+
+To approve or reject items, run Prompt 6 from ONBOARDING.md.
+Rejected items are moved to the Resolved section with rejection reason and date. Do not delete rejected items -- the history is part of the audit trail.

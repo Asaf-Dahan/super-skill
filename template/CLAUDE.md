@@ -31,7 +31,8 @@ Available prompts:
 
 Slash commands for ongoing use:
   /ss-eval, /ss-graph, /ss-learn, /ss-pending, /ss-query, /ss-sync,
-  /ss-summary, /ss-drift, /ss-council, /ss-expert, /ss-synthesize
+  /ss-summary, /ss-drift, /ss-council, /ss-expert, /ss-synthesize,
+  /ss-dashboard
 
 ## When to Load Full Files
 

@@ -213,8 +213,16 @@ def generate_summary(repo_path: Path) -> str:
     result = "\n".join(output)
     lines = result.split("\n")
     if len(lines) > 80:
-        result = "\n".join(lines[:80])
-        result += "\n[Truncated -- see full layer files for details]"
+        # Walk backward from line 80 to find a clean break point:
+        # a blank line or a heading (starting with #).
+        cut = 80
+        for i in range(79, max(79 - 15, 0), -1):
+            stripped = lines[i].strip()
+            if not stripped or stripped.startswith("#"):
+                cut = i
+                break
+        result = "\n".join(lines[:cut])
+        result += "\n<!-- truncated at {} lines -- run /ss-summary to regenerate -->".format(cut)
 
     return result
 

@@ -76,3 +76,14 @@ Format when surfacing:
 
 Maximum 3 experts per block. Maximum 1 line per expert.
 Routine tasks and settled decisions do not trigger expert perspectives.
+
+## Removing or Replacing an Expert
+
+To remove an expert from the council:
+1. Write a PENDING item: "Remove [Expert Name] from council -- reason: [reason]"
+2. User approves the PENDING item
+3. Move the expert's .md file from experts/ to experts/archive/ (create the folder if needed)
+4. Remove the expert's entry from COUNCIL.md active members list
+5. Update SUMMARY.md via /ss-summary
+
+To replace an expert: complete the removal steps above, then run /ss-council to propose a replacement.

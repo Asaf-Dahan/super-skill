@@ -19,3 +19,5 @@ Report:
 
 If no council exists yet, report: "Expert Council not yet activated for this domain."
 Do not load individual expert profile files unless explicitly asked.
+
+Debates open for more than 60 days without resolution are automatically flagged as stale and added to PENDING.md for user decision.

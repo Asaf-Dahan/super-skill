@@ -1,7 +1,7 @@
 # Super Skill
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
-![Version: 2.7.0](https://img.shields.io/badge/version-2.7.0-green)
+![Version: 2.7.1](https://img.shields.io/badge/version-2.7.1-green)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
 
 **The domain expert your AI agents need. One repo. Always current.**
@@ -107,7 +107,9 @@ Open a terminal in your `super-skills` folder and run:
 
 In the Claude Code terminal, run:
 
-    cat scripts/bootstrap.md
+    Mac/Linux: cat scripts/bootstrap.md
+    Windows (Command Prompt): type scripts\bootstrap.md
+    Windows (PowerShell): Get-Content scripts\bootstrap.md
 
 Copy the full output and paste it into Claude Code.
 
@@ -325,7 +327,7 @@ If you can describe it, a Super Skill can master it.
 
 ## Version
 
-Super Skill v2.7.0
+Super Skill v2.7.1
 
 ## License
 
@@ -347,6 +349,15 @@ Not recommended for production systems serving external users.
 Keep domain-specific Super Skills in private repositories.
 Never commit API keys or tokens to any layer file.
 Use .env for all sensitive values.
+
+Do not put real people's names, email addresses, phone numbers, or
+financial account details in any layer file. Layer files committed to
+a repository -- even a private one -- should contain no personally
+identifiable information.
+
+Claude Code sessions may be logged by Anthropic per their usage policy.
+Do not enter secrets, credentials, or sensitive personal data into
+Claude Code prompts.
 
 All agent actions follow one rule:
 The model proposes. The user decides. The Super Skill records. The system executes.

@@ -1296,17 +1296,28 @@ def main():
     wiki_dir = repo / "wiki"
     wiki_dir.mkdir(exist_ok=True)
 
-    # Write graph.json
+    # Write graph outputs -- each wrapped to surface partial write failures
     graph_path = wiki_dir / "graph.json"
-    graph_path.write_text(json.dumps(graph, indent=2), encoding="utf-8")
-
-    # Write knowledge-graph.html
     html_path = wiki_dir / "knowledge-graph.html"
-    html_path.write_text(generate_html(graph), encoding="utf-8")
-
-    # Write GRAPH_SUMMARY.md (for NotebookLM)
     summary_path = wiki_dir / "GRAPH_SUMMARY.md"
-    summary_path.write_text(generate_graph_summary(graph), encoding="utf-8")
+
+    try:
+        graph_path.write_text(json.dumps(graph, indent=2), encoding="utf-8")
+    except OSError as e:
+        print(f"WARNING: graph.json write failed: {e}. Other files may be inconsistent. Re-run /ss-graph.")
+        raise
+
+    try:
+        html_path.write_text(generate_html(graph), encoding="utf-8")
+    except OSError as e:
+        print(f"WARNING: knowledge-graph.html write failed: {e}. Other files may be inconsistent. Re-run /ss-graph.")
+        raise
+
+    try:
+        summary_path.write_text(generate_graph_summary(graph), encoding="utf-8")
+    except OSError as e:
+        print(f"WARNING: GRAPH_SUMMARY.md write failed: {e}. Other files may be inconsistent. Re-run /ss-graph.")
+        raise
 
     print(f"Graph generated: {graph['meta']['node_count']} nodes, "
           f"{graph['meta']['edge_count']} edges")

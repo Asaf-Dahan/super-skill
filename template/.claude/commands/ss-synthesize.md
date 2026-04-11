@@ -35,4 +35,6 @@ Then write a proposed decision to PENDING.md as DEC-NNN:
   Based on: [expert names who contributed]
   Full analysis: see experts\debates\$ARGUMENTS-synthesis.md
 
+Maximum 6 expert response files per synthesis session. If more than 6 files are present, instruct the user to group them and run synthesis in two rounds.
+
 End with: "Synthesis complete. Review DEC-NNN in PENDING.md and decide."

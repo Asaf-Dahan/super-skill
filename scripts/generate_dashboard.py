@@ -1287,7 +1287,7 @@ def _html_skill_tab(sd, multi):
 def _html_footer(ts):
     return f"""
 <div class="footer">
-  Super Skill Dashboard &nbsp;|&nbsp; Generated {_esc(ts)} &nbsp;|&nbsp; v2.7.0<br>
+  Super Skill Dashboard &nbsp;|&nbsp; Generated {_esc(ts)} &nbsp;|&nbsp; v2.7.1<br>
   Data is read-only. No changes are made to your Super Skill files.<br>
   <span style="font-size:9px; color:var(--text-muted);">Requires Google Fonts and CDN libraries (D3.js, Chart.js) for full functionality.</span>
 </div>
@@ -1445,6 +1445,8 @@ function copyCmd(cmd) {{
 def main():
     parser = argparse.ArgumentParser(description="Generate the Super Skill Dashboard")
     parser.add_argument("--path", help="Parent folder containing Super Skills")
+    parser.add_argument("--all", action="store_true", dest="select_all",
+                        help="Select all discovered Super Skills (skip interactive prompt)")
     args = parser.parse_args()
 
     skills = find_skills(args.path)
@@ -1453,7 +1455,7 @@ def main():
         print("A Super Skill folder must contain: SUMMARY.md, PENDING.md, CONTEXT.md")
         return 1
 
-    selected = select_skills(skills)
+    selected = skills if args.select_all else select_skills(skills)
     if not selected:
         print("No Super Skills selected.")
         return 1
