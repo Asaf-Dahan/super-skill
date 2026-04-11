@@ -120,8 +120,8 @@ def main():
         cmd_dir = REPO / "template" / ".claude" / "commands"
     cmd_files = sorted(cmd_dir.glob("*.md")) if cmd_dir.exists() else []
     score += check(
-        ".claude/commands has 11 .md files",
-        len(cmd_files) == 11,
+        ".claude/commands has 12 .md files",
+        len(cmd_files) == 12,
         f"found {len(cmd_files)} in {cmd_dir.relative_to(REPO) if cmd_dir.exists() else '<missing>'}",
     )
 

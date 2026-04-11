@@ -16,6 +16,11 @@ from pathlib import Path
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
 
+# Short aliases that map to full script filenames
+ALIASES = {
+    "dashboard": "generate_dashboard.py",
+}
+
 
 def main() -> int:
     if len(sys.argv) < 2:
@@ -27,6 +32,7 @@ def main() -> int:
         return 1
 
     name = sys.argv[1]
+    name = ALIASES.get(name, name)
     if not name.endswith(".py"):
         name += ".py"
     target = SCRIPTS_DIR / name

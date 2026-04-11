@@ -128,6 +128,7 @@ After activation, run `python scripts/doctor.py` to confirm setup.
 | Connect NotebookLM | Follow NOTEBOOKLM_GUIDE.md |
 | Set up automatic sync | Follow SYNC_SETUP.md |
 | Verify your setup | Run `python scripts/doctor.py` |
+| View your dashboard | Run `/ss-dashboard` |
 
 ---
 
@@ -149,6 +150,7 @@ Everything runs through slash commands. Type any of these into Claude Code:
 | /ss-council | Show your Expert Council debates and open challenges | `/ss-council` |
 | /ss-expert | Run a structured expert debate session | `/ss-expert DEBATE-001` |
 | /ss-synthesize | Synthesize insights across multiple layers | `/ss-synthesize tax efficiency` |
+| /ss-dashboard | Generate the interactive dashboard for one or all Super Skills | `/ss-dashboard` |
 
 ### Scripts reference
 
@@ -163,6 +165,7 @@ Everything runs through slash commands. Type any of these into Claude Code:
 | `feed_notebook.py` | (NotebookLM, optional) uploads layer files as sources |
 | `generate_learning.py` | (NotebookLM, optional) generates audio / quiz / mind map |
 | `check_state.py` | (NotebookLM, optional) asks the notebook 3 standard questions |
+| `generate_dashboard.py` | Generates wiki/dashboard.html with health scores, insights, and trends |
 | `run.py` | Cross-platform launcher: `python scripts/run.py <name>` |
 
 ### Knowledge Graph

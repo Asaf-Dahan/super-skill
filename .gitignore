@@ -17,6 +17,8 @@ notebooks/
 wiki/graph.json
 wiki/knowledge-graph.html
 wiki/GRAPH_SUMMARY.md
+wiki/dashboard.html
+wiki/dashboard_history.json
 
 # OS files
 .DS_Store
