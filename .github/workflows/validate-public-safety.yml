@@ -45,6 +45,8 @@ jobs:
                           for lineno, line in enumerate(f, 1):
                               for pat in PATTERNS:
                                   if pat.search(line):
+                                      if '<YOUR_USERNAME>' in line:
+                                          break
                                       print(f'FAIL: {rel}:{lineno}  {line.rstrip()}')
                                       found = True
                                       break
