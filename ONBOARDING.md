@@ -430,7 +430,7 @@ Use this exact session start protocol in the file:
 ## Prompt 2-update -- Add a Second Super Skill to an Existing Router
 
 ```
-Read ~/.claude/CLAUDE.md (on Windows: C:\Users\YourName\.claude\CLAUDE.md).
+Read ~/.claude/CLAUDE.md (on Windows: C:\Users\<YOUR_USERNAME>\.claude\CLAUDE.md).
 Find the Super Skills Registry table.
 Add a new row matching the exact format of the existing rows.
 

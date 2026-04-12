@@ -41,7 +41,7 @@ name
 
 path
   The full path to your Super Skill folder on your computer.
-  Windows example: C:/Users/YourName/super-skills/super-skill-garden
+  Windows example: C:/Users/<YOUR_USERNAME>/super-skills/super-skill-garden
   Mac example: ~/super-skills/super-skill-garden
   Use forward slashes on all systems.
 
