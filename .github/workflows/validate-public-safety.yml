@@ -1,0 +1,58 @@
+name: Validate Public Safety
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  path-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for hardcoded personal paths
+        run: |
+          python3 - <<'PYEOF'
+          import os
+          import re
+          import sys
+
+          PATTERNS = [
+              re.compile(r'C:\\Users\\', re.IGNORECASE),
+              re.compile(r'C:/Users/', re.IGNORECASE),
+              re.compile(r'/Users/\w+/', re.IGNORECASE),
+              re.compile(r'\\Users\\info\\', re.IGNORECASE),
+          ]
+
+          SKIP_DIRS = {'.git'}
+          WORKFLOW_REL = os.path.join('.github', 'workflows', 'validate-public-safety.yml')
+
+          found = False
+
+          for root, dirs, files in os.walk('.'):
+              dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
+              for fname in files:
+                  fpath = os.path.join(root, fname)
+                  rel = os.path.relpath(fpath, '.')
+
+                  if rel == WORKFLOW_REL:
+                      continue
+
+                  try:
+                      with open(fpath, 'r', encoding='utf-8', errors='ignore') as f:
+                          for lineno, line in enumerate(f, 1):
+                              for pat in PATTERNS:
+                                  if pat.search(line):
+                                      print(f'FAIL: {rel}:{lineno}  {line.rstrip()}')
+                                      found = True
+                                      break
+                  except (IsADirectoryError, PermissionError):
+                      continue
+
+          if found:
+              sys.exit(1)
+          else:
+              print('Path safety check passed')
+          PYEOF
